@@ -1,0 +1,19 @@
+pane	Skripsi	1	1	:*	0	dimz-Yoga-Slim-6-14IRH8	:/home/dimz/Documents/workspace/public/skripsi/satu-farmasi-backend	1	nvim	:nvim
+pane	Skripsi	2	0	:-	0	dimz-Yoga-Slim-6-14IRH8	:/home/dimz/Documents/workspace/public/skripsi/satu-farmasi-frontend	1	nvim	:nvim
+pane	Work	1	0	:-	0	dimz-Yoga-Slim-6-14IRH8	:/home/dimz/Documents/workspace/public/work/diklatkerja	1	nvim	:nvim
+pane	Work	2	0	:	0	dimz-Yoga-Slim-6-14IRH8	:/home/dimz	1	zsh	:
+pane	Work	3	1	:*	0	dimz-Yoga-Slim-6-14IRH8	:/home/dimz/Documents/workspace/public/work/face_verification_using_django	1	zsh	:
+pane	music	1	1	:*	0	dimz-Yoga-Slim-6-14IRH8	:/home/dimz/.spotify_player	1	./spotify_player	:./spotify_player
+pane	music	1	1	:*	1	dimz-Yoga-Slim-6-14IRH8	:/home/dimz	0	zsh	:
+pane	music	1	1	:*	2	cava	:/home/dimz	0	zsh	:
+pane	others	1	1	:*	0	dimz-Yoga-Slim-6-14IRH8	:/home/dimz/.local/share/tmux/resurrect	1	zsh	:
+pane	others	2	0	:-	0	dimz-Yoga-Slim-6-14IRH8	:/home/dimz	1	zsh	:
+window	Skripsi	1	:be	1	:*	cabe,137x28,0,0,1	off
+window	Skripsi	2	:fe	0	:-	cabf,137x28,0,0,2	off
+window	Work	1	:code	0	:-	cac0,137x28,0,0,3	off
+window	Work	2	:db	0	:	cac1,137x28,0,0,4	off
+window	Work	3	:zsh	1	:*	6590,137x28,0,0,11	:
+window	music	1	:spotify	1	:*	1ad7,137x28,0,0[137x21,0,0{99x21,0,0,5,37x21,100,0,6},137x6,0,22,7]	off
+window	others	1	:zsh	1	:*	cac5,137x28,0,0,8	:
+window	others	2	:zsh	0	:-	cac6,137x28,0,0,9	:
+state	Work	music

@@ -1,0 +1,21 @@
+pane	Skripsi	1	0	:-	0	dimz-Yoga-Slim-6-14IRH8	:/home/dimz/Documents/workspace/public/skripsi/satu-farmasi-backend	1	nvim	:nvim
+pane	Skripsi	2	1	:*	0	dimz-Yoga-Slim-6-14IRH8	:/home/dimz/Documents/workspace/public/skripsi/satu-farmasi-frontend	1	nvim	:nvim
+pane	Work	1	0	:	0	dimz-Yoga-Slim-6-14IRH8	:/home/dimz/Documents/workspace/public/work/diklatkerja	1	nvim	:nvim
+pane	Work	2	0	:-	0	dimz-Yoga-Slim-6-14IRH8	:/home/dimz	1	zsh	:
+pane	Work	3	1	:*	0	dimz-Yoga-Slim-6-14IRH8	:/home/dimz	1	zsh	:
+pane	config	1	1	:*	0	dimz-Yoga-Slim-6-14IRH8	:/home/dimz/.config/nvim	1	nvim	:nvim
+pane	config	2	0	:-	0	dimz-Yoga-Slim-6-14IRH8	:/home/dimz/Documents/workspace/public/work/diklatkerja	1	nvim	:nvim /home/dimz/.zshrc
+pane	others	1	0	:-	0	dimz-Yoga-Slim-6-14IRH8	:/home/dimz/Documents/workspace/dummy	1	nvim	:nvim
+pane	others	2	1	:*	0	dimz-Yoga-Slim-6-14IRH8	:/home/dimz/Documents/workspace/learn	1	nvim	:nvim
+pane	others	3	0	:	0	dimz-Yoga-Slim-6-14IRH8	:/home/dimz/Documents/workspace/private/home-manager	1	zsh	:
+window	Skripsi	1	:be	0	:-	b8be,137x33,0,0,1	off
+window	Skripsi	2	:fe	1	:*	b8bf,137x33,0,0,2	off
+window	Work	1	:code	0	:	b8c0,137x33,0,0,3	off
+window	Work	2	:db	0	:-	b8c1,137x33,0,0,4	off
+window	Work	3	:ssh	1	:*	b8c2,137x33,0,0,5	off
+window	config	1	:nvim	1	:*	b8c3,137x33,0,0,6	off
+window	config	2	:zshrc	0	:-	b8c4,137x33,0,0,7	off
+window	others	1	:test	0	:-	b8c5,137x33,0,0,8	off
+window	others	2	:learn	1	:*	b8c6,137x33,0,0,9	off
+window	others	3	:etc	0	:	5c8f,137x33,0,0,10	off
+state	others	Work
