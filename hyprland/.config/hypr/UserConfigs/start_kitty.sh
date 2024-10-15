@@ -27,7 +27,7 @@ ydotool type "tty-clock" && ydotool key enter
 ydotool key ctrl+shift+[ && ydotool type "cava" && ydotool key enter
 ydotool key ctrl+shift+[ && ydotool type "spotify_player" && ydotool key enter
 sleep 1
-ydotool key g+s && ydotool type "lofi song" && ydotool key enter
-sleep 1
-ydotool key tab && ydotool key enter
-sleep 1
+# ydotool key g+s && ydotool type "lofi song" && ydotool key enter
+# sleep 1
+# ydotool key tab && ydotool key enter
+# sleep 1

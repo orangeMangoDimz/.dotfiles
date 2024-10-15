@@ -36,7 +36,3 @@ vim.keymap.set("", "T", function()
     }
 end, { remap = true })
 
-
-local tree = require("nvim-tree")
--- show the git ignore files
--- tree.opt.gitignore = true
