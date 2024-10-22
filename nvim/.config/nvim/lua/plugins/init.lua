@@ -1,6 +1,14 @@
 return {
     {
-		-- override nvim-tree 
+        -- live server
+        "barrett-ruth/live-server.nvim",
+        event = "VeryLazy",
+        build = "pnpm add -g live-server",
+        cmd = { "LiveServerStart", "LiveServerStop" },
+        config = true,
+    },
+    {
+        -- override nvim-tree
         "nvim-tree/nvim-tree.lua",
         opts = {
             git = {
@@ -50,7 +58,7 @@ return {
         event = "VeryLazy",
         opts = {
             enabled = true,
-            message_template = " <summary> • <date> • <author> • <<sha>>",
+            message_template = " <author> • <summary> • <date> • <<sha>>",
             date_format = "%m-%d-%Y %H:%M:%S",
             virtual_text_column = 1,
         },

@@ -156,3 +156,13 @@ export PATH="$HOME/.nvim/usr/bin:$PATH"
 # NOTE: Bottom line
 # feh <picture name>            -> open picture
 # wdg-open                      -> open video
+
+# bun completions
+[ -s "/home/dimz/.bun/_bun" ] && source "/home/dimz/.bun/_bun"
+
+# Export editor nvim
+export EDITOR=nvim
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"

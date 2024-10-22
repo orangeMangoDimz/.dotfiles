@@ -4,7 +4,8 @@ require("nvchad.configs.lspconfig").defaults()
 local lspconfig = require "lspconfig"
 
 -- EXAMPLE
-local servers = { "html", "cssls", "pyright", "ts_ls" }
+-- add vue
+local servers = { "html", "cssls", "pyright", "ts_ls", "vls"  }
 local nvlsp = require "nvchad.configs.lspconfig"
 
 -- lsps with default config
