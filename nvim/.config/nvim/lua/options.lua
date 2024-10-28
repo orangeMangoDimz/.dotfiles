@@ -2,7 +2,7 @@ require "nvchad.options"
 
 vim.opt.tabstop = 4
 vim.opt.shiftwidth = 4
-vim.opt.expandtab = false
+vim.opt.expandtab = true
 vim.wo.relativenumber = true
 -- vim.opt.colorcolumn = "120"
 vim.opt.scrolloff = 10
@@ -36,3 +36,16 @@ vim.keymap.set("", "T", function()
     }
 end, { remap = true })
 
+function toggle_wrap()
+    vim.wo.wrap = not vim.wo.wrap
+    -- Optional: also toggle line break settings
+    if vim.wo.wrap then
+        vim.wo.linebreak = true
+        vim.wo.breakindent = true
+    else
+        vim.wo.linebreak = false
+        vim.wo.breakindent = false
+    end
+end
+
+vim.keymap.set("n", "<leader>ww", toggle_wrap, { desc = "Toggle word wrap" })

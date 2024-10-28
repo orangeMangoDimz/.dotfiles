@@ -1,5 +1,33 @@
 return {
     {
+        -- Formatting
+        "jose-elias-alvarez/null-ls.nvim",
+        event = "VeryLazy",
+        dependencies = { "nvim-lua/plenary.nvim" },
+        config = function()
+            local null_ls = require "null-ls"
+            local formatting = null_ls.builtins.formatting
+            null_ls.setup {
+                sources = {
+                    formatting.prettier.with {
+                        filetypes = {
+                            "javascript",
+                            "typescript",
+                            "vue",
+                            "css",
+                            "scss",
+                            "html",
+                            "json",
+                            "yaml",
+                            "markdown",
+                        },
+                        extra_args = { "--tab-width", "4" },
+                    },
+                },
+            }
+        end,
+    },
+    {
         -- discord
         "andweeb/presence.nvim",
         event = "VimEnter",
@@ -138,15 +166,28 @@ return {
         end,
     },
     {
+        -- used for parser, ex syntax_highlight
         "nvim-treesitter/nvim-treesitter",
         opts = {
             ensure_installed = {
                 "vim",
                 "lua",
                 "vimdoc",
+                "typescript",
+                "javascript",
+                "vue",
                 "html",
+                "scss",
+                "cssls",
                 "css",
+                "markdown",
+                "markdown_inline",
+                "json",
+                "yaml",
             },
+            sync_install = false,
+            highlight = { enable = true },
+            indent = { enable = true },
         },
     },
 }

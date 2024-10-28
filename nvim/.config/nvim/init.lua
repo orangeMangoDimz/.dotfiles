@@ -39,3 +39,6 @@ end)
 
 -- load colorscheme
 vim.cmd.colorscheme "catppuccin"
+
+-- additional snippets
+require("luasnip").filetype_extend("vue", {"html", "css, typescript"})
