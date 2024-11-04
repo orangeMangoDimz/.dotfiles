@@ -41,4 +41,5 @@ end)
 vim.cmd.colorscheme "catppuccin"
 
 -- additional snippets
-require("luasnip").filetype_extend("vue", {"html", "css, typescript"})
+require("luasnip").filetype_extend("vue", {"html", "css", "typescript"})
+require("luasnip").filetype_extend("htmldjango", {"html", "css", "javascript"})

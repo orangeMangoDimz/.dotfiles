@@ -5,7 +5,7 @@ local lspconfig = require "lspconfig"
 
 -- EXAMPLE
 -- add vue
-local servers = { "html", "cssls", "pyright", "ts_ls", "vls" }
+local servers = { "html", "cssls", "pyright", "ts_ls", "vls", "volar" }
 local nvlsp = require "nvchad.configs.lspconfig"
 
 -- lsps with default config
@@ -30,3 +30,30 @@ for _, lsp in ipairs(servers) do
         },
     }
 end
+
+-- Hybrid TS vue config
+local mason_registry = require "mason-registry"
+local vue_language_server_path = mason_registry
+    .get_package("vue-language-server")
+    :get_install_path() .. "/node_modules/@vue/language-server"
+
+lspconfig.ts_ls.setup {
+    init_options = {
+        plugins = {
+            {
+                name = "@vue/typescript-plugin",
+                location = vue_language_server_path,
+                languages = { "vue" },
+            },
+        },
+    },
+    filetypes = {
+        "typescript",
+        "javascript",
+        "javascriptreact",
+        "typescriptreact",
+        "vue",
+    },
+}
+
+lspconfig.volar.setup {}
