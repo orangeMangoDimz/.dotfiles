@@ -21,4 +21,7 @@ map(
     { noremap = true, silent = true, desc = "Rename symbol" }
 )
 
+-- Undo tree config
+map("n", "<leader>ut", vim.cmd.UndotreeToggle, { desc =  "View Undo Tree" })
+
 -- map({ "n", "i", "v" }, "<C-s>", "<cmd> w <cr>")

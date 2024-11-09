@@ -1,5 +1,89 @@
 return {
     {
+        -- undo tree
+        "mbbill/undotree",
+        event = "VimEnter",
+    },
+    {
+        -- git dashboard
+        "nvimdev/dashboard-nvim",
+        event = "VimEnter",
+        dependencies = {
+            {
+                "juansalvatore/git-dashboard-nvim",
+                dependencies = { "nvim-lua/plenary.nvim" },
+            },
+        },
+        opts = function()
+            local ascii_heatmap = require("git-dashboard-nvim").setup {
+                days = { "s", "m", "t", "w", "t", "f", "s" },
+                colors = {
+                    --catpuccin theme
+                    days_and_months_labels = "#8FBCBB",
+                    empty_square_highlight = "#3B4252",
+                    filled_square_highlights = {
+                        "#88C0D0",
+                        "#88C0D0",
+                        "#88C0D0",
+                        "#88C0D0",
+                        "#88C0D0",
+                        "#88C0D0",
+                        "#88C0D0",
+                    },
+                    branch_highlight = "#88C0D0",
+                    dashboard_title = "#88C0D0",
+                },
+                top_padding = 5,
+                bottom_padding = 1,
+            }
+            local opts = {
+                theme = "doom",
+                config = {
+                    header = ascii_heatmap,
+                    center = {
+                        {
+                            action = "ene | startinsert",
+                            desc = " New File",
+                            icon = " ",
+                            key = "n",
+                        },
+                        {
+                            action = "Telescope oldfiles",
+                            desc = " Recent Files",
+                            icon = " ",
+                            key = "r",
+                        },
+                        {
+                            action = "Telescope live_grep",
+                            desc = " Find Text",
+                            icon = " ",
+                            key = "g",
+                        },
+                        {
+                            action = "Lazy",
+                            desc = " Lazy",
+                            icon = "󰒲 ",
+                            key = "l",
+                        },
+                        {
+                            action = "qa",
+                            desc = " Quit",
+                            icon = " ",
+                            key = "q",
+                        },
+                    },
+                    footer = function()
+                        return {}
+                    end,
+                },
+            }
+
+            -- extra dashboard nvim config ...
+
+            return opts
+        end,
+    },
+    {
         -- Formatting
         "jose-elias-alvarez/null-ls.nvim",
         event = "VeryLazy",
@@ -163,14 +247,14 @@ return {
         name = "catppuccin",
         priority = 1000,
     },
-    {
-        -- alpha dashboard
-        "goolord/alpha-nvim",
-        event = "VimEnter",
-        config = function()
-            require("alpha").setup(require("alpha.themes.dashboard").config)
-        end,
-    },
+    -- {
+    --     -- alpha dashboard
+    --     "goolord/alpha-nvim",
+    --     event = "VimEnter",
+    --     config = function()
+    --         require("alpha").setup(require("alpha.themes.dashboard").config)
+    --     end,
+    -- },
     {
         -- copilot
         "github/copilot.vim",
