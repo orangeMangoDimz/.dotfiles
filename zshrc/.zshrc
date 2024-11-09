@@ -50,6 +50,7 @@ alias gco="git checkout"
 alias gco="git checkout"
 alias gci="git commit"
 alias gbr="git branch"
+alias gr="git restore"
 
 # Pushing and pulling
 alias gp="git push"
@@ -70,6 +71,7 @@ alias gss="git stash save"
 alias glg="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
 
 # Other useful shortcuts
+alias ga="git add"
 alias gaa="git add --all"
 alias gcm="git commit -m"
 alias gcam="git commit -am"
