@@ -1,5 +1,33 @@
 return {
     {
+        -- markdown preview
+        -- NOTE: need to install manually at ~/.local/share/nvim/lazy/markdown-preview.nvim
+        -- use the `npm i` at that location
+        "iamcco/markdown-preview.nvim",
+        cmd = {
+            "MarkdownPreviewToggle",
+            "MarkdownPreview",
+            "MarkdownPreviewStop",
+        },
+        build = "cd app && npm install",
+        init = function()
+            vim.g.mkdp_filetypes = { "markdown" }
+        end,
+        ft = { "markdown" },
+    },
+    {
+        -- render markdown
+        event = "VeryLazy",
+        "MeanderingProgrammer/render-markdown.nvim",
+        dependencies = {
+            "nvim-treesitter/nvim-treesitter",
+            "echasnovski/mini.nvim",
+        },
+        ---@module 'render-markdown'
+        ---@type render.md.UserConfig
+        opts = {},
+    },
+    {
         -- lorem ipsum
         "derektata/lorem.nvim",
         event = "VeryLazy",
