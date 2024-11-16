@@ -1,5 +1,8 @@
 return {
     {
+        "ThePrimeagen/harpoon",
+    },
+    {
         -- markdown preview
         -- NOTE: need to install manually at ~/.local/share/nvim/lazy/markdown-preview.nvim
         -- use the `npm i` at that location
@@ -116,9 +119,6 @@ return {
                     end,
                 },
             }
-
-            -- extra dashboard nvim config ...
-
             return opts
         end,
     },
@@ -134,9 +134,12 @@ return {
                 sources = {
                     formatting.prettier.with {
                         filetypes = {
+                            "vue",
                             "javascript",
                             "typescript",
-                            "vue",
+                            "javascriptreact",
+                            "typescriptreact",
+                            "lua",
                             "css",
                             "scss",
                             "html",
