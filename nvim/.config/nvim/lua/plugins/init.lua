@@ -1,5 +1,61 @@
 return {
     {
+        "epwalsh/obsidian.nvim",
+        version = "*", -- recommended, use latest release instead of latest commit
+        lazy = true,
+        ft = "markdown",
+        -- Replace the above line with this if you only want to load obsidian.nvim for markdown files in your vault:
+        event = {
+          -- If you want to use the home shortcut '~' here you need to call 'vim.fn.expand'.
+          -- E.g. "BufReadPre " .. vim.fn.expand "~" .. "/my-vault/*.md"
+          -- refer to `:h file-pattern` for more examples
+          "BufReadPre /home/dimz/Documents/notes/obsidian-notes/*.md",
+          "BufNewFile /home/dimz/Documents/notes/obsidian-notes/*.md",
+        },
+        dependencies = {
+            "nvim-lua/plenary.nvim",
+        },
+        opts = {
+            workspaces = {
+                {
+                    name = "personal",
+                    path = "/home/dimz/Documents/notes/obsidian-notes",
+                },
+                -- {
+                --     name = "work",
+                --     path = "~/vaults/work",
+                -- },
+            },
+        },
+    },
+    {
+        -- Noice notification
+        "folke/noice.nvim",
+        event = "VimEnter",
+        config = function()
+            require("noice").setup {
+                lsp = {
+                    override = {
+                        ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
+                        ["vim.lsp.util.stylize_markdown"] = true,
+                        ["cmp.entry.get_documentation"] = true, -- requires hrsh7th/nvim-cmp
+                    },
+                },
+                presets = {
+                    bottom_search = true, -- use a classic bottom cmdline for search
+                    command_palette = true, -- position the cmdline and popupmenu together
+                    long_message_to_split = true, -- long messages will be sent to a split
+                    inc_rename = false, -- enables an input dialog for inc-rename.nvim
+                    lsp_doc_border = false, -- add a border to hover docs and signature help
+                },
+            }
+        end,
+        dependencies = {
+            "MunifTanjim/nui.nvim",
+            "rcarriga/nvim-notify",
+        },
+    },
+    {
         "ThePrimeagen/harpoon",
     },
     {
@@ -241,7 +297,7 @@ return {
             },
             view = {
                 width = 30,
-                side = "right",
+                side = "left",
             },
         },
     },
@@ -288,6 +344,56 @@ return {
         event = "VimEnter",
         name = "catppuccin",
         priority = 1000,
+        config = function()
+            require("catppuccin").setup {
+                flavour = "mocha", -- latte, frappe, macchiato, mocha
+                background = { -- :h background
+                    light = "latte",
+                    dark = "mocha",
+                },
+                transparent_background = false, -- disables setting the background color.
+                show_end_of_buffer = false, -- shows the '~' characters after the end of buffers
+                term_colors = true, -- sets terminal colors (e.g. `g:terminal_color_0`)
+                dim_inactive = {
+                    enabled = false, -- dims the background color of inactive window
+                    shade = "dark",
+                    percentage = 0.15, -- percentage of the shade to apply to the inactive window
+                },
+                no_italic = false, -- Force no italic
+                no_bold = false, -- Force no bold
+                no_underline = false, -- Force no underline
+                styles = { -- Handles the styles of general hi groups (see `:h highlight-args`):
+                    comments = { "italic" }, -- Change the style of comments
+                    conditionals = { "italic" },
+                    loops = {},
+                    functions = {},
+                    keywords = {},
+                    strings = {},
+                    variables = {},
+                    numbers = {},
+                    booleans = {},
+                    properties = {},
+                    types = {},
+                    operators = {},
+                    -- miscs = {}, -- Uncomment to turn off hard-coded styles
+                },
+                color_overrides = {},
+                custom_highlights = {},
+                default_integrations = true,
+                integrations = {
+                    cmp = true,
+                    gitsigns = true,
+                    nvimtree = true,
+                    treesitter = true,
+                    notify = false,
+                    mini = {
+                        enabled = true,
+                        indentscope_color = "",
+                    },
+                    -- For more plugins integrations please scroll down (https://github.com/catppuccin/nvim#integrations)
+                },
+            }
+        end,
     },
     -- {
     --     -- alpha dashboard
@@ -302,14 +408,14 @@ return {
         "github/copilot.vim",
         event = "VeryLazy",
     },
-    {
-        -- auto-save
-        "pocco81/auto-save.nvim",
-        event = { "InsertLeave", "TextChanged" },
-        config = function()
-            require "plugins.custom.auto-save"
-        end,
-    },
+    -- {
+    --     -- auto-save
+    --     "pocco81/auto-save.nvim",
+    --     event = { "InsertLeave", "TextChanged" },
+    --     config = function()
+    --         require "plugins.custom.auto-save"
+    --     end,
+    -- },
     {
         "stevearc/conform.nvim",
         -- event = 'BufWritePre', -- uncomment for format on save

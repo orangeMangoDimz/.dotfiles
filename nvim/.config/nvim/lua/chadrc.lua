@@ -10,9 +10,9 @@ local M = {}
 --     enabled= false
 --   }
 -- }
-
+M.lsp = {signature = false}
 M.base46 = {
-	theme = "catppuccin",
+	-- theme = "catppuccin",
 	-- hl_override = {
 	-- 	Comment = { italic = true },
 	-- 	["@comment"] = { italic = true },

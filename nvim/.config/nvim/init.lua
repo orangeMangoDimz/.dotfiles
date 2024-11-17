@@ -40,7 +40,7 @@ end)
 
 -- load colorscheme
 vim.cmd.colorscheme "catppuccin"
-
+vim.opt.conceallevel = 2
 -- additional snippets
 require("luasnip").filetype_extend("vue", {"html", "css", "typescript"})
 require("luasnip").filetype_extend("htmldjango", {"html", "css", "javascript"})
