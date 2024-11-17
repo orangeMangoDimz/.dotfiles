@@ -27,6 +27,7 @@ alias mycli="mycli --socket /var/run/mysqld/mysqld.sock -u root -p root"
 alias desktop_app=" cd /usr/share/applications; ls"
 alias cava="TERM=st-256color cava"
 alias killport="f_killport"
+alias dotfiles="cd ~/.dotfiles/"
 
 # Alias path
 alias test="cd /home/dimz/Documents/workspace/dummy; nvim;"
