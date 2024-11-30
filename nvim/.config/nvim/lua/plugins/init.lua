@@ -1,16 +1,72 @@
 return {
     {
+        -- tokyodark theme
+        "tiagovla/tokyodark.nvim",
+        config = function(_, opts)
+            require("tokyodark").setup(opts)
+        end,
+    },
+    {
+        -- dadbod db ui
+        "kristijanhusak/vim-dadbod-ui",
+        dependencies = {
+            { "tpope/vim-dadbod", lazy = true },
+            {
+                "kristijanhusak/vim-dadbod-completion",
+                ft = { "sql", "mysql", "plsql" },
+                lazy = true,
+            },
+        },
+        cmd = {
+            "DBUI",
+            "DBUIToggle",
+            "DBUIAddConnection",
+            "DBUIFindBuffer",
+        },
+        init = function()
+            -- for completion
+            local cmp = require "cmp"
+            cmp.setup.filetype({ "sql" }, {
+                sources = {
+                    { name = "vim-dadbod-completion" },
+                    { name = "buffer" },
+                },
+            })
+            vim.g.db_ui_use_nerd_fonts = 1
+        end,
+    },
+    {
+        -- completion db helper
+        "saghen/blink.cmp",
+        opts = {
+            sources = {
+                completion = {
+                    enabled_providers = {
+                        "lsp",
+                        "path",
+                        "snippets",
+                        "buffer",
+                        "dadbod",
+                    },
+                },
+                providers = {
+                    dadbod = {
+                        name = "Dadbod",
+                        module = "vim_dadbod_completion.blink",
+                    },
+                },
+            },
+        },
+    },
+    {
+        -- obsidian
         "epwalsh/obsidian.nvim",
-        version = "*", -- recommended, use latest release instead of latest commit
+        version = "*",
         lazy = true,
         ft = "markdown",
-        -- Replace the above line with this if you only want to load obsidian.nvim for markdown files in your vault:
         event = {
-          -- If you want to use the home shortcut '~' here you need to call 'vim.fn.expand'.
-          -- E.g. "BufReadPre " .. vim.fn.expand "~" .. "/my-vault/*.md"
-          -- refer to `:h file-pattern` for more examples
-          "BufReadPre /home/dimz/Documents/notes/obsidian-notes/*.md",
-          "BufNewFile /home/dimz/Documents/notes/obsidian-notes/*.md",
+            "BufReadPre /home/dimz/Documents/notes/obsidian-notes/*.md",
+            "BufNewFile /home/dimz/Documents/notes/obsidian-notes/*.md",
         },
         dependencies = {
             "nvim-lua/plenary.nvim",
@@ -28,33 +84,33 @@ return {
             },
         },
     },
-    {
-        -- Noice notification
-        "folke/noice.nvim",
-        event = "VimEnter",
-        config = function()
-            require("noice").setup {
-                lsp = {
-                    override = {
-                        ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
-                        ["vim.lsp.util.stylize_markdown"] = true,
-                        ["cmp.entry.get_documentation"] = true, -- requires hrsh7th/nvim-cmp
-                    },
-                },
-                presets = {
-                    bottom_search = true, -- use a classic bottom cmdline for search
-                    command_palette = true, -- position the cmdline and popupmenu together
-                    long_message_to_split = true, -- long messages will be sent to a split
-                    inc_rename = false, -- enables an input dialog for inc-rename.nvim
-                    lsp_doc_border = false, -- add a border to hover docs and signature help
-                },
-            }
-        end,
-        dependencies = {
-            "MunifTanjim/nui.nvim",
-            "rcarriga/nvim-notify",
-        },
-    },
+    -- {
+    --     -- Noice notification
+    --     "folke/noice.nvim",
+    --     event = "VimEnter",
+    --     config = function()
+    --         require("noice").setup {
+    --             lsp = {
+    --                 override = {
+    --                     ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
+    --                     ["vim.lsp.util.stylize_markdown"] = true,
+    --                     ["cmp.entry.get_documentation"] = true,
+    --                 },
+    --             },
+    --             presets = {
+    --                 bottom_search = true,
+    --                 command_palette = true,
+    --                 long_message_to_split = true,
+    --                 inc_rename = false,
+    --                 lsp_doc_border = false,
+    --             },
+    --         }
+    --     end,
+    --     dependencies = {
+    --         "MunifTanjim/nui.nvim",
+    --         "rcarriga/nvim-notify",
+    --     },
+    -- },
     {
         "ThePrimeagen/harpoon",
     },
@@ -82,6 +138,24 @@ return {
             "nvim-treesitter/nvim-treesitter",
             "echasnovski/mini.nvim",
         },
+        config = function()
+            require("render-markdown").setup {
+                indent = {
+                    enabled = true,
+                    per_level = 2,
+                    skip_level = 1,
+                    skip_heading = false,
+                },
+                bullet = {
+                    enabled = true,
+                    icons = { "●", "○", "◆", "◇" },
+                    ordered_icons = {},
+                    left_pad = 0,
+                    right_pad = 1,
+                    highlight = "RenderMarkdownBullet",
+                },
+            }
+        end,
         ---@module 'render-markdown'
         ---@type render.md.UserConfig
         opts = {},
@@ -195,6 +269,7 @@ return {
                             "typescript",
                             "javascriptreact",
                             "typescriptreact",
+                            "clangd",
                             "lua",
                             "css",
                             "scss",
@@ -205,6 +280,15 @@ return {
                         },
                         extra_args = { "--tab-width", "4" },
                     },
+                    formatting.clang_format,
+                    -- NOTE: to set the indent format of clangd, you need to create the .clang-format file int he project root
+                    --
+                    -- contians:
+                    -- BasedOnStyle: Google
+                    -- IndentWidth: 4
+                    -- TabWidth: 4
+                    -- UseTab: Never
+                    -- ColumnLimit: 100
                 },
             }
         end,
@@ -297,7 +381,7 @@ return {
             },
             view = {
                 width = 30,
-                side = "left",
+                side = "right",
             },
         },
     },

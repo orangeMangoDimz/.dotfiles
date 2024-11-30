@@ -65,6 +65,8 @@ map("v", "J", ":m '>+1<CR>gv=gv", { desc = "Move the selected line down" })
 map("v", "K", ":m '<-2<CR>gv=gv", { desc = "Move the selected line up" })
 -- map("x", "<leader>p", '"_dP', { desc = "Paste without copying" })
 
+-- DBUI
+map('n', '<Leader>db', ':DBUIToggle<CR>', { desc = "Toogle DB UI", noremap = true, silent = true })
 
 -- formatting
 -- map("n", "<leader>fm", function()

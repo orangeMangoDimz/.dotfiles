@@ -10,7 +10,7 @@ local M = {}
 --     enabled= false
 --   }
 -- }
-M.lsp = {signature = false}
+-- M.lsp = {signature = false}
 M.base46 = {
 	-- theme = "catppuccin",
 	-- hl_override = {

@@ -39,7 +39,9 @@ vim.schedule(function()
 end)
 
 -- load colorscheme
-vim.cmd.colorscheme "catppuccin"
+-- vim.cmd.colorscheme "catppuccin"
+ vim.cmd.colorscheme "tokyodark"
+
 vim.opt.conceallevel = 2
 -- additional snippets
 require("luasnip").filetype_extend("vue", {"html", "css", "typescript"})
