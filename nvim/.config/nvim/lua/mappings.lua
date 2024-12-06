@@ -67,6 +67,7 @@ map("v", "K", ":m '<-2<CR>gv=gv", { desc = "Move the selected line up" })
 
 -- DBUI
 map('n', '<Leader>db', ':DBUIToggle<CR>', { desc = "Toogle DB UI", noremap = true, silent = true })
+map('n', '<Leader>cb', '<cmd>%bd|e#<CR>', { desc = "Clear All Buffers", noremap = true, silent = true })
 
 -- formatting
 -- map("n", "<leader>fm", function()

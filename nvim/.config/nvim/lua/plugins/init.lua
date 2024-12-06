@@ -140,6 +140,46 @@ return {
         },
         config = function()
             require("render-markdown").setup {
+                checkbox = {
+                    -- Turn on / off checkbox state rendering
+                    enabled = true,
+                    -- Determines how icons fill the available space:
+                    --  inline:  underlying text is concealed resulting in a left aligned icon
+                    --  overlay: result is left padded with spaces to hide any additional text
+                    position = "inline",
+                    unchecked = {
+                        -- Replaces '[ ]' of 'task_list_marker_unchecked'
+                        icon = "󰄱 ",
+                        -- Highlight for the unchecked icon
+                        highlight = "RenderMarkdownUnchecked",
+                        -- Highlight for item associated with unchecked checkbox
+                        scope_highlight = nil,
+                    },
+                    checked = {
+                        -- Replaces '[x]' of 'task_list_marker_checked'
+                        icon = "󰱒 ",
+                        -- Highlight for the checked icon
+                        highlight = "RenderMarkdownChecked",
+                        -- Highlight for item associated with checked checkbox
+                        scope_highlight = nil,
+                    },
+                    -- Define custom checkbox states, more involved as they are not part of the markdown grammar
+                    -- As a result this requires neovim >= 0.10.0 since it relies on 'inline' extmarks
+                    -- Can specify as many additional states as you like following the 'todo' pattern below
+                    --   The key in this case 'todo' is for healthcheck and to allow users to change its values
+                    --   'raw':             Matched against the raw text of a 'shortcut_link'
+                    --   'rendered':        Replaces the 'raw' value when rendering
+                    --   'highlight':       Highlight for the 'rendered' icon
+                    --   'scope_highlight': Highlight for item associated with custom checkbox
+                    custom = {
+                        todo = {
+                            raw = "[-]",
+                            rendered = "󰥔 ",
+                            highlight = "RenderMarkdownTodo",
+                            scope_highlight = nil,
+                        },
+                    },
+                },
                 indent = {
                     enabled = true,
                     per_level = 2,
@@ -431,51 +471,6 @@ return {
         config = function()
             require("catppuccin").setup {
                 flavour = "mocha", -- latte, frappe, macchiato, mocha
-                background = { -- :h background
-                    light = "latte",
-                    dark = "mocha",
-                },
-                transparent_background = false, -- disables setting the background color.
-                show_end_of_buffer = false, -- shows the '~' characters after the end of buffers
-                term_colors = true, -- sets terminal colors (e.g. `g:terminal_color_0`)
-                dim_inactive = {
-                    enabled = false, -- dims the background color of inactive window
-                    shade = "dark",
-                    percentage = 0.15, -- percentage of the shade to apply to the inactive window
-                },
-                no_italic = false, -- Force no italic
-                no_bold = false, -- Force no bold
-                no_underline = false, -- Force no underline
-                styles = { -- Handles the styles of general hi groups (see `:h highlight-args`):
-                    comments = { "italic" }, -- Change the style of comments
-                    conditionals = { "italic" },
-                    loops = {},
-                    functions = {},
-                    keywords = {},
-                    strings = {},
-                    variables = {},
-                    numbers = {},
-                    booleans = {},
-                    properties = {},
-                    types = {},
-                    operators = {},
-                    -- miscs = {}, -- Uncomment to turn off hard-coded styles
-                },
-                color_overrides = {},
-                custom_highlights = {},
-                default_integrations = true,
-                integrations = {
-                    cmp = true,
-                    gitsigns = true,
-                    nvimtree = true,
-                    treesitter = true,
-                    notify = false,
-                    mini = {
-                        enabled = true,
-                        indentscope_color = "",
-                    },
-                    -- For more plugins integrations please scroll down (https://github.com/catppuccin/nvim#integrations)
-                },
             }
         end,
     },

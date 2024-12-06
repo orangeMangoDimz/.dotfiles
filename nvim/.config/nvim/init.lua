@@ -39,8 +39,8 @@ vim.schedule(function()
 end)
 
 -- load colorscheme
--- vim.cmd.colorscheme "catppuccin"
- vim.cmd.colorscheme "tokyodark"
+ vim.cmd.colorscheme "catppuccin"
+ -- vim.cmd.colorscheme "tokyodark"
 
 vim.opt.conceallevel = 2
 -- additional snippets
