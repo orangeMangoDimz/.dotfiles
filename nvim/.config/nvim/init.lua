@@ -7,8 +7,15 @@ vim.g.have_nerd_font = true
 local lazypath = vim.fn.stdpath "data" .. "/lazy/lazy.nvim"
 
 if not vim.uv.fs_stat(lazypath) then
-  local repo = "https://github.com/folke/lazy.nvim.git"
-  vim.fn.system { "git", "clone", "--filter=blob:none", repo, "--branch=stable", lazypath }
+    local repo = "https://github.com/folke/lazy.nvim.git"
+    vim.fn.system {
+        "git",
+        "clone",
+        "--filter=blob:none",
+        repo,
+        "--branch=stable",
+        lazypath,
+    }
 end
 
 vim.opt.rtp:prepend(lazypath)
@@ -17,14 +24,14 @@ local lazy_config = require "configs.lazy"
 
 -- load plugins
 require("lazy").setup({
-  {
-    "NvChad/NvChad",
-    lazy = false,
-    branch = "v2.5",
-    import = "nvchad.plugins",
-  },
+    {
+        "NvChad/NvChad",
+        lazy = false,
+        branch = "v2.5",
+        import = "nvchad.plugins",
+    },
 
-  { import = "plugins" },
+    { import = "plugins" },
 }, lazy_config)
 
 -- load theme
@@ -35,14 +42,18 @@ require "options"
 require "nvchad.autocmds"
 
 vim.schedule(function()
-  require "mappings"
+    require "mappings"
 end)
 
 -- load colorscheme
- vim.cmd.colorscheme "catppuccin"
- -- vim.cmd.colorscheme "tokyodark"
+vim.cmd.colorscheme "catppuccin"
+-- vim.cmd.colorscheme "github_dark_default"
+-- vim.cmd.colorscheme "tokyodark"
 
 vim.opt.conceallevel = 2
 -- additional snippets
-require("luasnip").filetype_extend("vue", {"html", "css", "typescript"})
-require("luasnip").filetype_extend("htmldjango", {"html", "css", "javascript"})
+require("luasnip").filetype_extend("vue", { "html", "css", "typescript" })
+require("luasnip").filetype_extend(
+    "htmldjango",
+    { "html", "css", "javascript" }
+)

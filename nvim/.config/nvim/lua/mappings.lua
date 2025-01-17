@@ -69,6 +69,16 @@ map("v", "K", ":m '<-2<CR>gv=gv", { desc = "Move the selected line up" })
 map('n', '<Leader>db', ':DBUIToggle<CR>', { desc = "Toogle DB UI", noremap = true, silent = true })
 map('n', '<Leader>cb', '<cmd>%bd|e#<CR>', { desc = "Clear All Buffers", noremap = true, silent = true })
 
+-- Obsidian Keybindings
+map("n", "<leader>on", "<cmd>ObsidianNew<CR>", { desc = "Create a new note" })
+map("n", "<leader>os", "<cmd>ObsidianTags<CR>", { desc = "Show tags" })
+map("n", "<leader>or", "<cmd>ObsidianRename<CR>", { desc = "Rename note" })
+map({"n", "v"}, "<leader>oln", "<cmd>ObsidianLinkNew<CR>", { desc = "Create a new link" })
+map("n", "<leader>olv", "<cmd>ObsidianLinks<CR>", { desc = "Show current buffer links" })
+map("n", "<leader>oti", "<cmd>ObsidianTemplate<CR>", { desc = "Insert template" })
+map("n", "<leader>otn",  "<cmd>ObsidianNewFromTemplate<CR>", { desc = "Create a new note from template" })
+map("n", "<leader>oc", "<cmd>ObsidianTOC<CR>", { desc = "Show table of contents" })
+
 -- formatting
 -- map("n", "<leader>fm", function()
 --   require("conform").format({ async = true, lsp_fallback = true })
