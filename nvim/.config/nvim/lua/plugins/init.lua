@@ -12,7 +12,7 @@ return {
                         clear_in_insert_mode = false,
                         download_remote_images = true,
                         only_render_image_at_cursor = false,
-                        floating_windows = false, -- if true, images will be rendered in floating markdown windows
+                        floating_windows = false,              -- if true, images will be rendered in floating markdown windows
                         filetypes = { "markdown", "vimwiki" }, -- markdown extensions (ie. quarto) can go here
                     },
                     neorg = {
@@ -123,8 +123,8 @@ return {
         lazy = true,
         ft = "markdown",
         event = {
-            "BufReadPre /home/dimz/Documents/notes/obsidian-notes/*.md",
-            "BufNewFile /home/dimz/Documents/notes/obsidian-notes/*.md",
+            "BufReadPre /home/mango/Documents/notes/obsidian-notes/*.md",
+            "BufNewFile /home/mango/Documents/notes/obsidian-notes/*.md",
         },
         dependencies = {
             "nvim-lua/plenary.nvim",
@@ -133,7 +133,7 @@ return {
             workspaces = {
                 {
                     name = "personal",
-                    path = "/home/dimz/Documents/notes/obsidian-notes",
+                    path = "/home/mango/Documents/notes/obsidian-notes",
                 },
                 -- {
                 --     name = "work",
@@ -383,6 +383,7 @@ return {
                             "json",
                             "yaml",
                             "markdown",
+                            "yaml",
                         },
                         extra_args = { "--tab-width", "4" },
                     },

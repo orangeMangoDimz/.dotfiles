@@ -5,8 +5,10 @@ local lspconfig = require "lspconfig"
 
 -- EXAMPLE
 -- add vue
-local servers = { "html", "cssls", "pyright", "ts_ls", "vls", "volar", "clangd" }
+local servers = { "html", "cssls", "pyright", "ts_ls", "vls", "volar", "clangd", "yamlls" }
 local nvlsp = require "nvchad.configs.lspconfig"
+
+--NOTE: use `npm install yaml-language-server` to install yamlls and `sudo npm install -g prettier` to install prettier
 
 -- lsps with default config
 for _, lsp in ipairs(servers) do
@@ -57,9 +59,9 @@ local vue_language_server_path = mason_registry
 -- }
 
 lspconfig.volar.setup {
-  init_options = {
-    vue = {
-      hybridMode = false,
+    init_options = {
+        vue = {
+            hybridMode = false,
+        },
     },
-  },
 }

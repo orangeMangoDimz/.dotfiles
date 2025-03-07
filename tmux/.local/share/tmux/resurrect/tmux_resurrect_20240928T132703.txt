@@ -1,9 +1,0 @@
-pane	0	1	0	:	0	dimz-Yoga-Slim-6-14IRH8	:/home/dimz/Documents/workspace/public/skripsi/satu-farmasi-backend	1	nvim	:nvim
-pane	0	2	0	:	0	dimz-Yoga-Slim-6-14IRH8	:/home/dimz/Documents/workspace/public/skripsi/satu-farmasi-frontend	1	nvim	:nvim
-pane	0	3	0	:-	0	dimz-Yoga-Slim-6-14IRH8	:/home/dimz/.config/nvim	1	nvim	:nvim
-pane	0	4	1	:*	0	dimz-Yoga-Slim-6-14IRH8	:/home/dimz/Downloads	1	spotify_player	:spotify_player
-window	0	1	:nvim	0	:	c6bd,137x27,0,0,0	:
-window	0	2	:nvim	0	:	c6be,137x27,0,0,1	:
-window	0	3	:nvim	0	:-	c6bf,137x27,0,0,2	:
-window	0	4	:spotify_player	1	:*	c6c5,137x27,0,0,8	:
-state	0	

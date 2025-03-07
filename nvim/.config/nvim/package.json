@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "markdown-preview": "file:../../../../.local/share/nvim/lazy/markdown-preview.nvim"
+  }
+}
