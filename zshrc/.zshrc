@@ -1,47 +1,71 @@
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
+# if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+#   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+# fi
 
 export ZSH="$HOME/.oh-my-zsh"
-ZSH_THEME="powerlevel10k/powerlevel10k"
+# ZSH_THEME="powerlevel10k/powerlevel10k"
 
 plugins=( 
     git
     zsh-autosuggestions
     zsh-syntax-highlighting
+    zsh-interactive-cd
     # zsh-bat
 )
 
 source $ZSH/oh-my-zsh.sh
 
+# root alias
+alias user=whoami
+alias user_path="/home/$(user)/"
+
+# alias django
+alias rd="./manage.py runserver"
+alias mk="./manage.py makemigrations"
+alias me="./manage.py migrate"
+
+# root path: prefix -> p
+alias pdocs="user_path; cd Documents"
+alias pdowns="user_path; cd Downloads"
+alias pwork="pdocs; cd workspace"
+alias pconfig='user_path; cd .config'
+
+# shortcut path
+alias public="pwork; cd public"
+alias private="pwork; cd private"
+alias note="pdocs; cd notes/obsidian-notes; nvim"
+alias test="pwork; cd dummy; nvim;"
+alias dklt="public; cd work; cd diklatkerja_test; env on; nvim;"
+alias sk-fe="public; cd skripsi/satu-farmasi-frontend; nvim;"
+alias sk-be="public; cd skripsi/satu-farmasi-backend; nvim;"
+alias learn="pwork; cd learn; nvim;"
+
+# config: prefix -> c
+alias cnvim="pconfig; cd nvim; nvim"
+alias cdotfiles="user_path; cd .dotfiles"
+
 # Alias general
 alias cls="clear"
-alias ls="colorls -a"
-alias public='cd ~/Documents/workspace/public;ls'
-alias private='cd ~/Documents/workspace/private;ls'
+# alias ls="colorls -a"
+alias ls='lsd -a --color=always --icon=always'
 alias fzf="fzf --preview='cat {}'"
 alias mango="sgpt"
 alias disk_space="df -h /"
 alias pgcli="PAGER='less -S' pgcli"
 alias mycli="mycli --socket /var/run/mysqld/mysqld.sock -u root -p root"
 alias desktop_app=" cd /usr/share/applications; ls"
-alias cava="TERM=st-256color cava"
+alias cava="TERM=xterm-256color cava"
+alias lz="lazygit"
 alias killport="f_killport"
-alias dotfiles="cd ~/.dotfiles/"
 
 # Alias path
-alias test="cd /home/dimz/Documents/workspace/dummy; nvim;"
-alias dklt="public; cd work; env on; cd diklatkerja; nvim;"
-alias sk-fe="cd /home/dimz/Documents/workspace/public/skripsi/satu-farmasi-frontend; nvim;"
-alias sk-be="/home/dimz/Documents/workspace/public/skripsi/satu-farmasi-backend; nvim;"
-alias learn="/home/dimz/Documents/workspace/learn; nvim;"
 alias spt="cd ~/.spotify_player/; ./spotify_player"
 alias last_save="/home/dimz/.local/share/tmux/resurrect" # execute: ln -sf <file_name> last
 
 # Alias django
 alias dj_run="py38 manage.py runserver"
 alias dj_make_db="py38 manage.py makemigrations"
-alias dj_migrate="py38 manage.py migrate"
+alias dj_migrate="ppyy38 manage.py migrate"
 alias dj_seed="py38 seed.py run"
 alias dj_db_seed="dj_make_db; dj_migrate; dj_seed;"
 
@@ -105,10 +129,14 @@ alias nrd="npm run dev"
 alias nrb="npm run build"
 
 # docker
+alias d="docker"
+alias docker_clean="docker system prune"
 alias dc="docker container"
 alias di="docker image"
 alias dv="docker volume"
 alias dn="docker network"
+alias dcu="docker compose up"
+alias dcd="docker compose down"
 
 # Kill port
 f_killport() {
@@ -122,10 +150,16 @@ f_killport() {
 # Alias ENV
 env() {
         if [ "$1" = "on" ]; then
-                source .env/bin/activate
+                source venv/bin/activate
         elif [ "$1" = "off" ]; then
                 deactivate
         fi
+}
+
+# Path: /opt/cursor.appimage
+# App exec: /usr/share/applications/cursor.desktop
+function cursor {
+        /usr/local/bin/cursor.appimage --no-sandbox $@
 }
 
 # Alias python
@@ -150,7 +184,7 @@ source $(dirname $(gem which colorls))/tab_complete.sh
 export PATH="$HOME/.config/composer/vendor/bin:$PATH"
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+# [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 # Source catpuccin syntax highlight
 source ~/.zsh/catppuccin_mocha-zsh-syntax-highlighting.zsh
@@ -172,4 +206,6 @@ export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
 export PATH=$HOME/.local/bin:$PATH
 
-neofetch
+export LS_COLORS="$(vivid generate catppuccin-mocha)"
+export STARSHIP_CONFIG="$HOME/.config/starship.toml"
+eval "$(starship init zsh)"
