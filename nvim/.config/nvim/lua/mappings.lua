@@ -32,7 +32,7 @@ local ui = require "harpoon.ui"
 map("n", "<leader>ta", mark.add_file, { desc = "Add file to Harpoon" })
 map(
     "n",
-    "<leader>tm",
+    "<leader>te",
     ui.toggle_quick_menu,
     { desc = "Toggle Harpoon quick menu" }
 )
@@ -54,12 +54,6 @@ map(
     "<leader>tc",
     require("harpoon.mark").clear_all,
     { desc = "Clear all harpoon marks" }
-)
-map(
-    "n",
-    "<leader>ts",
-    require("harpoon.mark").status,
-    { desc = "Show harpoon status" }
 )
 map("v", "J", ":m '>+1<CR>gv=gv", { desc = "Move the selected line down" })
 map("v", "K", ":m '<-2<CR>gv=gv", { desc = "Move the selected line up" })
