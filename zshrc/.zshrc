@@ -208,4 +208,7 @@ export PATH=$HOME/.local/bin:$PATH
 
 export LS_COLORS="$(vivid generate catppuccin-mocha)"
 export STARSHIP_CONFIG="$HOME/.config/starship.toml"
+export PATH="$PATH:$HOME/.spicetify"
 eval "$(starship init zsh)"
+
+export PATH=$PATH:/home/mango/.spicetify
