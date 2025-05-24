@@ -1,0 +1,70 @@
+@-moz-document url-prefix("chrome:") {
+  @media not (-moz-bool-pref: "zen.view.sidebar-expanded") {
+    .tabbrowser-tab {
+      /* Unhide the tab title and show only the first comptitle-width letters */
+      .tab-label-container {
+        --comptitle-width: 2ch;
+        overflow: hidden;
+        position: absolute;
+        text-overflow: ellipsis;
+        width: var(--comptitle-width);
+        right: 0;
+        white-space: nowrap;
+        background: color-mix(
+          in srgb,
+          var(--background-color-box) 75%,
+          transparent
+        );
+        height: 1rem !important;
+        opacity: 1;
+        top: 0;
+        border-radius: 5px;
+        font-family: monospace;
+        display: flex !important;
+        mask-image: none !important;
+        color: var(--text-color-deemphasized);
+      }
+  
+      /* Disable the "Playing" subtitle */
+      .tab-secondary-label {
+        display: none !important;
+      }
+  
+      /* Accent the text when tab is selected */
+      &[selected] {
+        .tab-label-container {
+          color: initial !important;
+        }
+      }
+  
+      /* 1 character */
+      @media (-moz-bool-pref: "uc.theme.comptitle-one-char-title.enabled") {
+        .tab-label-container {
+          --comptitle-width: 1ch;
+        }
+      }
+  
+      /* 3 characters */
+      @media (-moz-bool-pref: "uc.theme.comptitle-three-char-title.enabled") {
+        .tab-label-container {
+          --comptitle-width: 3ch;
+        }
+      }
+  
+      /* Enable on pinned tabs */
+      @media (-moz-bool-pref: "uc.theme.comptitle-enable-pinned.enabled") {
+        .tab-label-container {
+          width: var(--comptitle-width) !important;
+        }
+      }
+  
+      /* Use active text color for all tabs */
+      @media (-moz-bool-pref: "uc.theme.comptitle-default-text.enabled") {
+        .tab-label-container {
+          color: initial !important;
+        }
+      }
+    }
+  }
+  
+}
