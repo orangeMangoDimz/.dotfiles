@@ -48,12 +48,12 @@
 	},
 	// Pannel
 	{
-		"key": "shift+l",
+		"key": "alt+shift+l",
 		"command": "workbench.action.increaseViewSize",
 		"when": "vim.mode == 'Normal' && (editorTextFocus || !inputFocus) && !inQuickOpen"
 	},
 	{
-		"key": "shift+h",
+		"key": "alt+shift+h",
 		"command": "workbench.action.decreaseViewSize",
 		"when": "vim.mode == 'Normal' && (editorTextFocus || !inputFocus) && !inQuickOpen"
 	},
