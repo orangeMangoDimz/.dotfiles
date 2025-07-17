@@ -1,3 +1,4 @@
+// Place your key bindings in this file to override the defaultsauto[]
 [
 	{
 		"key": "ctrl+j",
@@ -17,7 +18,7 @@
 	},
 	{
 		"key": "space f f",
-		"command": "find-it-faster.findFiles",
+		"command": "workbench.action.quickOpen",
 		"when": "vim.mode == 'Normal' && (editorTextFocus || !inputFocus) && !inQuickOpen"
 	},
 	{
@@ -45,7 +46,17 @@
 		"command": "vscode-harpoon.editorQuickPick",
 		"when": "vim.mode == 'Normal' && (editorTextFocus || !inputFocus) && !inQuickOpen"
 	},
-
+	// Pannel
+	{
+		"key": "shift+l",
+		"command": "workbench.action.increaseViewSize",
+		"when": "vim.mode == 'Normal' && (editorTextFocus || !inputFocus) && !inQuickOpen"
+	},
+	{
+		"key": "shift+h",
+		"command": "workbench.action.decreaseViewSize",
+		"when": "vim.mode == 'Normal' && (editorTextFocus || !inputFocus) && !inQuickOpen"
+	},
 	// Harpoon extension
 	{
 		"key": "space 1",
@@ -123,7 +134,7 @@
 	},
 	{
 		"key": "space f w",
-		"command": "find-it-faster.findWithinFiles",
+		"command": "workbench.action.findInFiles",
 		"when": "vim.mode == 'Normal' && (editorTextFocus || !inputFocus)"
 	},
 	{
