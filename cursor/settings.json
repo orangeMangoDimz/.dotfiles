@@ -1,0 +1,221 @@
+
+{
+	// ========================================
+	// Editor Configuration
+	// ========================================
+	"editor.fontFamily": "'Fira Code'",
+	"editor.fontLigatures": true,
+	"editor.fontSize": 12,
+	"editor.fontWeight": "500",
+	"editor.lineHeight": 1.5,
+	"editor.lineNumbers": "off",
+	"editor.tabSize": 6,
+
+	// Editor Appearance
+	"editor.minimap.enabled": false,
+	"editor.guides.indentation": false,
+	"editor.guides.bracketPairs": true,
+	"editor.guides.bracketPairsHorizontal": true,
+	"editor.showFoldingControls": "never",
+	"editor.renderLineHighlight": "none",
+	"editor.renderWhitespace": "none",
+	"editor.overviewRulerBorder": false,
+	"editor.stickyScroll.enabled": false,
+
+	// Editor Behavior
+	"editor.cursorBlinking": "solid",
+	"editor.cursorStyle": "block",
+	"editor.cursorSurroundingLines": 10,
+	"editor.linkedEditing": true,
+	"editor.rename.enablePreview": false,
+	"editor.smoothScrolling": false,
+	"editor.largeFileOptimizations": false,
+
+	// Editor Scrollbars
+	"editor.scrollbar.horizontal": "hidden",
+	"editor.scrollbar.vertical": "hidden",
+
+	// Editor Unicode & Highlighting
+	"editor.unicodeHighlight.invisibleCharacters": false,
+	"editor.unicodeHighlight.ambiguousCharacters": false,
+
+	// ========================================
+	// Workbench & UI Configuration
+	// ========================================
+	"workbench.colorTheme": "Catppuccin Mocha",
+	"workbench.iconTheme": "catppuccin-mocha",
+	"workbench.sideBar.location": "right",
+	"workbench.tips.enabled": false,
+	"workbench.list.smoothScrolling": false,
+
+	// Activity Bar & Layout
+	"workbench.activityBar.location": "hidden",
+	"workbench.activityBar.orientation": "vertical",
+	"workbench.navigationControl.enabled": false,
+	"workbench.layoutControl.enabled": false,
+	"workbench.secondarySideBar.showLabels": false,
+
+	// Editor Tabs
+	"workbench.editor.showTabs": "single",
+	"workbench.editor.enablePreview": false,
+
+	// Breadcrumbs
+	"breadcrumbs.filePath": "off",
+	"breadcrumbs.symbolPath": "off",
+
+	// Window Settings
+	"window.newWindowDimensions": "maximized",
+	"window.commandCenter": false,
+	"window.menuBarVisibility": "compact",
+
+	// Zen Mode
+	"zenMode.centerLayout": false,
+	"zenMode.showTabs": "single",
+	"zenMode.hideLineNumbers": false,
+
+	// ========================================
+	// Color Customizations
+	// ========================================
+	"workbench.colorCustomizations": {
+		"statusBar.background": "#1E1E2E",
+		"statusBar.foreground": "#F9E2AF",
+		"statusBarItem.hoverBackground": "#3E3E5E",
+		"statusBar.noFolderBackground": "#11111B",
+		"statusBar.debuggingBackground": "#F38BA8",
+		"terminal.background": "#00000000"
+	},
+	"editor.tokenColorCustomizations": {
+		"[Catppuccin Mocha]": {
+			"comments": "#9ca0b0"
+		}
+	},
+
+	// ========================================
+	// Terminal Configuration
+	// ========================================
+	"terminal.integrated.fontFamily": "Fira Code Semibold",
+	"terminal.integrated.fontSize": 12,
+	"terminal.integrated.defaultProfile.windows": "PowerShell",
+	"terminal.integrated.defaultProfile.osx": "tmux-shell",
+	"terminal.integrated.profiles.osx": {
+		"tmux-shell": {
+			"path": "tmux",
+			"args": ["new-session", "-A", "-s", "vscode:${workspaceFolder}"]
+		}
+	},
+
+	// ========================================
+	// File & Project Management
+	// ========================================
+	"files.autoSaveDelay": 300,
+	"explorer.compactFolders": false,
+	"security.workspace.trust.untrustedFiles": "open",
+
+	// ========================================
+	// Language-Specific Formatters
+	// ========================================
+	"[typescript]": {
+		"editor.defaultFormatter": "esbenp.prettier-vscode"
+	},
+	"[typescriptreact]": {
+		"editor.defaultFormatter": "esbenp.prettier-vscode"
+	},
+	"[javascript]": {
+		"editor.defaultFormatter": "esbenp.prettier-vscode"
+	},
+	"[javascriptreact]": {
+		"editor.defaultFormatter": "vscode.typescript-language-features"
+	},
+	"[html]": {
+		"editor.defaultFormatter": "esbenp.prettier-vscode"
+	},
+	"[css]": {
+		"editor.defaultFormatter": "esbenp.prettier-vscode"
+	},
+	"[json]": {
+		"editor.defaultFormatter": "vscode.json-language-features"
+	},
+	"[jsonc]": {
+		"editor.defaultFormatter": "esbenp.prettier-vscode"
+	},
+	"[python]": {
+		"diffEditor.ignoreTrimWhitespace": true
+	},
+
+	// ========================================
+	// Language Features & Updates
+	// ========================================
+	"typescript.updateImportsOnFileMove.enabled": "always",
+	"javascript.updateImportsOnFileMove.enabled": "always",
+	"json.schemaDownload.enable": true,
+
+	// ========================================
+	// Prettier Configuration
+	// ========================================
+	"prettier.tabWidth": 4,
+	"prettier.endOfLine": "auto",
+	"prettier.useTabs": true,
+
+	// ========================================
+	// Emmet Configuration
+	// ========================================
+	"emmet.includeLanguages": {
+		"django-html": "html"
+	},
+
+	// ========================================
+	// Git & Version Control
+	// ========================================
+	"git.autofetch": true,
+	"gitlens.graph.sidebar.enabled": false,
+
+	// ========================================
+	// Extension-Specific Settings
+	// ========================================
+	
+	// Neovim Extension
+	"vscode-neovim.compositeKeys": {
+		"jj": {
+			"command": "vscode-neovim.escape"
+		}
+	},
+	"vscode-neovim.neovimExecutablePaths.linux": "/usr/bin/nvim",
+	"vscode-neovim.useWSL": false,
+	"vscode-neovim.revealCursorScrollLine": true,
+
+	// Catppuccin Theme
+	"catppuccin.bracketMode": "neovim",
+
+	// Material Icon Theme
+	"material-icon-theme.hidesExplorerArrows": true,
+
+	// Cursor IDE
+	"cursor.cpp.disabledLanguages": ["plaintext", "markdown", "scminput"],
+	"cursor.composer.shouldAutoScrollToBottom": false,
+
+	// ========================================
+	// Extensions & Remote Development
+	// ========================================
+	"extensions.ignoreRecommendations": true,
+	"extensions.experimental.affinity": {
+		"asvetliakov.vscode-neovim": 1
+	},
+	"remote.SSH.remotePlatform": {
+		"dev.webdev.garena.co.id": "linux"
+	},
+
+	// ========================================
+	// Debug & Output
+	// ========================================
+	"debug.shownStatusBar": "never",
+	"output.smartScroll.enabled": false,
+
+	// ========================================
+	// Profile & Workspace Settings
+	// ========================================
+	"workbench.settings.applyToAllProfiles": [
+		"emmet.includeLanguages",
+		"workbench.colorCustomizations"
+	]
+}
+

@@ -1,5 +1,8 @@
-// Place your key bindings in this file to override the defaultsauto[]
+// Place your key bindings in this file to override the defaults
 [
+	// ========================================
+	// Basic Navigation (Ctrl + hjkl)
+	// ========================================
 	{
 		"key": "ctrl+j",
 		"command": "workbench.action.navigateDown"
@@ -16,127 +19,83 @@
 		"key": "ctrl+l",
 		"command": "workbench.action.navigateRight"
 	},
+
+	// ========================================
+	// Quick Input & Menu Navigation
+	// ========================================
+	{
+		"key": "tab",
+		"command": "quickInput.next",
+		"when": "inQuickInput && quickInputType == 'quickPick'"
+	},
+	{
+		"key": "tab",
+		"command": "selectNextCodeAction",
+		"when": "codeActionMenuVisible"
+	},
+	{
+		"key": "shift+tab",
+		"command": "quickInput.previous",
+		"when": "inQuickInput && quickInputType == 'quickPick'"
+	},
+	{
+		"key": "shift+tab",
+		"command": "selectPrevCodeAction",
+		"when": "codeActionMenuVisible"
+	},
+
+	// ========================================
+	// File & Workspace Management
+	// ========================================
 	{
 		"key": "space f f",
 		"command": "workbench.action.quickOpen",
-		"when": "vim.mode == 'Normal' && (editorTextFocus || !inputFocus) && !inQuickOpen"
-	},
-	{
-		"key": "ctrl+n",
-		"command": "workbench.action.toggleSidebarVisibility",
-		"when": "vim.mode == 'Normal' && (editorTextFocus || !inputFocus) && !inQuickOpen"
-	},
-	{
-		"key": "alt+shift+f",
-		"command": "editor.action.formatDocument",
-		"when": "vim.mode == 'Normal' && (editorTextFocus || !inputFocus) && !inQuickOpen"
-	},
-	{
-		"key": "space b a",
-		"command": "vscode-harpoon.addEditor",
-		"when": "vim.mode == 'Normal' && (editorTextFocus || !inputFocus) && !inQuickOpen"
-	},
-	{
-		"key": "space b e",
-		"command": "vscode-harpoon.editEditors",
-		"when": "vim.mode == 'Normal' && (editorTextFocus || !inputFocus) && !inQuickOpen"
-	},
-	{
-		"key": "space b l",
-		"command": "vscode-harpoon.editorQuickPick",
-		"when": "vim.mode == 'Normal' && (editorTextFocus || !inputFocus) && !inQuickOpen"
-	},
-	// Pannel
-	{
-		"key": "alt+shift+l",
-		"command": "workbench.action.increaseViewSize",
-		"when": "vim.mode == 'Normal' && (editorTextFocus || !inputFocus) && !inQuickOpen"
-	},
-	{
-		"key": "alt+shift+h",
-		"command": "workbench.action.decreaseViewSize",
-		"when": "vim.mode == 'Normal' && (editorTextFocus || !inputFocus) && !inQuickOpen"
-	},
-	// Harpoon extension
-	{
-		"key": "space 1",
-		"command": "vscode-harpoon.gotoEditor1",
-		"when": "vim.mode == 'Normal' && (editorTextFocus || !inputFocus) && !inQuickOpen"
-	},
-	{
-		"key": "space 2",
-		"command": "vscode-harpoon.gotoEditor2",
-		"when": "vim.mode == 'Normal' && (editorTextFocus || !inputFocus) && !inQuickOpen"
-	},
-	{
-		"key": "space 3",
-		"command": "vscode-harpoon.gotoEditor3",
-		"when": "vim.mode == 'Normal' && (editorTextFocus || !inputFocus) && !inQuickOpen"
-	},
-	{
-		"key": "space 4",
-		"command": "vscode-harpoon.gotoEditor4",
-		"when": "vim.mode == 'Normal' && (editorTextFocus || !inputFocus) && !inQuickOpen"
-	},
-	{
-		"key": "space 5",
-		"command": "vscode-harpoon.gotoEditor5",
-		"when": "vim.mode == 'Normal' && (editorTextFocus || !inputFocus) && !inQuickOpen"
-	},
-	{
-		"key": "space 6",
-		"command": "vscode-harpoon.gotoEditor6",
-		"when": "vim.mode == 'Normal' && (editorTextFocus || !inputFocus) && !inQuickOpen"
-	},
-
-	// Navigation
-	{
-		"key": "shift+k",
-		"command": "editor.action.showHover",
-		"when": "vim.mode == 'Normal' && editorTextFocus"
-	},
-	{
-		"key": "space c a",
-		"command": "editor.action.codeAction",
-		"when": "vim.mode == 'Normal' && editorTextFocus"
-	},
-	{
-		"key": "space c r",
-		"command": "editor.action.rename",
-		"when": "vim.mode == 'Normal' && editorTextFocus"
-	},
-	{
-		"key": "space x",
-		"command": "workbench.action.closeActiveEditor",
-		"when": "vim.mode == 'Normal' && editorTextFocus"
-	},
-
-	// VIM
-	{
-		"key": "g g",
-		"command": "cursorTop",
-		"when": "vim.mode == 'Normal' && editorTextFocus"
-	},
-	{
-		"key": "g d",
-		"command": "editor.action.revealDefinition",
-		"when": "vim.mode == 'Normal' && editorTextFocus"
-	},
-	{
-		"key": "g r",
-		"command": "editor.action.goToReferences",
-		"when": "vim.mode == 'Normal' && editorTextFocus"
-	},
-	{
-		"key": "g b",
-		"command": "workbench.action.navigateBack",
-		"when": "vim.mode == 'Normal' && editorTextFocus"
+		"when": "neovim.mode == 'normal' && (editorTextFocus || !inputFocus) && !inQuickOpen"
 	},
 	{
 		"key": "space f w",
 		"command": "workbench.action.findInFiles",
-		"when": "vim.mode == 'Normal' && (editorTextFocus || !inputFocus)"
+		"when": "neovim.mode == 'normal' && (editorTextFocus || !inputFocus) && !inQuickOpen"
 	},
+	{
+		"key": "space f c",
+		"command": "workbench.files.action.collapseExplorerFolders",
+		"when": "neovim.mode == 'normal' && (editorTextFocus || !inputFocus) && !inQuickOpen"
+	},
+	{
+		"key": "space f m",
+		"command": "editor.action.formatDocument",
+		"when": "neovim.mode == 'normal' && editorTextFocus"
+	},
+	{
+		"key": "alt+shift+f",
+		"command": "editor.action.formatDocument",
+		"when": "neovim.mode == 'normal' && (editorTextFocus || !inputFocus) && !inQuickOpen"
+	},
+
+	// ========================================
+	// Sidebar & Explorer
+	// ========================================
+	{
+		"key": "space e e",
+		"command": "runCommands",
+		"args": {
+			"commands": ["workbench.files.action.focusFilesExplorer"]
+		},
+		"when": "neovim.mode == 'normal' && (editorTextFocus || !inputFocus) && !inQuickOpen"
+	},
+	{
+		"key": "space e t",
+		"command": "runCommands",
+		"args": {
+			"commands": ["workbench.action.toggleSidebarVisibility"]
+		},
+		"when": "neovim.mode == 'normal' && (editorTextFocus || !inputFocus) && !inQuickOpen"
+	},
+
+	// ========================================
+	// File Explorer Keybindings
+	// ========================================
 	{
 		"key": "a",
 		"command": "explorer.newFile",
@@ -167,52 +126,209 @@
 		"command": "deleteFile",
 		"when": "filesExplorerFocus && foldersViewVisible && !explorerResourceIsRoot && !explorerResourceReadonly && !inputFocus"
 	},
+
+	// ========================================
+	// Git Integration
+	// ========================================
+	{
+		"key": "space g g",
+		"command": "runCommands",
+		"args": {
+			"commands": ["workbench.view.scm", "workbench.scm.focus"]
+		},
+		"when": "neovim.mode == 'normal' && (editorTextFocus || !inputFocus)"
+	},
+
+	// ========================================
+	// Harpoon Navigation
+	// ========================================
+	{
+		"key": "space b a",
+		"command": "vscode-harpoon.addEditor",
+		"when": "neovim.mode == 'normal' && (editorTextFocus || !inputFocus) && !inQuickOpen"
+	},
+	{
+		"key": "space b e",
+		"command": "vscode-harpoon.editEditors",
+		"when": "neovim.mode == 'normal' && (editorTextFocus || !inputFocus) && !inQuickOpen"
+	},
+	{
+		"key": "space b l",
+		"command": "vscode-harpoon.editorQuickPick",
+		"when": "neovim.mode == 'normal' && (editorTextFocus || !inputFocus) && !inQuickOpen"
+	},
+	{
+		"key": "space 1",
+		"command": "vscode-harpoon.gotoEditor1",
+		"when": "neovim.mode == 'normal' && (editorTextFocus || !inputFocus) && !inQuickOpen"
+	},
+	{
+		"key": "space 2",
+		"command": "vscode-harpoon.gotoEditor2",
+		"when": "neovim.mode == 'normal' && (editorTextFocus || !inputFocus) && !inQuickOpen"
+	},
+	{
+		"key": "space 3",
+		"command": "vscode-harpoon.gotoEditor3",
+		"when": "neovim.mode == 'normal' && (editorTextFocus || !inputFocus) && !inQuickOpen"
+	},
+	{
+		"key": "space 4",
+		"command": "vscode-harpoon.gotoEditor4",
+		"when": "neovim.mode == 'normal' && (editorTextFocus || !inputFocus) && !inQuickOpen"
+	},
+	{
+		"key": "space 5",
+		"command": "vscode-harpoon.gotoEditor5",
+		"when": "neovim.mode == 'normal' && (editorTextFocus || !inputFocus) && !inQuickOpen"
+	},
+	{
+		"key": "space 6",
+		"command": "vscode-harpoon.gotoEditor6",
+		"when": "neovim.mode == 'normal' && (editorTextFocus || !inputFocus) && !inQuickOpen"
+	},
+
+	// ========================================
+	// Panel & View Management
+	// ========================================
+	{
+		"key": "alt+shift+l",
+		"command": "workbench.action.increaseViewSize",
+		"when": "neovim.mode == 'normal' && (editorTextFocus || !inputFocus) && !inQuickOpen"
+	},
+	{
+		"key": "alt+shift+h",
+		"command": "workbench.action.decreaseViewSize",
+		"when": "neovim.mode == 'normal' && (editorTextFocus || !inputFocus) && !inQuickOpen"
+	},
+
+	// ========================================
+	// Editor Management
+	// ========================================
 	{
 		"key": "space h",
 		"command": "runCommands",
-		"when": "vim.mode == 'Normal' && (editorTextFocus || !inputFocus)",
+		"when": "neovim.mode == 'normal' && (editorTextFocus || !inputFocus)",
 		"args": {
-			"commands": ["explorer.openToSide", "explorer.openAndPassFocus"]
+			"commands": ["workbench.action.splitEditorRight"]
 		}
 	},
 	{
 		"key": "space v",
 		"command": "runCommands",
-		"when": "vim.mode == 'Normal' && (editorTextFocus || !inputFocus)",
+		"when": "neovim.mode == 'normal' && (editorTextFocus || !inputFocus)",
+		"args": {
+			"commands": ["workbench.action.splitEditorDown"]
+		}
+	},
+	{
+		"key": "space x",
+		"command": "workbench.action.closeActiveEditor",
+		"when": "neovim.mode == 'normal' && editorTextFocus"
+	},
+	{
+		"key": "space d b",
+		"command": "workbench.action.closeAllEditors",
+		"when": "neovim.mode == 'normal' && editorTextFocus"
+	},
+	{
+		"key": "space w w",
+		"command": "editor.action.toggleWordWrap",
+		"when": "neovim.mode == 'normal' && (editorTextFocus || !inputFocus) && !terminalFocus"
+	},
+
+	// ========================================
+	// Vim-style Navigation & Actions
+	// ========================================
+	{
+		"key": "g g",
+		"command": "cursorTop",
+		"when": "neovim.mode == 'normal' && editorTextFocus"
+	},
+	{
+		"key": "g d",
+		"command": "editor.action.revealDefinition",
+		"when": "neovim.mode == 'normal' && editorTextFocus"
+	},
+	{
+		"key": "g r",
+		"command": "editor.action.goToReferences",
+		"when": "neovim.mode == 'normal' && editorTextFocus"
+	},
+	{
+		"key": "g b",
+		"command": "workbench.action.navigateBack",
+		"when": "neovim.mode == 'normal' && editorTextFocus"
+	},
+	{
+		"key": "ctrl+u",
+		"command": "runCommands",
 		"args": {
 			"commands": [
-				"workbench.action.splitEditorDown",
-				"explorer.openAndPassFocus"
+				{
+					"command": "cursorMove",
+					"args": {
+						"to": "viewPortTop"
+					}
+				},
+				{
+					"command": "editorScroll",
+					"args": {
+						"to": "up",
+						"by": "halfPage"
+					}
+				}
 			]
 		}
 	},
 	{
-		"key": "ctrl+n",
-		"command": "-workbench.action.files.newUntitledFile"
-	},
-	{
-		"key": "ctrl+b",
-		"command": "workbench.view.explorer",
-		"when": "viewContainer.workbench.view.explorer.enabled"
+		"key": "ctrl+d",
+		"command": "runCommands",
+		"args": {
+			"commands": [
+				{
+					"command": "cursorMove",
+					"args": {
+						"to": "viewPortBottom"
+					}
+				},
+				{
+					"command": "editorScroll",
+					"args": {
+						"to": "down",
+						"by": "halfPage"
+					}
+				}
+			]
+		}
 	},
 
-	// Pretter
+	// ========================================
+	// Code Actions & Editor Features
+	// ========================================
 	{
-		"key": "space f m",
-		"command": "editor.action.formatDocument",
-		"when": "vim.mode == 'Normal' && editorTextFocus"
+		"key": "shift+k",
+		"command": "editor.action.showHover",
+		"when": "neovim.mode == 'normal' && editorTextFocus"
+	},
+	{
+		"key": "space c a",
+		"command": "editor.action.codeAction",
+		"when": "neovim.mode == 'normal' && editorTextFocus"
+	},
+	{
+		"key": "space c r",
+		"command": "editor.action.rename",
+		"when": "neovim.mode == 'normal' && editorTextFocus"
 	},
 
-	// Terminal
+	// ========================================
+	// Terminal Management
+	// ========================================
 	{
 		"key": "ctrl+shift+f",
 		"command": "workbench.action.toggleMaximizedPanel",
 		"when": "terminalFocus"
-	},
-	{
-		"key": "ctrl+i",
-		"command": "workbench.panel.chat",
-		"when": "workbench.panel.chat.view.copilot.active"
 	},
 	{
 		"key": "ctrl+shift+j",
@@ -224,49 +340,63 @@
 		"command": "workbench.action.terminal.focusPrevious",
 		"when": "terminalFocus"
 	},
+
+	// ========================================
+	// AI & Copilot Features
+	// ========================================
 	{
-		"key": "space f c",
-		"command": "workbench.files.action.collapseExplorerFolders",
-		"when": "vim.mode == 'Normal' && (editorTextFocus || !inputFocus) && !inQuickOpen"
-	},
-	// Copilot
-	{
-		"key": "ctrl+j",
-		"command": "editor.action.inlineSuggest.commit",
-		"when": "inlineEditIsVisible && tabShouldAcceptInlineEdit && !editorHoverFocused && !editorTabMovesFocus && !suggestWidgetVisible || inlineSuggestionHasIndentationLessThanTabSize && inlineSuggestionVisible && !editorHoverFocused && !editorTabMovesFocus && !suggestWidgetVisible || inlineEditIsVisible && inlineSuggestionHasIndentationLessThanTabSize && inlineSuggestionVisible && !editorHoverFocused && !editorTabMovesFocus && !suggestWidgetVisible || inlineEditIsVisible && inlineSuggestionVisible && tabShouldAcceptInlineEdit && !editorHoverFocused && !editorTabMovesFocus && !suggestWidgetVisible"
+		"key": "escape",
+		"command": "composer.closeComposerTab",
+		"when": "composerFocused && !editorTextFocus || !editorTextFocus && focusedView =~ /^workbench.panel.aichat.view/"
 	},
 	{
-		"key": "ctrl+j",
-		"command": "editor.action.inlineSuggest.commit",
-		"when": "inInlineEditsPreviewEditor"
-	},
-	{
-		"key": "tab",
-		"command": "-editor.action.inlineSuggest.commit",
-		"when": "inlineEditIsVisible && tabShouldAcceptInlineEdit && !editorHoverFocused && !editorTabMovesFocus && !suggestWidgetVisible || inlineSuggestionHasIndentationLessThanTabSize && inlineSuggestionVisible && !editorHoverFocused && !editorTabMovesFocus && !suggestWidgetVisible || inlineEditIsVisible && inlineSuggestionHasIndentationLessThanTabSize && inlineSuggestionVisible && !editorHoverFocused && !editorTabMovesFocus && !suggestWidgetVisible || inlineEditIsVisible && inlineSuggestionVisible && tabShouldAcceptInlineEdit && !editorHoverFocused && !editorTabMovesFocus && !suggestWidgetVisible"
-	},
-	{
-		"key": "tab",
-		"command": "-editor.action.inlineSuggest.commit",
-		"when": "inInlineEditsPreviewEditor"
-	},
-	{
-		"key": "space w w",
-		"command": "editor.action.toggleWordWrap",
-		"when": "vim.mode == 'Normal' && (editorTextFocus || !inputFocus) && !terminalFocus"
-	},
-	{
-		"key": "alt+z",
-		"command": "-editor.action.toggleWordWrap"
+		"key": "ctrl+i",
+		"command": "workbench.panel.chat",
+		"when": "workbench.panel.chat.view.copilot.active"
 	},
 	{
 		"key": "ctrl+shift+h",
 		"command": "workbench.action.chat.history"
 	},
 	{
-		"key": "space d b",
-		"command": "workbench.action.closeAllEditors",
-		"when": "vim.mode == 'Normal' && editorTextFocus"
+		"key": "alt+l",
+		"command": "composer.startComposerPrompt"
+	},
+	{
+		"key": "ctrl+j",
+		"command": "editor.action.inlineSuggest.commit",
+		"when": "inlineEditIsVisible && tabShouldAcceptInlineEdit && !editorHoverFocused && !editorTabMovesFocus && !suggestWidgetVisible || inlineSuggestionHasIndentationLessThanTabSize && inlineSuggestionVisible && !editorHoverFocused && !editorTabMovesFocus && !suggestWidgetVisible || inlineEditIsVisible && inlineSuggestionHasIndentationLessThanTabSize && inlineSuggestionVisible && !editorHoverFocused && !editorTabMovesFocus && !suggestWidgetVisible || inlineEditIsVisible && inlineSuggestionVisible && tabShouldAcceptInlineEdit && !editorHoverFocused && !editorTabMovesFocus && !suggestWidgetVisible"
+	},
+	{
+		"key": "ctrl+j",
+		"command": "editor.action.inlineSuggest.commit",
+		"when": "inInlineEditsPreviewEditor"
+	},
+
+	// ========================================
+	// Disabled Commands (Overrides)
+	// ========================================
+	{
+		"key": "ctrl+n",
+		"command": "-workbench.action.files.newUntitledFile"
+	},
+	{
+		"key": "alt+z",
+		"command": "-editor.action.toggleWordWrap"
+	},
+	{
+		"key": "ctrl+i",
+		"command": "-composer.startComposerPrompt"
+	},
+	{
+		"key": "tab",
+		"command": "-editor.action.inlineSuggest.commit",
+		"when": "inlineEditIsVisible && tabShouldAcceptInlineEdit && !editorHoverFocused && !editorTabMovesFocus && !suggestWidgetVisible || inlineSuggestionHasIndentationLessThanTabSize && inlineSuggestionVisible && !editorHoverFocused && !editorTabMovesFocus && !suggestWidgetVisible || inlineEditIsVisible && inlineSuggestionHasIndentationLessThanTabSize && inlineSuggestionVisible && !editorHoverFocused && !editorTabMovesFocus && !suggestWidgetVisible || inlineEditIsVisible && inlineSuggestionVisible && tabShouldAcceptInlineEdit && !editorHoverFocused && !editorTabMovesFocus && !suggestWidgetVisible"
+	},
+	{
+		"key": "tab",
+		"command": "-editor.action.inlineSuggest.commit",
+		"when": "inInlineEditsPreviewEditor"
 	},
 	{
 		"key": "ctrl+shift+j",
@@ -284,9 +414,30 @@
 		"when": "inSearchEditor || searchViewletFocus"
 	},
 	{
+		"key": "ctrl+shift+j",
+		"command": "-find-it-faster.findFiles"
+	},
+	{
 		"key": "ctrl+shift+c",
 		"command": "-workbench.action.terminal.openNativeConsole",
 		"when": "!terminalFocus"
+	},
+	{
+		"key": "ctrl+shift+i",
+		"command": "-composer.newAgentChat"
+	},
+	{
+		"key": "ctrl+shift+u",
+		"command": "-find-it-faster.findWithinFiles"
+	},
+	{
+		"key": "ctrl+shift+alt+u",
+		"command": "-find-it-faster.findWithinFilesWithType"
+	},
+	{
+		"key": "ctrl+alt+i",
+		"command": "-workbench.action.chat.open",
+		"when": "chatPanelParticipantRegistered || chatSetupInstalled"
 	},
 	{
 		"key": "alt+l",
@@ -304,32 +455,41 @@
 		"when": "editorTextFocus"
 	},
 	{
-		"key": "ctrl+shift+i",
-		"command": "-composer.newAgentChat"
+		"key": "ctrl+w",
+		"command": "-vscode-neovim.send-cmdline",
+		"when": "neovim.init && neovim.mode == 'cmdline'"
 	},
 	{
-		"key": "alt+l",
-		"command": "composer.startComposerPrompt"
+		"key": "ctrl+w",
+		"command": "-vscode-neovim.send",
+		"when": "editorTextFocus && neovim.ctrlKeysNormal.w && neovim.init && neovim.mode != 'insert' && editorLangId not in 'neovim.editorLangIdExclusions'"
 	},
 	{
-		"key": "ctrl+i",
-		"command": "-composer.startComposerPrompt"
-	},
-	{
-		"key": "ctrl+alt+i",
-		"command": "-workbench.action.chat.open",
-		"when": "chatPanelParticipantRegistered || chatSetupInstalled"
-	},
-	{
-		"key": "ctrl+shift+j",
-		"command": "-find-it-faster.findFiles"
-	},
-	{
-		"key": "ctrl+shift+u",
-		"command": "-find-it-faster.findWithinFiles"
-	},
-	{
-		"key": "ctrl+shift+alt+u",
-		"command": "-find-it-faster.findWithinFilesWithType"
+		"key": "ctrl+w",
+		"command": "-vscode-neovim.send",
+		"when": "editorTextFocus && neovim.ctrlKeysInsert.w && neovim.init && neovim.mode == 'insert' && editorLangId not in 'neovim.editorLangIdExclusions'"
 	}
+
+	// ========================================
+	// Commented Out / Alternative Bindings
+	// ========================================
+	// FindItFaster (Alternative to default find)
+	// {
+	// 	"key": "space f f",
+	// 	"command": "find-it-faster.findFiles",
+	// 	"when": "neovim.mode == 'normal' && (editorTextFocus || !inputFocus) && !inQuickOpen"
+	// },
+	// {
+	// 	"key": "space f w",
+	// 	"command": "find-it-faster.findWithinFiles",
+	// 	"when": "neovim.mode == 'normal' && (editorTextFocus || !inputFocus)"
+	// },
+	
+	// Alternative Explorer Toggle
+	// {
+	// 	"key": "ctrl+b",
+	// 	"command": "workbench.view.explorer",
+	// 	"when": "viewContainer.workbench.view.explorer.enabled"
+	// },
 ]
+
