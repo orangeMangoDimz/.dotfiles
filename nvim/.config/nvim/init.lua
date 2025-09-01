@@ -20,41 +20,77 @@ if not vim.uv.fs_stat(lazypath) then
 end
 
 vim.opt.rtp:prepend(lazypath)
+vim.opt.clipboard = "unnamedplus"
 
 local lazy_config = require "configs.lazy"
-
--- load plugins
-require("lazy").setup({
-    {
-        "NvChad/NvChad",
-        lazy = false,
-        branch = "v2.5",
-        import = "nvchad.plugins",
-    },
-
-    { import = "plugins" },
-}, lazy_config)
 
 -- load theme
 dofile(vim.g.base46_cache .. "defaults")
 dofile(vim.g.base46_cache .. "statusline")
 
-require "options"
-require "nvchad.autocmds"
-
-vim.schedule(function()
-    require "mappings"
-end)
-
--- load colorscheme
-vim.cmd.colorscheme "catppuccin"
--- vim.cmd.colorscheme "github_dark_default"
--- vim.cmd.colorscheme "tokyodark"
-
 vim.opt.conceallevel = 2
--- additional snippets
-require("luasnip").filetype_extend("vue", { "html", "css", "typescript" })
-require("luasnip").filetype_extend(
-    "htmldjango",
-    { "html", "css", "javascript" }
-)
+vim.o.ignorecase = true
+vim.easymotion = true
+-- Don't redraw the screen while running macros or scripts
+vim.opt.lazyredraw = true
+
+-- Don't bother with a swap file
+vim.opt.swapfile = false
+vim.opt.backup = false
+
+-- Time in ms to wait for a mapped sequence to complete
+vim.opt.timeoutlen = 300
+
+-- Time in ms to wait for CursorHold event (used by many plugins)
+-- A higher value can reduce CPU usage.
+vim.opt.updatetime = 500
+
+
+if vim.g.vscode then
+    require("lazy").setup({
+        {
+            "NvChad/NvChad",
+            lazy = false,
+            branch = "v2.5",
+            import = "nvchad.plugins",
+        },
+
+    }, lazy_config)
+
+    -- Custom keybindings for VSCode
+    -- vim.keymap.set('n', '<leader>ff', function()
+    --     vim.fn.VSCodeNotify('workbench.action.quickOpen')
+    -- end, { desc = 'Quick Open' })
+    --
+    -- vim.keymap.set('n', '<leader>fw', function()
+    --     vim.fn.VSCodeNotify('workbench.action.findInFiles')
+    -- end, { desc = 'Find Files' })
+else
+    require("lazy").setup({
+        {
+            "NvChad/NvChad",
+            lazy = false,
+            branch = "v2.5",
+            import = "nvchad.plugins",
+        },
+
+        { import = "plugins" },
+    }, lazy_config)
+
+    -- load colorscheme
+    vim.cmd.colorscheme "catppuccin"
+
+    -- additional snippets
+    require("luasnip").filetype_extend("vue", { "html", "css", "typescript" })
+    require("luasnip").filetype_extend(
+        "htmldjango",
+        { "html", "css", "javascript" }
+    )
+
+    require "options"
+    require "nvchad.autocmds"
+
+    vim.schedule(function()
+        require "mappings"
+    end)
+end

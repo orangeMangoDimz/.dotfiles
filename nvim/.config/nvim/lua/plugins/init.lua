@@ -1,42 +1,5 @@
 return {
     {
-        "Hashino/doing.nvim",
-        cmd = "Do",
-        keys = {
-            { "<leader>da", function() require("doing").add() end,    {}, desc = "Add new task" },
-            { "<leader>dt", function() require("doing").toggle() end, {}, desc = "Toggle task" },
-            { "<leader>dn", function() require("doing").done() end,   {}, desc = "Mark task as done" },
-            { "<leader>de", function() require("doing").edit() end,   {}, desc = "Edit task" },
-        },
-        config = function()
-            require("doing").setup {
-                message_timeout = 2000,
-                doing_prefix = "Doing: ",
-                ignored_buffers = { "NvimTree" },
-                show_messages = true,
-                edit_win_config = {
-                    width = 50,
-                    height = 15,
-                    border = "rounded",
-                },
-                winbar = { enabled = true, },
-                store = {
-                    file_name = ".tasks",
-                },
-            }
-            vim.api.nvim_set_hl(0, "WinBar", { link = "Search" })
-            local doing = require("doing")
-            vim.keymap.set("n", "<leader>da", doing.add, { desc = "Add new task" })
-            vim.keymap.set("n", "<leader>de", doing.edit, { desc = "Edit task" })
-            vim.keymap.set("n", "<leader>dn", doing.done, { desc = "Mark task as done" })
-            vim.keymap.set("n", "<leader>dt", doing.toggle, { desc = "Toggle task" })
-            vim.keymap.set("n", "<leader>ds", function()
-                vim.notify(doing.status(true), vim.log.levels.INFO,
-                    { title = "Doing:", icon = "", })
-            end, { desc = "[D]oing: [S]tatus", })
-        end,
-    },
-    {
         "3rd/image.nvim",
         event = "VeryLazy",
         config = function()
@@ -91,6 +54,101 @@ return {
                 }, -- render image files as images when opened
             }
         end,
+    },
+    {
+        -- obsidian
+        "epwalsh/obsidian.nvim",
+        version = "*",
+        lazy = true,
+        ft = "markdown",
+        event = {
+            "BufReadPre /home/mango/Documents/notes/obsidian-notes/*.md",
+            "BufNewFile /home/mango/Documents/notes/obsidian-notes/*.md",
+        },
+        dependencies = {
+            "nvim-lua/plenary.nvim",
+        },
+        opts = {
+            workspaces = {
+                {
+                    name = "personal",
+                    path = "/home/mango/Documents/notes/obsidian-notes",
+                },
+                -- {
+                --     name = "work",
+                --     path = "~/vaults/work",
+                -- },
+            },
+            templates = {
+                folder = "templates",
+                date_format = "%Y-%m-%d-%a",
+                time_format = "%H:%M",
+            },
+            attachments = {
+                img_folder = "Images",
+            },
+        },
+    },
+    {
+        "yetone/avante.nvim",
+        event = "VeryLazy",
+        version = false, -- Never set this value to "*"! Never!
+        opts = {
+            -- add any opts here
+            -- for example
+            provider = "gemini",
+            providers = {
+                gemini = {
+                    endpoint = "https://generativelanguage.googleapis.com/v1beta/models",
+                    model = "gemini-2.5-pro-exp-03-25",
+                    timeout = 30000, -- Timeout in milliseconds
+                    temperature = 0,
+                    max_tokens = 8192,
+                },
+            },
+        },
+        -- if you want to build from source then do `make BUILD_FROM_SOURCE=true`
+        build = "make",
+        -- build = "powershell -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource false" -- for windows
+        dependencies = {
+            "nvim-treesitter/nvim-treesitter",
+            "nvim-lua/plenary.nvim",
+            "MunifTanjim/nui.nvim",
+            --- The below dependencies are optional,
+            "echasnovski/mini.pick",         -- for file_selector provider mini.pick
+            "nvim-telescope/telescope.nvim", -- for file_selector provider telescope
+            "hrsh7th/nvim-cmp",              -- autocompletion for avante commands and mentions
+            "ibhagwan/fzf-lua",              -- for file_selector provider fzf
+            "stevearc/dressing.nvim",        -- for input provider dressing
+            "folke/snacks.nvim",             -- for input provider snacks
+            "nvim-tree/nvim-web-devicons",   -- or echasnovski/mini.icons
+            "zbirenbaum/copilot.lua",        -- for providers='copilot'
+            {
+                -- support for image pasting
+                "HakonHarnes/img-clip.nvim",
+                event = "VeryLazy",
+                opts = {
+                    -- recommended settings
+                    default = {
+                        embed_image_as_base64 = false,
+                        prompt_for_file_name = false,
+                        drag_and_drop = {
+                            insert_mode = true,
+                        },
+                        -- required for Windows users
+                        use_absolute_path = true,
+                    },
+                },
+            },
+            {
+                -- Make sure to set this up properly if you have lazy=true
+                'MeanderingProgrammer/render-markdown.nvim',
+                opts = {
+                    file_types = { "markdown", "Avante" },
+                },
+                ft = { "markdown", "Avante" },
+            },
+        },
     },
     -- Install without configuration
     { "projekt0n/github-nvim-theme", name = "github-theme" },
@@ -153,40 +211,6 @@ return {
             },
         },
     },
-    {
-        -- obsidian
-        "epwalsh/obsidian.nvim",
-        version = "*",
-        lazy = true,
-        ft = "markdown",
-        event = {
-            "BufReadPre /home/mango/Documents/notes/obsidian-notes/*.md",
-            "BufNewFile /home/mango/Documents/notes/obsidian-notes/*.md",
-        },
-        dependencies = {
-            "nvim-lua/plenary.nvim",
-        },
-        opts = {
-            workspaces = {
-                {
-                    name = "personal",
-                    path = "/home/mango/Documents/notes/obsidian-notes",
-                },
-                -- {
-                --     name = "work",
-                --     path = "~/vaults/work",
-                -- },
-            },
-            templates = {
-                folder = "templates",
-                date_format = "%Y-%m-%d-%a",
-                time_format = "%H:%M",
-            },
-            attachments = {
-                img_folder = "Images",
-            },
-        },
-    },
     -- {
     --     -- Noice notification
     --     "folke/noice.nvim",
@@ -242,6 +266,8 @@ return {
         opts = {},
         config = function()
             require("render-markdown").setup({
+                heading = { border = true },
+                indent = { enabled = true, skip_level = 0 },
                 bullet = {
                     enabled = true,
                     render_modes = false,
@@ -465,33 +491,6 @@ return {
         end,
     },
     {
-        -- discord
-        "andweeb/presence.nvim",
-        event = { "BufEnter" },
-        config = function()
-            require("presence").setup {
-                auto_update = true,
-                neovim_image_text = "The One True Text Editor",
-                main_image = "neovim",
-                client_id = "793271441293967371",
-                log_level = "debug",
-                debounce_timeout = 10,
-                enable_line_number = false,
-                blacklist = {},
-                buttons = true,
-                file_assets = {},
-                show_time = true,
-                editing_text = "Editing %s",
-                file_explorer_text = "Browsing %s",
-                git_commit_text = "Committing changes",
-                plugin_manager_text = "Managing plugins",
-                reading_text = "Reading %s",
-                workspace_text = "Working on %s",
-                line_number_text = "Line %s out of %s",
-            }
-        end,
-    },
-    {
         -- live server
         "barrett-ruth/live-server.nvim",
         event = "VeryLazy",
@@ -629,9 +628,24 @@ return {
                 "json",
                 "yaml",
             },
+            -- Install parsers synchronously (only applied to `ensure_installed`)
             sync_install = false,
-            highlight = { enable = true },
-            indent = { enable = true },
+
+            -- Automatically install missing parsers when entering buffer
+            auto_install = true,
+
+            -- The main module to enable.
+            highlight = {
+                enable = true, -- REQUIRED. Enables syntax highlighting.
+                -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
+                -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
+                -- Using this option may slow down your editor, and you may see some flicker.
+                -- Instead of true it can also be a list of languages
+                additional_vim_regex_highlighting = false,
+            },
+            -- highlight = { enable = true },
+            -- sync_install = false,
+            -- indent = { enable = true },
         },
     },
 }
