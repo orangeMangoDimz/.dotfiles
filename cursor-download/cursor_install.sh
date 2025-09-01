@@ -171,23 +171,29 @@ check_sudo_permissions() {
 # Function to create temporary directory
 create_temp_dir() {
     TEMP_DIR=$(mktemp -d)
-    print_info "Created temporary directory: $TEMP_DIR"
+    print_info "Creating temporary directory for download..."
+    print_info "Temporary directory created at: $TEMP_DIR"
 }
 
 # Function to download Cursor
 download_cursor() {
-    print_info "Downloading Cursor from: $DOWNLOAD_URL"
+    print_info "Starting Cursor download process..."
+    print_info "Download URL: $DOWNLOAD_URL"
+    print_info "Changing to temporary directory: $TEMP_DIR"
     
     cd "$TEMP_DIR"
     DOWNLOADED_FILE="$TEMP_DIR/cursor.AppImage"
+    print_info "Target download file: $DOWNLOADED_FILE"
     
     # Try wget first, fallback to curl
     if command -v wget &> /dev/null; then
+        print_info "Using wget for download..."
         if ! wget -O "$DOWNLOADED_FILE" "$DOWNLOAD_URL"; then
             print_error "Download failed with wget"
             exit 1
         fi
     elif command -v curl &> /dev/null; then
+        print_info "Using curl for download..."
         if ! curl -L -o "$DOWNLOADED_FILE" "$DOWNLOAD_URL"; then
             print_error "Download failed with curl"
             exit 1
@@ -209,7 +215,8 @@ download_cursor() {
 
 # Function to install Cursor
 install_cursor() {
-    print_info "Installing Cursor..."
+    print_info "Starting Cursor installation process..."
+    print_info "Setting executable permissions on: $DOWNLOADED_FILE"
     
     # Make executable
     chmod +x "$DOWNLOADED_FILE"
@@ -217,19 +224,24 @@ install_cursor() {
     
     # Create target path
     local target_path="/usr/local/bin/$CURSOR_NAME"
+    print_info "Target installation path: $target_path"
     
     # Backup existing installation if it exists
     if [ -f "$target_path" ]; then
-        print_warning "Existing installation found, creating backup..."
-        sudo mv "$target_path" "${target_path}.backup.$(date +%Y%m%d_%H%M%S)"
-        print_success "Backup created"
+        local backup_path="${target_path}.backup.$(date +%Y%m%d_%H%M%S)"
+        print_warning "Existing installation found at: $target_path"
+        print_info "Creating backup at: $backup_path"
+        sudo mv "$target_path" "$backup_path"
+        print_success "Backup created at: $backup_path"
     fi
     
     # Move to system path
+    print_info "Moving AppImage from $DOWNLOADED_FILE to $target_path"
     if ! sudo mv "$DOWNLOADED_FILE" "$target_path"; then
         print_error "Failed to move file to $target_path"
         exit 1
     fi
+    print_success "AppImage moved to system path: $target_path"
     
     # Verify installation
     if [ ! -f "$target_path" ]; then
@@ -242,9 +254,10 @@ install_cursor() {
 
 # Function to create desktop file
 create_desktop_file() {
-    print_info "Creating desktop integration..."
+    print_info "Starting desktop integration setup..."
     
     local desktop_file="/usr/share/applications/cursor.desktop"
+    print_info "Desktop file path: $desktop_file"
     
     # Create desktop file content
     local desktop_content="[Desktop Entry]
@@ -253,21 +266,27 @@ Exec=/usr/local/bin/$CURSOR_NAME --no-sandbox
 Icon=/usr/local/bin/cursor.png
 Type=Application
 Categories=Development;"
+    print_info "Desktop file will execute: /usr/local/bin/$CURSOR_NAME --no-sandbox"
+    print_info "Application category: Development"
     
     # Backup existing desktop file if it exists
     if [ -f "$desktop_file" ]; then
-        print_warning "Existing desktop file found, creating backup..."
-        sudo cp "$desktop_file" "${desktop_file}.backup.$(date +%Y%m%d_%H%M%S)"
-        print_success "Desktop file backup created"
+        local desktop_backup="${desktop_file}.backup.$(date +%Y%m%d_%H%M%S)"
+        print_warning "Existing desktop file found at: $desktop_file"
+        print_info "Creating desktop file backup at: $desktop_backup"
+        sudo cp "$desktop_file" "$desktop_backup"
+        print_success "Desktop file backup created at: $desktop_backup"
     fi
     
     # Write desktop file
+    print_info "Writing desktop file content to: $desktop_file"
     if ! echo "$desktop_content" | sudo tee "$desktop_file" > /dev/null; then
         print_error "Failed to create desktop file"
         exit 1
     fi
     
     # Set proper permissions
+    print_info "Setting permissions (644) on desktop file"
     sudo chmod 644 "$desktop_file"
     
     print_success "Desktop file created at $desktop_file"
@@ -282,9 +301,10 @@ Categories=Development;"
 
 # Function to update .zshrc file
 update_zshrc() {
-    print_info "Updating .zshrc file..."
+    print_info "Starting .zshrc file update process..."
     
     local zshrc_file="$HOME/.zshrc"
+    print_info "Target .zshrc file: $zshrc_file"
     
     # Check if .zshrc exists
     if [ ! -f "$zshrc_file" ]; then
@@ -295,13 +315,15 @@ update_zshrc() {
     
     # Create backup
     local backup_file="${zshrc_file}.backup.$(date +%Y%m%d_%H%M%S)"
+    print_info "Creating .zshrc backup at: $backup_file"
     cp "$zshrc_file" "$backup_file"
-    print_success "Created .zshrc backup at $backup_file"
+    print_success "Created .zshrc backup at: $backup_file"
     
     # New function content
     local new_function="function cursor {
         /usr/local/bin/$CURSOR_NAME --no-sandbox \$@
 }"
+    print_info "New cursor function will execute: /usr/local/bin/$CURSOR_NAME --no-sandbox"
     
     # Check if cursor function already exists
     if grep -q "^function cursor" "$zshrc_file" || grep -q "^cursor()" "$zshrc_file"; then
@@ -326,16 +348,19 @@ update_zshrc() {
         ' "$zshrc_file" > "${zshrc_file}.tmp"
         
         # Add new function
+        print_info "Adding updated cursor function to temporary file"
         echo "" >> "${zshrc_file}.tmp"
         echo "$new_function" >> "${zshrc_file}.tmp"
         
         # Replace original file
+        print_info "Replacing original .zshrc with updated version"
         mv "${zshrc_file}.tmp" "$zshrc_file"
         print_success "Updated existing cursor function in .zshrc"
     else
         print_info "No existing cursor function found, adding new one..."
         
         # Add new function to end of file
+        print_info "Appending new cursor function to end of .zshrc file"
         echo "" >> "$zshrc_file"
         echo "# Cursor function added by cursor_install.sh" >> "$zshrc_file"
         echo "$new_function" >> "$zshrc_file"
@@ -347,7 +372,9 @@ update_zshrc() {
 
 # Function to launch Cursor
 launch_cursor() {
-    print_info "Launching Cursor..."
+    print_info "Starting Cursor application..."
+    print_info "Executing: /usr/local/bin/$CURSOR_NAME --no-sandbox"
+    print_info "Launching in background mode (detached from terminal)"
     
     # Launch in background and detach from terminal
     nohup "/usr/local/bin/$CURSOR_NAME" --no-sandbox > /dev/null 2>&1 &
@@ -367,9 +394,10 @@ launch_cursor() {
 # Function to cleanup temporary files
 cleanup() {
     if [ -n "$TEMP_DIR" ] && [ -d "$TEMP_DIR" ]; then
-        print_info "Cleaning up temporary files..."
+        print_info "Cleaning up temporary files and directories..."
+        print_info "Removing temporary directory: $TEMP_DIR"
         rm -rf "$TEMP_DIR"
-        print_success "Cleanup completed"
+        print_success "Temporary files cleanup completed"
     fi
 }
 
