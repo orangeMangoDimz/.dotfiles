@@ -1,7 +1,6 @@
 # if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
 #   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 # fi
-
 export ZSH="$HOME/.oh-my-zsh"
 # ZSH_THEME="powerlevel10k/powerlevel10k"
 
@@ -59,7 +58,6 @@ alias lz="lazygit"
 alias killport="f_killport"
 
 # Alias path
-alias spt="cd ~/.spotify_player/; ./spotify_player"
 alias last_save="/home/dimz/.local/share/tmux/resurrect" # execute: ln -sf <file_name> last
 
 # Alias django
@@ -138,6 +136,8 @@ alias dn="docker network"
 alias dcu="docker compose up"
 alias dcd="docker compose down"
 
+# alias bat="batcat"
+
 # Kill port
 f_killport() {
     if [ -z "$1" ]; then
@@ -159,7 +159,7 @@ env() {
 # Path: /opt/cursor.appimage
 # App exec: /usr/share/applications/cursor.desktop
 function cursor {
-        /usr/local/bin/cursor.appimage --no-sandbox $@
+        /usr/local/bin/Cursor-1.1.7-x86_64.AppImage --no-sandbox $@
 }
 
 # Alias python
@@ -174,6 +174,61 @@ fzf-history-widget() {
     selected_command=$(fc -l -n 1 | fzf --height 40% --reverse --tac --query="$LBUFFER") || return
     LBUFFER="$selected_command"
     zle accept-line
+}
+
+# Function to render LLM output as Markdown in Neovim and then delete the temp file
+llm_render_md() {
+    local tmpfile="/tmp/llm_response_$(date +%Y%m%d%H%M%S%N).md" # More precise timestamp for uniqueness
+    local prompt_text="$*" # Capture all arguments as the prompt
+
+    echo "Generating LLM response..."
+    # Ensure llm output is redirected to the temporary file
+    llm "$prompt_text" > "$tmpfile"
+
+    if [ $? -eq 0 ] && [ -s "$tmpfile" ]; then # Check if llm succeeded and file is not empty
+        echo "Response saved to $tmpfile."
+        echo "Opening in Neovim for Markdown preview. File will be deleted upon Neovim exit."
+        nvim "$tmpfile"
+
+        # --- NEW PART: Delete the temporary file after Neovim exits ---
+        if [ -f "$tmpfile" ]; then
+            rm "$tmpfile"
+            echo "Temporary file $tmpfile deleted."
+        fi
+        # -----------------------------------------------------------
+    else
+        echo "Error: LLM command failed or returned empty response."
+        if [ -f "$tmpfile" ]; then
+            rm "$tmpfile" # Clean up empty or failed file immediately
+            echo "Cleaned up empty or failed temporary file: $tmpfile"
+        fi
+    fi
+}
+
+# Your existing delete_llm_history function (no change needed here)
+delete_llm_history() {
+    local llm_db_path="${HOME}/.llm/llm.db"
+
+    if [ ! -f "$llm_db_path" ]; then
+        echo "LLM history database not found at: $llm_db_path"
+        echo "No history to delete."
+        return 1
+    fi
+
+    read -p "Are you sure you want to delete ALL llm response history from $llm_db_path? (y/N) " -n 1 -r
+    echo # Move to a new line
+    if [[ $REPLY =~ ^[Yy]$ ]]; then
+        echo "Deleting LLM history..."
+        # Use sqlite3 to delete all rows from the 'responses' table
+        sqlite3 "$llm_db_path" "DELETE FROM responses;"
+        if [ $? -eq 0 ]; then
+            echo "LLM history successfully deleted."
+        else
+            echo "Failed to delete LLM history. An error occurred with sqlite3."
+        fi
+    else
+        echo "LLM history deletion cancelled."
+    fi
 }
 
 zle -N fzf-history-widget
@@ -191,10 +246,6 @@ source ~/.zsh/catppuccin_mocha-zsh-syntax-highlighting.zsh
 
 export PATH="$HOME/.nvim/usr/bin:$PATH"
 
-# NOTE: Bottom line
-# feh <picture name>            -> open picture
-# wdg-open                      -> open video
-
 # bun completions
 [ -s "/home/dimz/.bun/_bun" ] && source "/home/dimz/.bun/_bun"
 
@@ -211,4 +262,15 @@ export STARSHIP_CONFIG="$HOME/.config/starship.toml"
 export PATH="$PATH:$HOME/.spicetify"
 eval "$(starship init zsh)"
 
+alias spt='kitty @ launch --location=hsplit cava >>/dev/null && sleep 0.1 && kitten @ resize-window --axis vertical --increment -10 && kitten @ focus-window --match neighbor:top && spotify_player'
+
 export PATH=$PATH:/home/mango/.spicetify
+
+# NOTE: Bottom line
+# feh <picture name>            -> open picture
+# wdg-open                      -> open video
+
+# Created by `pipx` on 2025-06-01 09:30:17
+export PATH="$PATH:/home/mango/.local/bin"
+
+# fastfetch
