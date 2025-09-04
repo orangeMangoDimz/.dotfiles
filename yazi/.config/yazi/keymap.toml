@@ -5,5 +5,5 @@ prepend_keymap = [
         shell 'xclip -selection clipboard -t image/png -i "$@"' --confirm
         ''',
         "yank"
-    ], desc = "Yank image and copy it to clipboard" }
+    ], desc = "Yank image and copy it to clipboard" },
 ]
