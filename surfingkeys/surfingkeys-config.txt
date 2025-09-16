@@ -458,7 +458,15 @@ settings.tabsThreshold = 0;
 settings.tabsMRUOrder = false;
 
 // Emoji sugestion
-settings.startToShowEmoji = 0;
+settings.startToShowEmoji = 1;
 
+settings.smoothScroll = false;
 
-
+// Replace google search with gogole ai mode
+api.removeSearchAlias('g');
+api.addSearchAlias('g', 'google ai mode', 'https://www.google.com/search?udm=50&q=%s', 's', 'https://www.google.com/complete/search?client=chrome&q=', function(response) {
+  var res = JSON.parse(response.text);
+  return res.map(function(r){
+      return r.phrase;
+  });
+});
