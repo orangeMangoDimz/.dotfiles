@@ -50,6 +50,7 @@
 "group/laptop": {
 	"orientation": "inherit",
 	"modules": [
+		"network",
 		"backlight",
 		"battery",
 	]

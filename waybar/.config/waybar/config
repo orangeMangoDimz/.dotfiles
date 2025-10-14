@@ -1,1 +1,39 @@
-/home/mango/.config/waybar/configs/[TOP] Default Laptop
+{
+    "layer": "bottom", 
+    "position": "bottom", 
+    "include": [
+        "$HOME/.config/waybar/Modules",
+        "$HOME/.config/waybar/ModulesWorkspaces",
+        "$HOME/.config/waybar/ModulesCustom",
+        "$HOME/.config/waybar/ModulesGroups",
+        "$HOME/.config/waybar/UserModules"
+    ],
+    "modules-left": [
+        "hyprland/workspaces#pacman"
+    ],
+    "modules-center": [
+        "custom/music",
+        "custom/separator#dot-line",
+        "clock"
+    ],
+    "modules-right": [
+        "battery",
+        "temperature",
+        "custom/separator#dot-line",
+        "tray"
+    ],
+    "custom/music": {
+        "format": "  {}",
+        "escape": true,
+        "interval": 5,
+        "tooltip": false,
+        "exec": "playerctl metadata --format='{{ title }}'",
+        "on-click": "playerctl play-pause",
+        "max-length": 25
+    },
+    "clock": {
+        "timezone": "Asia/Jakarta",
+        "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
+        "format": " {:%H:%M:%S}"
+    }
+}
