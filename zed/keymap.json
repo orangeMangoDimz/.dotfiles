@@ -1,0 +1,100 @@
+// Zed keymap
+//
+// For information on binding keys, see the Zed
+// documentation: https://zed.dev/docs/key-bindings
+//
+// To see the default key bindings run `zed: open default keymap`
+// from the command palette.
+[
+    {
+        "context": "Workspace",
+        "bindings": {
+            "shift-alt-l": "workspace::IncreaseOpenDocksSize",
+            "shift-alt-h": "workspace::DecreaseOpenDocksSize",
+            "ctrl-h": "workspace::ActivatePaneLeft",
+            "ctrl-l": "workspace::ActivatePaneRight",
+            "ctrl-k": "workspace::ActivatePaneUp",
+            "ctrl-j": "workspace::ActivatePaneDown"
+        }
+    },
+    {
+        "context": "vim_mode == normal && !menu",
+        "bindings": {
+            "space f f": "file_finder::Toggle",
+            "space f w": "pane::DeploySearch",
+            "space f m": "editor::Format",
+            "space c a": "editor::ToggleCodeActions",
+            "space c r": "editor::Rename",
+            "space c d": "diagnostics::Deploy",
+            "space e t": "workspace::ToggleRightDock",
+            "space e e": "project_panel::ToggleFocus",
+            "space e p": "outline::Toggle",
+            "space h": "pane::SplitRight",
+            "space v": "pane::SplitDown",
+            "space x": "pane::CloseActiveItem",
+            "space d b": "pane::CloseAllItems",
+            "space w w": "editor::ToggleSoftWrap",
+            "g b": "pane::GoBack",
+            "g r": "editor::FindAllReferences",
+
+            "space m p": "markdown::OpenPreview",
+            "space m P": "markdown::OpenPreviewToTheSide",
+            "space g h d": "editor::ToggleSelectedDiffHunks",
+            "space g h r": "git::Restore",
+
+            "ctrl-h": "workspace::ActivatePaneLeft",
+            "ctrl-l": "workspace::ActivatePaneRight",
+            "ctrl-k": "workspace::ActivatePaneUp",
+            "ctrl-j": "workspace::ActivatePaneDown",
+
+            // Error navigation
+            "] e": "editor::GoToDiagnostic",
+            "[ e": "editor::GoToPreviousDiagnostic",
+
+            // Git
+            "] h": "editor::GoToHunk",
+            "[ h": "editor::GoToPreviousHunk"
+        }
+    },
+    {
+        "context": "vim_mode == visual && !menu",
+        "bindings": {
+            "shift-j": "editor::MoveLineDown",
+            "shift-k": "editor::MoveLineUp"
+        }
+    },
+    {
+        "context": "vim_mode == insert",
+        "bindings": {
+            // "j j": "vim::NormalBefore"
+        }
+    },
+    {
+        "context": "Terminal",
+        "bindings": {
+            "ctrl-shift-f": "workspace::ToggleZoom",
+            "ctrl-shift-j": "pane::ActivateNextItem",
+            "ctrl-shift-k": "pane::ActivatePreviousItem",
+            "ctrl-h": "workspace::ActivatePaneLeft",
+            "ctrl-l": "workspace::ActivatePaneRight",
+            "ctrl-k": "workspace::ActivatePaneUp",
+            "ctrl-j": "workspace::ActivatePaneDown"
+        }
+    },
+    {
+        "context": "projectpanel && not_editing",
+        "bindings": {
+            "enter": "project_panel::Open"
+        }
+    },
+    {
+        "context": "ProjectPanel && not_editing",
+        "bindings": {
+            "r": "project_panel::Rename",
+            "a": "project_panel::NewFile",
+            "d": "project_panel::Delete",
+            "x": "project_panel::Cut",
+            "c": "project_panel::Copy"
+        }
+    }
+]

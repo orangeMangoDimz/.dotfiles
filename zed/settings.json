@@ -1,0 +1,129 @@
+// Zed settings
+//
+// For information on how to configure Zed, see the Zed
+// documentation: https://zed.dev/docs/configuring-zed
+//
+// To see all of Zed's default settings without changing your
+// custom settings, run `zed: open default settings` from the
+// command palette (cmd-shift-p / ctrl-shift-p)
+{
+    // General UI & Appearance
+    "theme": {
+        "mode": "system",
+        "light": "One Light",
+        "dark": "Catppuccin Mocha"
+    },
+    "icon_theme": "Catppuccin Mocha",
+    "ui_font_family": "JetBrainsMonoNL Nerd Font",
+    "ui_font_size": 24,
+    "cursor_shape": "block",
+    "cursor_blink": false,
+
+    // Buffer & Editing Experience
+    "buffer_font_size": 22.0,
+    "buffer_font_weight": 500,
+    "buffer_line_height": {
+        "custom": 1.5
+    },
+    "tab_size": 4,
+    "autosave": "off",
+    "relative_line_numbers": true,
+    "wrap_guides": [100],
+    "show_wrap_guides": true,
+    "indent_guides": {
+        "enabled": true,
+        "coloring": "indent_aware"
+    },
+    "show_whitespaces": "none",
+    "linked_edits": true,
+    "inlay_hints": {
+        "enabled": true
+    },
+    "show_completions_on_input": false,
+    "show_completion_documentation": false,
+    "vertical_scroll_margin": 10.0,
+    "git": {
+        "git_gutter": null,
+        "inline_blame": {
+            "enabled": true
+        }
+    },
+
+    // UI Panels & Layout
+    "project_panel": {
+        "scrollbar": {
+            "show": "never"
+        },
+        "indent_size": 32,
+        "dock": "right",
+        "auto_fold_dirs": false
+    },
+    "toolbar": {
+        "breadcrumbs": true,
+        "quick_actions": false
+    },
+    "tab_bar": {
+        "show": false
+    },
+    "preview_tabs": {
+        "enabled": false
+    },
+    "gutter": {
+        "line_numbers": false,
+        "folds": false
+    },
+    "minimap": {
+        "show": "never"
+    },
+    "scrollbar": {
+        "show": "never",
+        "axes": {
+            "horizontal": false
+        }
+    },
+
+    // Vim
+    "vim_mode": true,
+    "vim": {
+        "use_system_clipboard": "always"
+    },
+
+    // Agent
+    "agent": {
+        "default_profile": "write",
+        "default_model": {
+            "provider": "google",
+            "model": "gemini-2.5-pro"
+        },
+        "model_parameters": []
+    },
+    "agent_ui_font_size": 28.0,
+    "agent_buffer_font_size": 24.0,
+
+    // Terminal
+    "terminal": {
+        "font_size": 22.0,
+        "font_family": ".ZedMono",
+        "font_weight": 600,
+        "line_height": {
+            "custom": 1.5
+        }
+    },
+
+    // File & Search Settings
+    "search": {
+        "include_ignored": true
+    },
+    "file_finder": {
+        "include_ignored": true
+    },
+    "file_scan_inclusions": [".env*", "docker-compose.*.yml"],
+
+    // Miscellaneous
+    "base_keymap": "Cursor",
+    "telemetry": {
+        "diagnostics": true,
+        "metrics": true
+    },
+    "file_types": {}
+}
