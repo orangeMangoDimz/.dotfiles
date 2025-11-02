@@ -9,7 +9,6 @@
 	"editor.lineHeight": 1.5,
 	"editor.lineNumbers": "off",
 	"editor.tabSize": 6,
-
 	// Editor Appearance
 	"editor.minimap.enabled": false,
 	"editor.guides.indentation": false,
@@ -20,7 +19,6 @@
 	"editor.renderWhitespace": "none",
 	"editor.overviewRulerBorder": false,
 	"editor.stickyScroll.enabled": false,
-
 	// Editor Behavior
 	"editor.cursorBlinking": "solid",
 	"editor.cursorStyle": "block",
@@ -29,49 +27,34 @@
 	"editor.rename.enablePreview": false,
 	"editor.smoothScrolling": false,
 	"editor.largeFileOptimizations": false,
-
 	// Editor Scrollbars
 	"editor.scrollbar.horizontal": "hidden",
 	"editor.scrollbar.vertical": "hidden",
-
 	// Editor Unicode & Highlighting
 	"editor.unicodeHighlight.invisibleCharacters": false,
 	"editor.unicodeHighlight.ambiguousCharacters": false,
-
-	// ========================================
-	// Workbench & UI Configuration
-	// ========================================
-	"workbench.colorTheme": "Catppuccin Mocha",
 	"workbench.iconTheme": "catppuccin-mocha",
 	"workbench.sideBar.location": "right",
 	"workbench.tips.enabled": false,
 	"workbench.list.smoothScrolling": false,
-
 	// Activity Bar & Layout
 	"workbench.activityBar.location": "hidden",
 	"workbench.activityBar.orientation": "vertical",
 	"workbench.navigationControl.enabled": false,
 	"workbench.layoutControl.enabled": false,
 	"workbench.secondarySideBar.showLabels": false,
-
 	// Editor Tabs
 	"workbench.editor.showTabs": "single",
 	"workbench.editor.enablePreview": false,
-
-	// Breadcrumbs
-	"breadcrumbs.filePath": "off",
 	"breadcrumbs.symbolPath": "off",
-
 	// Window Settings
 	"window.newWindowDimensions": "maximized",
 	"window.commandCenter": false,
 	"window.menuBarVisibility": "compact",
-
 	// Zen Mode
 	"zenMode.centerLayout": false,
 	"zenMode.showTabs": "single",
 	"zenMode.hideLineNumbers": false,
-
 	// ========================================
 	// Color Customizations
 	// ========================================
@@ -88,7 +71,6 @@
 			"comments": "#9ca0b0"
 		}
 	},
-
 	// ========================================
 	// Terminal Configuration
 	// ========================================
@@ -99,17 +81,20 @@
 	"terminal.integrated.profiles.osx": {
 		"tmux-shell": {
 			"path": "tmux",
-			"args": ["new-session", "-A", "-s", "vscode:${workspaceFolder}"]
+			"args": [
+				"new-session",
+				"-A",
+				"-s",
+				"vscode:${workspaceFolder}"
+			]
 		}
 	},
-
 	// ========================================
 	// File & Project Management
 	// ========================================
 	"files.autoSaveDelay": 300,
 	"explorer.compactFolders": false,
 	"security.workspace.trust.untrustedFiles": "open",
-
 	// ========================================
 	// Language-Specific Formatters
 	// ========================================
@@ -120,7 +105,7 @@
 		"editor.defaultFormatter": "esbenp.prettier-vscode"
 	},
 	"[javascript]": {
-		"editor.defaultFormatter": "esbenp.prettier-vscode"
+		"editor.defaultFormatter": "vscode.typescript-language-features"
 	},
 	"[javascriptreact]": {
 		"editor.defaultFormatter": "vscode.typescript-language-features"
@@ -135,76 +120,70 @@
 		"editor.defaultFormatter": "vscode.json-language-features"
 	},
 	"[jsonc]": {
-		"editor.defaultFormatter": "esbenp.prettier-vscode"
+		"editor.defaultFormatter": "vscode.json-language-features"
 	},
 	"[python]": {
 		"diffEditor.ignoreTrimWhitespace": true
 	},
-
 	// ========================================
 	// Language Features & Updates
 	// ========================================
 	"typescript.updateImportsOnFileMove.enabled": "always",
 	"javascript.updateImportsOnFileMove.enabled": "always",
 	"json.schemaDownload.enable": true,
-
 	// ========================================
 	// Prettier Configuration
 	// ========================================
 	"prettier.tabWidth": 4,
 	"prettier.endOfLine": "auto",
 	"prettier.useTabs": true,
-
 	// ========================================
 	// Emmet Configuration
 	// ========================================
 	"emmet.includeLanguages": {
 		"django-html": "html"
 	},
-
 	// ========================================
 	// Git & Version Control
 	// ========================================
 	"git.autofetch": true,
 	"gitlens.graph.sidebar.enabled": false,
-
 	// ========================================
 	// Extension-Specific Settings
 	// ========================================
-
 	// Vim Extension
 	"vim.useSystemClipboard": true,
+	"vim.foldfix": true,
 	"vim.normalModeKeyBindingsNonRecursive": [
 		{
-			"before": ["j"],
-			"commands": ["cursorDown"]
+			"before": [
+				"j"
+			],
+			"commands": [
+				"cursorDown"
+			]
 		},
 		{
-			"before": ["k"],
-			"commands": ["cursorUp"]
+			"before": [
+				"k"
+			],
+			"commands": [
+				"cursorUp"
+			]
 		}
 	],
-
-	// Neovim Extension
-	"vscode-neovim.compositeKeys": {
-		"jj": {
-			"command": "vscode-neovim.escape"
-		}
-	},
-	"vscode-neovim.neovimExecutablePaths.linux": "/usr/bin/nvim",
-	"vscode-neovim.useWSL": false,
-	"vscode-neovim.revealCursorScrollLine": true,
-
+	"vim.statusBarColors.normal": "#519aba",
+	"vim.statusBarColors.insert": "#98c379",
+	"vim.statusBarColors.visual": "#c678dd",
 	// Catppuccin Theme
 	"catppuccin.bracketMode": "monochromatic",
-
-	// Material Icon Theme
-	"material-icon-theme.hidesExplorerArrows": true,
-
 	// Cursor IDE
-	"cursor.cpp.disabledLanguages": ["plaintext", "markdown", "scminput"],
+	"cursor.cpp.disabledLanguages": [
+		"plaintext",
+		"markdown",
+		"scminput"
+	],
 	"cursor.composer.shouldAutoScrollToBottom": false,
-
 	// ========================================
 	// Extensions & Remote Development
 	// ========================================
@@ -216,13 +195,11 @@
 	"remote.SSH.remotePlatform": {
 		"dev.webdev.garena.co.id": "linux"
 	},
-
 	// ========================================
 	// Debug & Output
 	// ========================================
 	"debug.shownStatusBar": "never",
 	"output.smartScroll.enabled": false,
-
 	// ========================================
 	// Profile & Workspace Settings
 	// ========================================
@@ -233,5 +210,18 @@
 	"editor.bracketPairColorization.enabled": false,
 	"editor.colorDecorators": false,
 	"vim.easymotionDimColor": "#cdd6f4",
-	"vim.easymotionIncSearchForegroundColor": "#bac2de"
+	"vim.easymotionIncSearchForegroundColor": "#bac2de",
+	"clangd.path": "/home/orangemango/.config/Cursor/User/globalStorage/llvm-vs-code-extensions.vscode-clangd/install/21.1.0/clangd_21.1.0/bin/clangd",
+	"[dart]": {
+		// "editor.formatOnType": true,
+		// "editor.selectionHighlight": false,
+		"editor.tabCompletion": "onlySnippets",
+		"editor.wordBasedSuggestions": "off"
+	},
+	"git.openRepositoryInParentFolders": "never",
+	"redhat.telemetry.enabled": false,
+	"[yaml]": {
+		"editor.defaultFormatter": "esbenp.prettier-vscode"
+	},
+	"workbench.colorTheme": "Catppuccin Mocha"
 }
