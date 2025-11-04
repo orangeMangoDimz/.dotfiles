@@ -34,6 +34,7 @@
             "space x": "pane::CloseActiveItem",
             "space d b": "pane::CloseAllItems",
             "space w w": "editor::ToggleSoftWrap",
+            "space f c": "project_panel::CollapseAllEntries",
             "g b": "pane::GoBack",
             "g r": "editor::FindAllReferences",
 
@@ -41,6 +42,8 @@
             "space m P": "markdown::OpenPreviewToTheSide",
             "space g h d": "editor::ToggleSelectedDiffHunks",
             "space g h r": "git::Restore",
+
+            "space n c": "workspace::ClearAllNotifications",
 
             "ctrl-h": "workspace::ActivatePaneLeft",
             "ctrl-l": "workspace::ActivatePaneRight",
@@ -94,7 +97,104 @@
             "a": "project_panel::NewFile",
             "d": "project_panel::Delete",
             "x": "project_panel::Cut",
-            "c": "project_panel::Copy"
+            "c": "project_panel::Copy",
+            "p": "project_panel::Paste"
+        }
+    },
+    {
+        "context": "(Editor && mode == full)",
+        "bindings": {
+            "alt-l": "agent::ToggleFocus"
+        }
+    },
+    {
+        "context": "Terminal",
+        "bindings": {
+            "alt-t": null
+        }
+    },
+    {
+        "context": "Workspace",
+        "bindings": {
+            "alt-t": null
+        }
+    },
+    {
+        "context": "(AgentPanel && prompt_editor)",
+        "bindings": {
+            "alt-t": "agent::NewThread"
+        }
+    },
+    {
+        "context": "(AgentPanel && external_agent_thread)",
+        "bindings": {
+            "alt-t": "agent::NewThread"
+        }
+    },
+    {
+        "context": "(AgentPanel && prompt_editor)",
+        "bindings": {
+            "ctrl-alt-t": null
+        }
+    },
+    {
+        "context": "(AgentPanel && external_agent_thread)",
+        "bindings": {
+            "ctrl-alt-t": null
+        }
+    },
+    {
+      "context": "((AgentPanel || ContextEditor) || MessageEditor > Editor)",
+      "bindings": {
+        "alt-m": "agent::ToggleModelSelector"
+      }
+    },
+    {
+      "context": "((AgentPanel || ContextEditor) || MessageEditor > Editor)",
+      "bindings": {
+        "ctrl-/": null
+      }
+    },
+    {
+      "context": "AgentPanel",
+      "bindings": {
+        "ctrl-alt-/": null
+      }
+    },
+    {
+        "context": "AgentPanel",
+        "bindings": {
+            "alt-h": "agent::OpenHistory"
+        }
+    },
+    {
+        "context": "AgentPanel",
+        "bindings": {
+            "ctrl-shift-h": null
+        }
+    },
+    {
+        "context": "(AgentPanel && acp_thread)",
+        "bindings": {
+            "ctrl-alt-t": null
+        }
+    },
+    {
+        "context": "(AgentPanel && text_thread)",
+        "bindings": {
+            "ctrl-alt-t": null
+        }
+    },
+    {
+        "context": "((AgentPanel || ContextEditor) || MessageEditor > Editor)",
+        "bindings": {
+            "alt-shift-t": "agent::NewThread"
+        }
+    },
+    {
+        "context": "((AgentPanel || ContextEditor) || MessageEditor > Editor)",
+        "bindings": {
+            "ctrl-r": null
         }
     }
 ]

@@ -8,20 +8,37 @@
 // command palette (cmd-shift-p / ctrl-shift-p)
 {
     // General UI & Appearance
+    "context_servers": {
+        "mcp-server-github": {
+            "source": "extension",
+            "enabled": true,
+            "settings": {}
+        }
+    },
+    "snippet_sort_order": "none",
+    "show_signature_help_after_edits": false,
     "theme": {
         "mode": "system",
         "light": "One Light",
         "dark": "Catppuccin Mocha"
     },
+    "format_on_save": "off",
     "icon_theme": "Catppuccin Mocha",
-    "ui_font_family": "JetBrainsMonoNL Nerd Font",
+    "ui_font_family": "JetBrainsMono Nerd Font",
+    "ui_font_weight": 600,
     "ui_font_size": 24,
     "cursor_shape": "block",
     "cursor_blink": false,
+    "status_bar": {
+        "cursor_position_button": false,
+        "active_language_button": false,
+        "experimental.show": false
+    },
 
     // Buffer & Editing Experience
     "buffer_font_size": 22.0,
-    "buffer_font_weight": 500,
+    "buffer_font_family": "Fira Code",
+    "buffer_font_weight": 600,
     "buffer_line_height": {
         "custom": 1.5
     },
@@ -37,10 +54,11 @@
     "show_whitespaces": "none",
     "linked_edits": true,
     "inlay_hints": {
-        "enabled": true
+        "enabled": false
     },
-    "show_completions_on_input": false,
-    "show_completion_documentation": false,
+    "show_completions_on_input": true,
+    "show_completion_documentation": true,
+    "disable_ai": false,
     "vertical_scroll_margin": 10.0,
     "git": {
         "git_gutter": null,
@@ -90,20 +108,20 @@
 
     // Agent
     "agent": {
-        "default_profile": "write",
+        "default_profile": "ask",
         "default_model": {
             "provider": "google",
             "model": "gemini-2.5-pro"
         },
         "model_parameters": []
     },
-    "agent_ui_font_size": 28.0,
-    "agent_buffer_font_size": 24.0,
+    "agent_ui_font_size": 24.0,
+    "agent_buffer_font_size": 22.0,
 
     // Terminal
     "terminal": {
-        "font_size": 22.0,
-        "font_family": ".ZedMono",
+        "font_size": 20.0,
+        "font_family": "Fira Code",
         "font_weight": 600,
         "line_height": {
             "custom": 1.5
@@ -115,7 +133,7 @@
         "include_ignored": true
     },
     "file_finder": {
-        "include_ignored": true
+        "include_ignored": "all"
     },
     "file_scan_inclusions": [".env*", "docker-compose.*.yml"],
 
