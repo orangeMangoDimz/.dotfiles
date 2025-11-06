@@ -6,45 +6,69 @@
 // To see the default key bindings run `zed: open default keymap`
 // from the command palette.
 [
+    // ============================================================================
+    // Workspace Navigation
+    // ============================================================================
     {
         "context": "Workspace",
         "bindings": {
-            "shift-alt-l": "workspace::IncreaseOpenDocksSize",
-            "shift-alt-h": "workspace::DecreaseOpenDocksSize",
+            // Breakpoint
+            "space b t": "editor::ToggleBreakpoint",
+
+            // Pane navigation
             "ctrl-h": "workspace::ActivatePaneLeft",
             "ctrl-l": "workspace::ActivatePaneRight",
             "ctrl-k": "workspace::ActivatePaneUp",
-            "ctrl-j": "workspace::ActivatePaneDown"
+            "ctrl-j": "workspace::ActivatePaneDown",
+
+            // Dock size adjustment
+            "shift-alt-l": "workspace::IncreaseOpenDocksSize",
+            "shift-alt-h": "workspace::DecreaseOpenDocksSize",
+
+            // Unbind default terminal toggle
+            "alt-t": null
         }
     },
+
+    // ============================================================================
+    // Vim Mode - Normal
+    // ============================================================================
     {
         "context": "vim_mode == normal && !menu",
         "bindings": {
+            // File operations
             "space f f": "file_finder::Toggle",
             "space f w": "pane::DeploySearch",
             "space f m": "editor::Format",
+            "space f c": "project_panel::CollapseAllEntries",
+
+            // Code actions
             "space c a": "editor::ToggleCodeActions",
             "space c r": "editor::Rename",
             "space c d": "diagnostics::Deploy",
+
+            // Explorer/Panels
             "space e t": "workspace::ToggleRightDock",
             "space e e": "project_panel::ToggleFocus",
             "space e p": "outline::Toggle",
+
+            // Window management
             "space h": "pane::SplitRight",
             "space v": "pane::SplitDown",
             "space x": "pane::CloseActiveItem",
-            "space d b": "pane::CloseAllItems",
+            // "space d b": "pane::CloseAllItems",
             "space w w": "editor::ToggleSoftWrap",
-            "space f c": "project_panel::CollapseAllEntries",
+
+            // Pane resizing (similar to Cursor)
+            "alt-shift-l": "vim::ResizePaneRight",
+            "alt-shift-h": "vim::ResizePaneLeft",
+
+            // Claude Code agent
+            "space a t": "agent::NewThread",
+
+            // Navigation
             "g b": "pane::GoBack",
             "g r": "editor::FindAllReferences",
-
-            "space m p": "markdown::OpenPreview",
-            "space m P": "markdown::OpenPreviewToTheSide",
-            "space g h d": "editor::ToggleSelectedDiffHunks",
-            "space g h r": "git::Restore",
-
-            "space n c": "workspace::ClearAllNotifications",
-
             "ctrl-h": "workspace::ActivatePaneLeft",
             "ctrl-l": "workspace::ActivatePaneRight",
             "ctrl-k": "workspace::ActivatePaneUp",
@@ -54,11 +78,26 @@
             "] e": "editor::GoToDiagnostic",
             "[ e": "editor::GoToPreviousDiagnostic",
 
-            // Git
+            // Git - Hunk navigation
             "] h": "editor::GoToHunk",
-            "[ h": "editor::GoToPreviousHunk"
+            "[ h": "editor::GoToPreviousHunk",
+
+            // Git - Actions
+            "space g h d": "editor::ToggleSelectedDiffHunks",
+            "space g h r": "git::Restore",
+
+            // Markdown
+            "space m p": "markdown::OpenPreview",
+            "space m P": "markdown::OpenPreviewToTheSide",
+
+            // Notifications
+            "space n c": "workspace::ClearAllNotifications"
         }
     },
+
+    // ============================================================================
+    // Vim Mode - Visual
+    // ============================================================================
     {
         "context": "vim_mode == visual && !menu",
         "bindings": {
@@ -66,24 +105,45 @@
             "shift-k": "editor::MoveLineUp"
         }
     },
+
+    // ============================================================================
+    // Vim Mode - Insert
+    // ============================================================================
     {
         "context": "vim_mode == insert",
         "bindings": {
+            // Uncomment to enable jj to exit insert mode
             // "j j": "vim::NormalBefore"
         }
     },
+
+    // ============================================================================
+    // Terminal
+    // ============================================================================
     {
         "context": "Terminal",
         "bindings": {
-            "ctrl-shift-f": "workspace::ToggleZoom",
-            "ctrl-shift-j": "pane::ActivateNextItem",
-            "ctrl-shift-k": "pane::ActivatePreviousItem",
+            // Pane navigation
             "ctrl-h": "workspace::ActivatePaneLeft",
             "ctrl-l": "workspace::ActivatePaneRight",
             "ctrl-k": "workspace::ActivatePaneUp",
-            "ctrl-j": "workspace::ActivatePaneDown"
+            "ctrl-j": "workspace::ActivatePaneDown",
+
+            // Terminal tab navigation
+            "ctrl-shift-j": "pane::ActivateNextItem",
+            "ctrl-shift-k": "pane::ActivatePreviousItem",
+
+            // Zoom
+            "ctrl-shift-f": "workspace::ToggleZoom",
+
+            // Unbind default terminal toggle
+            "alt-t": null
         }
     },
+
+    // ============================================================================
+    // Project Panel
+    // ============================================================================
     {
         "context": "projectpanel && not_editing",
         "bindings": {
@@ -101,76 +161,32 @@
             "p": "project_panel::Paste"
         }
     },
+
+    // ============================================================================
+    // Editor
+    // ============================================================================
     {
         "context": "(Editor && mode == full)",
         "bindings": {
             "alt-l": "agent::ToggleFocus"
         }
     },
-    {
-        "context": "Terminal",
-        "bindings": {
-            "alt-t": null
-        }
-    },
-    {
-        "context": "Workspace",
-        "bindings": {
-            "alt-t": null
-        }
-    },
+
+    // ============================================================================
+    // Agent Panel
+    // ============================================================================
     {
         "context": "(AgentPanel && prompt_editor)",
         "bindings": {
-            "alt-t": "agent::NewThread"
-        }
-    },
-    {
-        "context": "(AgentPanel && external_agent_thread)",
-        "bindings": {
-            "alt-t": "agent::NewThread"
-        }
-    },
-    {
-        "context": "(AgentPanel && prompt_editor)",
-        "bindings": {
+            "alt-t": "agent::NewThread",
             "ctrl-alt-t": null
         }
     },
     {
         "context": "(AgentPanel && external_agent_thread)",
         "bindings": {
+            "alt-t": "agent::NewThread",
             "ctrl-alt-t": null
-        }
-    },
-    {
-      "context": "((AgentPanel || ContextEditor) || MessageEditor > Editor)",
-      "bindings": {
-        "alt-m": "agent::ToggleModelSelector"
-      }
-    },
-    {
-      "context": "((AgentPanel || ContextEditor) || MessageEditor > Editor)",
-      "bindings": {
-        "ctrl-/": null
-      }
-    },
-    {
-      "context": "AgentPanel",
-      "bindings": {
-        "ctrl-alt-/": null
-      }
-    },
-    {
-        "context": "AgentPanel",
-        "bindings": {
-            "alt-h": "agent::OpenHistory"
-        }
-    },
-    {
-        "context": "AgentPanel",
-        "bindings": {
-            "ctrl-shift-h": null
         }
     },
     {
@@ -186,15 +202,52 @@
         }
     },
     {
-        "context": "((AgentPanel || ContextEditor) || MessageEditor > Editor)",
+        "context": "AgentPanel",
         "bindings": {
-            "alt-shift-t": "agent::NewThread"
+            "alt-h": "agent::OpenHistory",
+            "alt-f": "agent::ExpandMessageEditor",
+            "ctrl-alt-/": null,
+            "ctrl-shift-h": null,
+            "alt-shift-escape": null
         }
     },
     {
         "context": "((AgentPanel || ContextEditor) || MessageEditor > Editor)",
         "bindings": {
+            "alt-m": "agent::ToggleModelSelector",
+            "alt-shift-t": "agent::NewThread",
+            "ctrl-/": null,
             "ctrl-r": null
+        }
+    },
+
+    // ============================================================================
+    // File Finder & Search
+    // ============================================================================
+    {
+        "context": "((FileFinder || FileFinder > Picker > Editor) || FileFinder > Picker > menu)",
+        "bindings": {
+            // Keep ctrl-h disabled in file finder to allow backspace-like behavior
+            // "ctrl-h": null
+        }
+    },
+    {
+        "context": "BufferSearchBar",
+        "bindings": {
+            // Keep ctrl-h disabled in search bar to allow backspace-like behavior
+            // "ctrl-h": null
+        }
+    },
+    {
+        "context": "!Terminal",
+        "bindings": {
+            "ctrl-shift-c": null
+        }
+    },
+    {
+        "context": "Editor",
+        "bindings": {
+            "f9": null
         }
     }
 ]
