@@ -9,6 +9,7 @@ plugins=(
     zsh-autosuggestions
     zsh-syntax-highlighting
     zsh-interactive-cd
+    zsh-vi-mode
     # zsh-bat
 )
 
@@ -54,7 +55,8 @@ alias pgcli="PAGER='less -S' pgcli"
 alias mycli="mycli --socket /var/run/mysqld/mysqld.sock -u root -p root"
 alias desktop_app=" cd /usr/share/applications; ls"
 alias cava="TERM=xterm-256color cava"
-alias lz="lazygit"
+alias lzg="lazygit"
+alias lzd="lazydocker"
 alias killport="f_killport"
 
 # Alias path
@@ -154,12 +156,6 @@ env() {
         elif [ "$1" = "off" ]; then
                 deactivate
         fi
-}
-
-# Path: /opt/cursor.appimage
-# App exec: /usr/share/applications/cursor.desktop
-function cursor {
-        /usr/local/bin/Cursor-1.1.7-x86_64.AppImage --no-sandbox $@
 }
 
 # Alias python
@@ -273,4 +269,9 @@ export PATH=$PATH:/home/mango/.spicetify
 # Created by `pipx` on 2025-06-01 09:30:17
 export PATH="$PATH:/home/mango/.local/bin"
 
+export ANDROID_HOME=$HOME/Android/Sdk
+export PATH=$PATH:$ANDROID_HOME/emulator
+export PATH=$PATH:$ANDROID_HOME/platform-tools
+
 # fastfetch
+export PATH="$HOME/go/bin:$PATH"
