@@ -12,9 +12,6 @@
     {
         "context": "Workspace",
         "bindings": {
-            // Breakpoint
-            "space b t": "editor::ToggleBreakpoint",
-
             // Pane navigation
             "ctrl-h": "workspace::ActivatePaneLeft",
             "ctrl-l": "workspace::ActivatePaneRight",
@@ -36,6 +33,11 @@
     {
         "context": "vim_mode == normal && !menu",
         "bindings": {
+            // Breakpoint
+            "space b t": "editor::ToggleBreakpoint",
+            "j": ["vim::Down", { "display_lines": true }],
+            "k": ["vim::Up", { "display_lines": true }],
+
             // File operations
             "space f f": "file_finder::Toggle",
             "space f w": "pane::DeploySearch",
