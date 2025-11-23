@@ -7,141 +7,310 @@
 // custom settings, run `zed: open default settings` from the
 // command palette (cmd-shift-p / ctrl-shift-p)
 {
-    // General UI & Appearance
+    // === LSP CONFIGURATION ===
+    // Language Server Protocol settings for various tools
+    "lsp": {
+        // TailwindCSS: Define which attributes should be treated as class names
+        "tailwindcss-language-server": {
+            "settings": {
+                "classAttributes": ["class", "className", "ngClass", "styles"]
+            }
+        }
+    },
+
+    // Centered layout padding (15% on each side)
+    "centered_layout": {
+        "left_padding": 0.15,
+        "right_padding": 0.15
+    },
+
+    // === GENERAL UI & APPEARANCE ===
+    // Disable automatic updates
+    "auto_update": false,
+
+    // MCP (Model Context Protocol) servers for AI integrations
     "context_servers": {
+        // Task manager server using npx
+        "taskmanager": {
+            "source": "custom",
+            "enabled": true,
+            "command": "npx",
+            "args": ["-y", "@kazuph/mcp-taskmanager"],
+            "env": {}
+        },
+        // Context7 API for enhanced context
+        "mcp-server-context7": {
+            "source": "extension",
+            "enabled": true,
+            "settings": {
+                "context7_api_key": "ctx7sk-822fae8a-3542-40ae-b1d7-31fb95e630ce"
+            }
+        },
+        // PostgreSQL database connection
+        "postgres-context-server": {
+            "source": "extension",
+            "enabled": true,
+            "settings": {
+                "database_url": "postgresql://postgres:root@localhost:5432/testing?schema=public"
+            }
+        },
+        // GitHub integration for repository access
         "mcp-server-github": {
             "source": "extension",
             "enabled": true,
-            "settings": {}
+            "settings": {
+                "github_personal_access_token": "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"
+            }
         }
     },
+
+    // Don't sort code snippets, keep original order
     "snippet_sort_order": "none",
+
+    // Hide signature help tooltips after making edits
     "show_signature_help_after_edits": false,
+
+    // Color theme: follows system theme, Light/Dark variants
     "theme": {
         "mode": "system",
         "light": "One Light",
         "dark": "Catppuccin Mocha"
     },
+
+    // Disable automatic formatting when saving files
     "format_on_save": "off",
+
+    // File icon theme
     "icon_theme": "Catppuccin Mocha",
-    "ui_font_family": "JetBrainsMono Nerd Font",
+
+    // UI font (currently commented out)
+    // "ui_font_family": "JetBrainsMono Nerd Font",
+
+    // UI font styling
     "ui_font_weight": 600,
     "ui_font_size": 24,
+
+    // Block cursor that doesn't blink
     "cursor_shape": "block",
     "cursor_blink": false,
+
+    // Status bar: hide all indicators for minimal look
     "status_bar": {
+        "line_endings_button": false,
         "cursor_position_button": false,
         "active_language_button": false,
         "experimental.show": false
     },
 
-    // Buffer & Editing Experience
+    // === BUFFER & EDITING EXPERIENCE ===
+    // Editor font settings
     "buffer_font_size": 22.0,
     "buffer_font_family": "Fira Code",
     "buffer_font_weight": 600,
     "buffer_line_height": {
-        "custom": 1.5
+        "custom": 1.5  // 1.5x line spacing for readability
     },
+
+    // Use 4 spaces for indentation
     "tab_size": 4,
+
+    // Manual save only (no autosave)
     "autosave": "off",
-    "relative_line_numbers": true,
+
+    // Show line numbers relative to cursor position
+    "relative_line_numbers": "enabled",
+
+    // Show vertical guide at 100 characters
     "wrap_guides": [100],
     "show_wrap_guides": true,
+
+    // Indent guides with intelligent coloring
     "indent_guides": {
         "enabled": true,
         "coloring": "indent_aware"
     },
+
+    // Don't show whitespace characters
     "show_whitespaces": "none",
+
+    // Enable linked editing (e.g., rename matching HTML tags)
     "linked_edits": true,
+
+    // Show inline type hints from LSP
     "inlay_hints": {
-        "enabled": false
+        "enabled": true
     },
+
+    // Auto-completion settings
     "show_completions_on_input": true,
     "show_completion_documentation": true,
+
+    // Keep AI features enabled
     "disable_ai": false,
+
+    // Keep 10 lines visible above/below cursor when scrolling
     "vertical_scroll_margin": 10.0,
+
+    // Git integration settings
     "git": {
-        "git_gutter": null,
+        "git_gutter": null,  // Gutter indicators for git changes
         "inline_blame": {
-            "enabled": true
+            "enabled": true  // Show git blame inline
         }
     },
 
-    // UI Panels & Layout
+    // === UI PANELS & LAYOUT ===
+    // Project panel (file explorer) on the right side
     "project_panel": {
+        "entry_spacing": "comfortable",  // More spacing between files
+        "button": true,  // Show panel toggle button
         "scrollbar": {
-            "show": "never"
+            "show": "never"  // Hide scrollbar
         },
-        "indent_size": 32,
-        "dock": "right",
-        "auto_fold_dirs": false
+        "sticky_scroll": true,  // Keep current folder visible
+        "show_diagnostics": "all",  // Show all error/warning indicators
+        "indent_size": 32,  // Indentation for nested folders
+        "hide_root": true,  // Don't show root folder name
+        "hide_hidden": false,  // Show hidden files (e.g., .gitignore)
+        "drag_and_drop": true,  // Enable drag & drop file operations
+        "dock": "right",  // Position panel on right side
+        "auto_fold_dirs": false,  // Don't auto-collapse folders
+        "git_status": true  // Show git status indicators
     },
+
+    // Outline panel (symbols/structure) on right
+    "outline_panel": {
+        "dock": "right"
+    },
+
+    // Collaboration panel on left
+    "collaboration_panel": {
+        "dock": "left"
+    },
+
+    // Notification panel on left
+    "notification_panel": {
+        "dock": "left"
+    },
+
+    // Top toolbar settings
     "toolbar": {
-        "breadcrumbs": true,
-        "quick_actions": false
+        "breadcrumbs": true,  // Show file path breadcrumbs
+        "quick_actions": false  // Hide quick action buttons
     },
+
+    // Hide tab bar completely
     "tab_bar": {
         "show": false
     },
+
+    // Only show error diagnostics in tabs (not warnings)
+    "tabs": {
+        "show_diagnostics": "errors"
+    },
+
+    // Disable preview tabs (always open tabs fully)
     "preview_tabs": {
         "enabled": false
     },
+
+    // Hide line numbers and fold indicators in gutter
     "gutter": {
         "line_numbers": false,
         "folds": false
     },
+
+    // Hide minimap (code overview)
     "minimap": {
         "show": "never"
     },
+
+    // Hide scrollbars
     "scrollbar": {
         "show": "never",
         "axes": {
-            "horizontal": false
+            "horizontal": false  // Disable horizontal scrollbar
         }
     },
 
-    // Vim
+    // === VIM MODE ===
+    // Enable Vim keybindings
     "vim_mode": true,
     "vim": {
-        "use_system_clipboard": "always"
+        "use_system_clipboard": "always"  // Sync with system clipboard
     },
 
-    // Agent
+    // === AGENT (AI ASSISTANT) ===
+    // AI agent configuration
     "agent": {
-        "default_profile": "ask",
+        "dock": "left",  // Show agent panel on left
+        "default_profile": "minimal",  // Use minimal agent profile
         "default_model": {
-            "provider": "google",
-            "model": "gemini-2.5-pro"
+            "provider": "anthropic",
+            "model": "haiku"  // Use Claude Haiku model
         },
         "model_parameters": []
     },
-    "agent_ui_font_size": 24.0,
-    "agent_buffer_font_size": 22.0,
 
-    // Terminal
+    // Agent UI font sizes
+    "agent_ui_font_size": 26.0,
+    "agent_buffer_font_size": 20.0,
+
+    // === TERMINAL ===
+    // Integrated terminal settings
     "terminal": {
         "font_size": 20.0,
         "font_family": "Fira Code",
         "font_weight": 600,
         "line_height": {
-            "custom": 1.5
+            "custom": 1.5  // Match editor line height
         }
     },
 
-    // File & Search Settings
+    // === FILE & SEARCH SETTINGS ===
+    // Include ignored files in search results
     "search": {
         "include_ignored": true
     },
+
+    // Include all files in file finder (even gitignored)
     "file_finder": {
         "include_ignored": "all"
     },
+
+    // Always scan these files even if typically ignored
     "file_scan_inclusions": [".env*", "docker-compose.*.yml"],
 
-    // Miscellaneous
+    // === MISCELLANEOUS ===
+    // Use Cursor-style keybindings
     "base_keymap": "Cursor",
+
+    // Disable telemetry data collection
     "telemetry": {
-        "diagnostics": true,
-        "metrics": true
+        "diagnostics": false,
+        "metrics": false
     },
-    "file_types": {}
+
+    // Custom file type associations (empty)
+    "file_types": {},
+
+    // Default code formatter
+    "formatter": "prettier",
+
+    // === LANGUAGE-SPECIFIC SETTINGS ===
+    "languages": {
+        // Python: Use Ruff for formatting, Pyright + Ruff for LSP
+        "Python": {
+            "format_on_save": "off",
+            "formatter": { "language_server": { "name": "ruff" } },
+            "language_servers": ["pyright", "ruff"]
+        },
+        // Dart/Flutter: 4-space indentation, manual formatting
+        "Dart": {
+            "tab_size": 4,
+            "format_on_save": "off",
+            "formatter": "language_server"
+        }
+    }
 }
+

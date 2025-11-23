@@ -7,12 +7,29 @@
 // from the command palette.
 [
     // ============================================================================
+    // Global Bindings (Apply to all contexts)
+    // ============================================================================
+    {
+        "bindings": {
+            // Vim-style pane navigation using Ctrl + hjkl
+            "ctrl-h": "workspace::ActivatePaneLeft",    // Move to left pane
+            "ctrl-l": "workspace::ActivatePaneRight",   // Move to right pane
+            "ctrl-k": "workspace::ActivatePaneUp",      // Move to upper pane
+            "ctrl-j": "workspace::ActivatePaneDown",    // Move to lower pane
+
+            // Resize docked panels (sidebars)
+            "shift-alt-l": "workspace::IncreaseOpenDocksSize",  // Make docks wider
+            "shift-alt-h": "workspace::DecreaseOpenDocksSize"   // Make docks narrower
+        }
+    },
+
+    // ============================================================================
     // Workspace Navigation
     // ============================================================================
     {
         "context": "Workspace",
         "bindings": {
-            // Pane navigation
+            // Vim-style pane navigation (same as global)
             "ctrl-h": "workspace::ActivatePaneLeft",
             "ctrl-l": "workspace::ActivatePaneRight",
             "ctrl-k": "workspace::ActivatePaneUp",
@@ -22,8 +39,8 @@
             "shift-alt-l": "workspace::IncreaseOpenDocksSize",
             "shift-alt-h": "workspace::DecreaseOpenDocksSize",
 
-            // Unbind default terminal toggle
-            "alt-t": null
+            // Toggle left sidebar (agent/collaboration panels)
+            "alt-l": "workspace::ToggleLeftDock"
         }
     },
 
@@ -33,67 +50,75 @@
     {
         "context": "vim_mode == normal && !menu",
         "bindings": {
-            // Breakpoint
-            "space b t": "editor::ToggleBreakpoint",
-            "j": ["vim::Down", { "display_lines": true }],
-            "k": ["vim::Up", { "display_lines": true }],
+            // === DEBUGGING ===
+            "space b t": "editor::ToggleBreakpoint",  // Toggle breakpoint on current line
 
-            // File operations
-            "space f f": "file_finder::Toggle",
-            "space f w": "pane::DeploySearch",
-            "space f m": "editor::Format",
-            "space f c": "project_panel::CollapseAllEntries",
+            // === VIM MOTION OVERRIDES ===
+            "j": ["vim::Down", { "display_lines": true }],  // Move down by display lines (respects soft wrap)
+            "k": ["vim::Up", { "display_lines": true }],    // Move up by display lines (respects soft wrap)
 
-            // Code actions
-            "space c a": "editor::ToggleCodeActions",
-            "space c r": "editor::Rename",
-            "space c d": "diagnostics::Deploy",
+            // === FILE OPERATIONS (Space + F) ===
+            "space f f": "file_finder::Toggle",             // Find file (fuzzy search)
+            "space f w": "pane::DeploySearch",              // Search in workspace (find/replace)
+            "space f m": "editor::Format",                  // Format current file
+            "space f c": "project_panel::CollapseAllEntries",  // Collapse all folders in project panel
 
-            // Explorer/Panels
-            "space e t": "workspace::ToggleRightDock",
-            "space e e": "project_panel::ToggleFocus",
-            "space e p": "outline::Toggle",
+            // === CODE ACTIONS (Space + C) ===
+            "space c a": "editor::ToggleCodeActions",  // Show available code actions (quick fixes)
+            "space c r": "editor::Rename",             // Rename symbol under cursor
+            "space c d": "diagnostics::Deploy",        // Show diagnostics panel (errors/warnings)
 
-            // Window management
-            "space h": "pane::SplitRight",
-            "space v": "pane::SplitDown",
-            "space x": "pane::CloseActiveItem",
-            // "space d b": "pane::CloseAllItems",
-            "space w w": "editor::ToggleSoftWrap",
+            // === EXPLORER/PANELS (Space + E) ===
+            "space e t": "workspace::ToggleRightDock",     // Toggle right dock (project panel + outline)
+            "space e e": "project_panel::ToggleFocus",     // Toggle focus on project explorer
+            "space e p": "outline::Toggle",                // Toggle outline panel (symbols)
 
-            // Pane resizing (similar to Cursor)
-            "alt-shift-l": "vim::ResizePaneRight",
-            "alt-shift-h": "vim::ResizePaneLeft",
+            // === WINDOW MANAGEMENT (Space + H/V/X/W) ===
+            "space h": "pane::SplitRight",          // Split pane horizontally (new pane on right)
+            "space v": "pane::SplitDown",           // Split pane vertically (new pane below)
+            "space x": "pane::CloseActiveItem",     // Close current file/tab
+            // "space d b": "pane::CloseAllItems",  // (Commented) Close all tabs in pane
+            "space w w": "editor::ToggleSoftWrap",  // Toggle soft line wrapping
 
-            // Claude Code agent
-            "space a t": "agent::NewThread",
+            // === PANE RESIZING ===
+            "alt-shift-l": "vim::ResizePaneRight",  // Expand pane to the right
+            "alt-shift-h": "vim::ResizePaneLeft",   // Expand pane to the left
 
-            // Navigation
-            "g b": "pane::GoBack",
-            "g r": "editor::FindAllReferences",
+            // === AI AGENT (Space + A) ===
+            "space a t": "agent::NewThread",  // Start new AI agent conversation
+
+            // === NAVIGATION (G prefix) ===
+            "g b": "pane::GoBack",                   // Go back to previous location
+            "g r": "editor::FindAllReferences",      // Find all references to symbol
+
+            // Vim-style pane navigation
             "ctrl-h": "workspace::ActivatePaneLeft",
             "ctrl-l": "workspace::ActivatePaneRight",
             "ctrl-k": "workspace::ActivatePaneUp",
             "ctrl-j": "workspace::ActivatePaneDown",
 
-            // Error navigation
-            "] e": "editor::GoToDiagnostic",
-            "[ e": "editor::GoToPreviousDiagnostic",
+            // === ERROR NAVIGATION (Bracket prefix) ===
+            "] e": "editor::GoToDiagnostic",          // Go to next error/warning
+            "[ e": "editor::GoToPreviousDiagnostic",  // Go to previous error/warning
 
-            // Git - Hunk navigation
-            "] h": "editor::GoToHunk",
-            "[ h": "editor::GoToPreviousHunk",
+            // === GIT - HUNK NAVIGATION (Bracket + H) ===
+            "] h": "editor::GoToHunk",          // Go to next git change (hunk)
+            "[ h": "editor::GoToPreviousHunk",  // Go to previous git change (hunk)
 
-            // Git - Actions
-            "space g h d": "editor::ToggleSelectedDiffHunks",
-            "space g h r": "git::Restore",
+            // === GIT - ACTIONS (Space + G + H) ===
+            "space g h d": "editor::ToggleSelectedDiffHunks",  // Toggle diff view for selected hunks
+            "space g h r": "git::Restore",                     // Restore/discard changes
+            "space g h f": "git_panel::ToggleFocus",           // Focus git panel
 
-            // Markdown
-            "space m p": "markdown::OpenPreview",
-            "space m P": "markdown::OpenPreviewToTheSide",
+            // === MARKDOWN (Space + M) ===
+            "space m p": "markdown::OpenPreview",           // Open markdown preview (in-place)
+            "space m P": "markdown::OpenPreviewToTheSide",  // Open markdown preview (side-by-side)
 
-            // Notifications
-            "space n c": "workspace::ClearAllNotifications"
+            // === NOTIFICATIONS (Space + N) ===
+            "space n c": "workspace::ClearAllNotifications",  // Clear all notifications
+
+            // Toggle left sidebar
+            "alt-l": "workspace::ToggleLeftDock"
         }
     },
 
@@ -103,8 +128,13 @@
     {
         "context": "vim_mode == visual && !menu",
         "bindings": {
-            "shift-j": "editor::MoveLineDown",
-            "shift-k": "editor::MoveLineUp"
+            // Move selected lines up/down
+            "shift-j": "editor::MoveLineDown",  // Move selection down
+            "shift-k": "editor::MoveLineUp",    // Move selection up
+
+            // Sneak motion plugin (two-character search)
+            "s": ["vim::PushSneak", {}],          // Sneak forward
+            "S": ["vim::PushSneakBackward", {}]   // Sneak backward
         }
     },
 
@@ -114,7 +144,7 @@
     {
         "context": "vim_mode == insert",
         "bindings": {
-            // Uncomment to enable jj to exit insert mode
+            // Uncomment to enable jj to exit insert mode (common Vim customization)
             // "j j": "vim::NormalBefore"
         }
     },
@@ -125,99 +155,134 @@
     {
         "context": "Terminal",
         "bindings": {
-            // Pane navigation
+            // Pane navigation (same as Vim mode)
             "ctrl-h": "workspace::ActivatePaneLeft",
             "ctrl-l": "workspace::ActivatePaneRight",
             "ctrl-k": "workspace::ActivatePaneUp",
             "ctrl-j": "workspace::ActivatePaneDown",
 
-            // Terminal tab navigation
-            "ctrl-shift-j": "pane::ActivateNextItem",
-            "ctrl-shift-k": "pane::ActivatePreviousItem",
+            // Navigate between terminal tabs
+            "ctrl-shift-j": "pane::ActivateNextItem",      // Next terminal tab
+            "ctrl-shift-k": "pane::ActivatePreviousItem",  // Previous terminal tab
 
-            // Zoom
+            // Toggle fullscreen/zoom for terminal
             "ctrl-shift-f": "workspace::ToggleZoom",
 
-            // Unbind default terminal toggle
+            // Disable default terminal toggle keybinding
             "alt-t": null
         }
     },
 
     // ============================================================================
-    // Project Panel
+    // Project Panel (File Explorer)
     // ============================================================================
-    {
-        "context": "projectpanel && not_editing",
-        "bindings": {
-            "enter": "project_panel::Open"
-        }
-    },
     {
         "context": "ProjectPanel && not_editing",
         "bindings": {
-            "r": "project_panel::Rename",
-            "a": "project_panel::NewFile",
-            "d": "project_panel::Delete",
-            "x": "project_panel::Cut",
-            "c": "project_panel::Copy",
-            "p": "project_panel::Paste"
+            // File/folder operations (Vim-style)
+            "a": "project_panel::NewFile",       // Add new file
+            "A": "project_panel::NewDirectory",  // Add new directory/folder
+            "r": "project_panel::Rename",        // Rename file/folder
+            "d": "project_panel::Delete",        // Delete file/folder
+            "x": "project_panel::Cut",           // Cut file/folder
+            "c": "project_panel::Copy",          // Copy file/folder
+            "p": "project_panel::Paste",         // Paste file/folder
+
+            // Close project panel (since it's on the right)
+            "q": "workspace::ToggleRightDock",
+            "space e t": "workspace::ToggleRightDock",
+
+            // Navigate between panels from project panel
+            "ctrl-h": "workspace::ActivatePaneLeft",
+            "ctrl-l": "workspace::ActivatePaneRight",
+            "ctrl-k": "workspace::ActivatePaneUp",
+            "ctrl-j": "workspace::ActivatePaneDown",
+
+            // Open file and close panel in one keystroke
+            "enter": ["workspace::SendKeystrokes", "enter space e t"]
         }
     },
 
     // ============================================================================
-    // Editor
+    // Editor (Full Mode)
     // ============================================================================
     {
         "context": "(Editor && mode == full)",
         "bindings": {
-            "alt-l": "agent::ToggleFocus"
+            // Empty - placeholder for future editor-specific bindings
         }
     },
 
     // ============================================================================
-    // Agent Panel
+    // Agent Panel - Base Context
     // ============================================================================
-    {
-        "context": "(AgentPanel && prompt_editor)",
-        "bindings": {
-            "alt-t": "agent::NewThread",
-            "ctrl-alt-t": null
-        }
-    },
-    {
-        "context": "(AgentPanel && external_agent_thread)",
-        "bindings": {
-            "alt-t": "agent::NewThread",
-            "ctrl-alt-t": null
-        }
-    },
-    {
-        "context": "(AgentPanel && acp_thread)",
-        "bindings": {
-            "ctrl-alt-t": null
-        }
-    },
-    {
-        "context": "(AgentPanel && text_thread)",
-        "bindings": {
-            "ctrl-alt-t": null
-        }
-    },
     {
         "context": "AgentPanel",
         "bindings": {
-            "alt-h": "agent::OpenHistory",
-            "alt-f": "agent::ExpandMessageEditor",
+            // Create new external agent thread (Claude Code)
+            "alt-t": [
+                "agent::NewExternalAgentThread",
+                { "agent": "claude_code" }
+            ]
+        }
+    },
+
+    // === Agent Panel - Prompt Editor Context ===
+    {
+        "context": "(AgentPanel && prompt_editor)",
+        "bindings": {
+            "alt-t": "agent::NewThread",  // New thread from prompt editor
+            "ctrl-alt-t": null            // Disable default binding
+        }
+    },
+
+    // === Agent Panel - External Agent Thread Context ===
+    {
+        "context": "(AgentPanel && external_agent_thread)",
+        "bindings": {
+            "alt-t": "agent::NewThread",  // New thread in external agent
+            "ctrl-alt-t": null            // Disable default binding
+        }
+    },
+
+    // === Agent Panel - ACP Thread Context ===
+    {
+        "context": "(AgentPanel && acp_thread)",
+        "bindings": {
+            "ctrl-alt-t": null  // Disable default binding
+        }
+    },
+
+    // === Agent Panel - Text Thread Context ===
+    {
+        "context": "(AgentPanel && text_thread)",
+        "bindings": {
+            "ctrl-alt-t": null  // Disable default binding
+        }
+    },
+
+    // === Agent Panel - Additional Controls ===
+    {
+        "context": "AgentPanel",
+        "bindings": {
+            "alt-h": "agent::OpenHistory",           // Open agent conversation history
+            "alt-f": "agent::ExpandMessageEditor",   // Expand message editor (full screen)
+
+            // Disable default bindings
             "ctrl-alt-/": null,
             "ctrl-shift-h": null,
             "alt-shift-escape": null
         }
     },
+
+    // === Agent Panel - Message Editor ===
     {
         "context": "((AgentPanel || ContextEditor) || MessageEditor > Editor)",
         "bindings": {
-            "alt-m": "agent::ToggleModelSelector",
-            "alt-shift-t": "agent::NewThread",
+            "alt-m": "agent::ToggleModelSelector",  // Switch AI model
+            "alt-shift-t": "agent::NewThread",      // New thread
+
+            // Disable default bindings
             "ctrl-/": null,
             "ctrl-r": null
         }
@@ -226,30 +291,53 @@
     // ============================================================================
     // File Finder & Search
     // ============================================================================
+
+    // === File Finder Context ===
     {
         "context": "((FileFinder || FileFinder > Picker > Editor) || FileFinder > Picker > menu)",
         "bindings": {
             // Keep ctrl-h disabled in file finder to allow backspace-like behavior
+            // This prevents conflict with text editing in the fuzzy finder
             // "ctrl-h": null
         }
     },
+
+    // === Buffer Search Bar Context ===
     {
         "context": "BufferSearchBar",
         "bindings": {
             // Keep ctrl-h disabled in search bar to allow backspace-like behavior
+            // This prevents conflict with text editing in the search field
             // "ctrl-h": null
         }
     },
+
+    // ============================================================================
+    // Non-Terminal Contexts (Global Override)
+    // ============================================================================
     {
         "context": "!Terminal",
         "bindings": {
+            // Ensure pane navigation works everywhere except terminal
+            "ctrl-h": "workspace::ActivatePaneLeft",
+            "ctrl-l": "workspace::ActivatePaneRight",
+            "ctrl-k": "workspace::ActivatePaneUp",
+            "ctrl-j": "workspace::ActivatePaneDown",
+
+            // Disable default copy binding
             "ctrl-shift-c": null
         }
     },
+
+    // ============================================================================
+    // Editor-Specific Overrides
+    // ============================================================================
     {
         "context": "Editor",
         "bindings": {
+            // Disable F9 (typically used for debugging)
             "f9": null
         }
     }
 ]
+
