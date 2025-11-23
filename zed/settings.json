@@ -138,7 +138,7 @@
 
     // Show inline type hints from LSP
     "inlay_hints": {
-        "enabled": true
+        "enabled": false
     },
 
     // Auto-completion settings

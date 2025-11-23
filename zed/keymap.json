@@ -40,7 +40,8 @@
             "shift-alt-h": "workspace::DecreaseOpenDocksSize",
 
             // Toggle left sidebar (agent/collaboration panels)
-            "alt-l": "workspace::ToggleLeftDock"
+            // "alt-l": "workspace::ToggleLeftDock"
+            "alt-l": "agent::ToggleFocus"
         }
     },
 
@@ -118,7 +119,8 @@
             "space n c": "workspace::ClearAllNotifications",  // Clear all notifications
 
             // Toggle left sidebar
-            "alt-l": "workspace::ToggleLeftDock"
+            // "alt-l": "workspace::ToggleLeftDock"
+            "alt-l": "agent::ToggleFocus"
         }
     },
 
@@ -219,6 +221,7 @@
     {
         "context": "AgentPanel",
         "bindings": {
+            "alt-l": "workspace::ToggleLeftDock",
             // Create new external agent thread (Claude Code)
             "alt-t": [
                 "agent::NewExternalAgentThread",
