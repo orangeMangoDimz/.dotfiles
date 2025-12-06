@@ -48,7 +48,7 @@
 	{
 		"key": "space f f",
 		"command": "workbench.action.quickOpen",
-		"when": "vim.mode == 'Normal' && (editorTextFocus || !inputFocus) && !inQuickOpen"
+		"when": "vim.mode == 'Normal' && editorTextFocus && !inChatInput"
 	},
 	// {
 	// 	"key": "space f w",
@@ -58,17 +58,17 @@
 	{
 		"key": "space f w",
 		"command": "search.action.openEditor",
-		"when": "vim.mode == 'Normal' && (editorTextFocus || !inputFocus) && !inQuickOpen"
+		"when": "vim.mode == 'Normal' && editorTextFocus && !inChatInput"
 	},
 	{
 		"key": "space f c",
 		"command": "workbench.files.action.collapseExplorerFolders",
-		"when": "vim.mode == 'Normal' && (editorTextFocus || !inputFocus) && !inQuickOpen"
+		"when": "vim.mode == 'Normal' && editorTextFocus && !inChatInput"
 	},
 	{
 		"key": "space f m",
 		"command": "editor.action.formatDocument",
-		"when": "vim.mode == 'Normal' && editorTextFocus"
+		"when": "vim.mode == 'Normal' && editorTextFocus && !inChatInput"
 	},
 	{
 		"key": "alt+shift+f",
@@ -86,7 +86,7 @@
 				"workbench.files.action.focusFilesExplorer"
 			]
 		},
-		"when": "vim.mode == 'Normal' && (editorTextFocus || !inputFocus) && !inQuickOpen"
+		"when": "vim.mode == 'Normal' && editorTextFocus && !inChatInput"
 	},
 	{
 		"key": "space e t",
@@ -96,7 +96,7 @@
 				"workbench.action.toggleSidebarVisibility"
 			]
 		},
-		"when": "vim.mode == 'Normal' && (editorTextFocus || !inputFocus) && !inQuickOpen"
+		"when": "vim.mode == 'Normal' && editorTextFocus && !inChatInput"
 	},
 	// ========================================
 	// File Explorer Keybindings
@@ -143,7 +143,7 @@
 				"workbench.scm.focus"
 			]
 		},
-		"when": "vim.mode == 'Normal' && (editorTextFocus || !inputFocus)"
+		"when": "vim.mode == 'Normal' && editorTextFocus && !inChatInput"
 	},
 	// ========================================
 	// Harpoon Navigation
@@ -151,47 +151,47 @@
 	{
 		"key": "space b a",
 		"command": "cursor-harpoon.addEditor",
-		"when": "vim.mode == 'Normal' && (editorTextFocus || !inputFocus) && !inQuickOpen"
+		"when": "vim.mode == 'Normal' && editorTextFocus && !inChatInput"
 	},
 	{
 		"key": "space b e",
 		"command": "cursor-harpoon.editEditors",
-		"when": "vim.mode == 'Normal' && (editorTextFocus || !inputFocus) && !inQuickOpen"
+		"when": "vim.mode == 'Normal' && editorTextFocus && !inChatInput"
 	},
 	{
 		"key": "space b l",
 		"command": "cursor-harpoon.editorQuickPick",
-		"when": "vim.mode == 'Normal' && (editorTextFocus || !inputFocus) && !inQuickOpen"
+		"when": "vim.mode == 'Normal' && editorTextFocus && !inChatInput"
 	},
 	{
 		"key": "space 1",
 		"command": "cursor-harpoon.gotoEditor1",
-		"when": "vim.mode == 'Normal' && (editorTextFocus || !inputFocus) && !inQuickOpen"
+		"when": "vim.mode == 'Normal' && editorTextFocus && !inChatInput"
 	},
 	{
 		"key": "space 2",
 		"command": "cursor-harpoon.gotoEditor2",
-		"when": "vim.mode == 'Normal' && (editorTextFocus || !inputFocus) && !inQuickOpen"
+		"when": "vim.mode == 'Normal' && editorTextFocus && !inChatInput"
 	},
 	{
 		"key": "space 3",
 		"command": "cursor-harpoon.gotoEditor3",
-		"when": "vim.mode == 'Normal' && (editorTextFocus || !inputFocus) && !inQuickOpen"
+		"when": "vim.mode == 'Normal' && editorTextFocus && !inChatInput"
 	},
 	{
 		"key": "space 4",
 		"command": "cursor-harpoon.gotoEditor4",
-		"when": "vim.mode == 'Normal' && (editorTextFocus || !inputFocus) && !inQuickOpen"
+		"when": "vim.mode == 'Normal' && editorTextFocus && !inChatInput"
 	},
 	{
 		"key": "space 5",
 		"command": "cursor-harpoon.gotoEditor5",
-		"when": "vim.mode == 'Normal' && (editorTextFocus || !inputFocus) && !inQuickOpen"
+		"when": "vim.mode == 'Normal' && editorTextFocus && !inChatInput"
 	},
 	{
 		"key": "space 6",
 		"command": "cursor-harpoon.gotoEditor6",
-		"when": "vim.mode == 'Normal' && (editorTextFocus || !inputFocus) && !inQuickOpen"
+		"when": "vim.mode == 'Normal' && editorTextFocus && !inChatInput"
 	},
 	// ========================================
 	// Panel & View Management
@@ -212,7 +212,7 @@
 	{
 		"key": "space n c",
 		"command": "notifications.clearAll",
-		"when": "vim.mode == 'Normal' && (editorTextFocus || !inputFocus) && !inQuickOpen"
+		"when": "vim.mode == 'Normal' && editorTextFocus && !inChatInput"
 	},
 	// ========================================
 	// Editor Management
@@ -220,7 +220,7 @@
 	{
 		"key": "space h",
 		"command": "runCommands",
-		"when": "vim.mode == 'Normal' && (editorTextFocus || !inputFocus)",
+		"when": "vim.mode == 'Normal' && editorTextFocus && !inChatInput",
 		"args": {
 			"commands": [
 				"workbench.action.splitEditorRight"
@@ -230,7 +230,7 @@
 	{
 		"key": "space v",
 		"command": "runCommands",
-		"when": "vim.mode == 'Normal' && (editorTextFocus || !inputFocus)",
+		"when": "vim.mode == 'Normal' && editorTextFocus && !inChatInput",
 		"args": {
 			"commands": [
 				"workbench.action.splitEditorDown"
@@ -240,17 +240,17 @@
 	{
 		"key": "space x",
 		"command": "workbench.action.closeActiveEditor",
-		"when": "vim.mode == 'Normal' && editorTextFocus"
+		"when": "vim.mode == 'Normal' && editorTextFocus && !inChatInput"
 	},
 	{
 		"key": "space d b",
 		"command": "workbench.action.closeAllEditors",
-		"when": "vim.mode == 'Normal' && editorTextFocus"
+		"when": "vim.mode == 'Normal' && editorTextFocus && !inChatInput"
 	},
 	{
 		"key": "space w w",
 		"command": "editor.action.toggleWordWrap",
-		"when": "vim.mode == 'Normal' && (editorTextFocus || !inputFocus) && !terminalFocus"
+		"when": "vim.mode == 'Normal' && editorTextFocus && !inChatInput"
 	},
 	// ========================================
 	// Vim-style Navigation & Actions
@@ -328,12 +328,12 @@
 	{
 		"key": "space c a",
 		"command": "editor.action.codeAction",
-		"when": "vim.mode == 'Normal' && editorTextFocus"
+		"when": "vim.mode == 'Normal' && editorTextFocus && !inChatInput"
 	},
 	{
 		"key": "space c r",
 		"command": "editor.action.rename",
-		"when": "vim.mode == 'Normal' && editorTextFocus"
+		"when": "vim.mode == 'Normal' && editorTextFocus && !inChatInput"
 	},
 	// ========================================
 	// Terminal Management
@@ -396,12 +396,12 @@
 	{
 		"key": "space m p",
 		"command": "markdown.showPreview",
-		"when": "!notebookEditorFocused && editorLangId == 'markdown' && vim.mode == 'Normal' && (editorTextFocus || !inputFocus) && !inQuickOpen"
+		"when": "vim.mode == 'Normal' && editorTextFocus && !inChatInput"
 	},
 	{
 		"key": "space m shift+p",
 		"command": "markdown.showPreviewToSide",
-		"when": "!notebookEditorFocused && editorLangId == 'markdown' && vim.mode == 'Normal' && (editorTextFocus || !inputFocus) && !inQuickOpen"
+		"when": "vim.mode == 'Normal' && editorTextFocus && !inChatInput"
 	},
 	{
 		"key": "ctrl+k v",
