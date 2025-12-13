@@ -145,3 +145,17 @@ You understand 1,2,3,6. Unclear on 4,5.
 -   **Liskov Substitution Principle (LSP)**: Subtypes must be substitutable for their base types without altering the correctness of the program. If S is a subtype of T, then objects of type T may be replaced with objects of type S.
 -   **Interface Segregation Principle (ISP)**: Clients should not be forced to depend on interfaces they do not use. It's better to have many small, specific interfaces than one large, general-purpose interface.
 -   **Dependency Inversion Principle (DIP)**: High-level modules should not depend on low-level modules; both should depend on abstractions (interfaces). Also, abstractions should not depend on details; details should depend on abstractions.
+
+## Gitignore Standards
+
+**When to use**: When creating or updating `.gitignore` files.
+
+-   **AI & Tools**: Always exclude AI assistant metadata folders to strictly keep them local.
+    ```gitignore
+    # AI
+    .agent/
+    !.agent/workflows/
+    .gemini/
+    .cursor/
+    .claude/
+    ```
