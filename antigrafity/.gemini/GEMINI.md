@@ -159,3 +159,13 @@ You understand 1,2,3,6. Unclear on 4,5.
     .cursor/
     .claude/
     ```
+
+## Branch Management
+
+**When to use**: Before starting any coding task or file modification.
+
+-   **Context Check**: Evaluate if the user's request aligns with the current active branch.
+-   **New Branch Verification**: If the request implies a new feature, fix, or context switch (not relevant to current branch):
+    -   **STOP**: Do not proceed with changes.
+    -   **ASK**: Explicitly ask the user if they want to create a new branch or continue on the current one.
+    -   **NO AUTOMATION**: You strictly CANNOT bypass this check or auto-create branches without confirmation.
