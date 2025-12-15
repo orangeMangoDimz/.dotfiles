@@ -1,50 +1,84 @@
 ---
-description: Use this standard whenever the user asks for a "CI/CD Pipeline", "Deployment Strategy", or references this rule file
+description: Use this standard whenever the user asks for a "CI/CD Pipeline"
 ---
 
-# CI/CD Generation Standard
+# GitLab CI/CD Generation Standard
 
-## 1. Document Header (Metadata)
-Start every CI/CD document with this standard metadata table:
+## 0. Interaction Phase (MANDATORY)
 
-| **Project** | [Project Name] |
-| :--- | :--- |
-| **Referenced Doc** | [TDD.md or NFR.md context] |
-| **Platform** | [e.g., GitHub Actions, GitLab CI, Jenkins] |
-| **Date** | [YYYY-MM-DD] |
+**STOP!** Before generating or modifying any `.gitlab-ci.yml` file, you **MUST** pause and ask the user the following 3 questions. **Do not proceed** until the user has answered.
 
-## 2. Core Structure
-The document **MUST** contain the following 5 sections.
+1.  **Test Workflow**: "Do you want to include the test workflow? (If no, I will exclude the test stage)."
+2.  **Containerization**: "Do you want to use the Docker containerize workflow? (If no, I will focus only on code delivery via git/rsync)."
+3.  **Variables**: "Do you have variables set up already? (If not, I will list the variable keys required, and you can provide the values)."
 
-### Section 1: Overview
-- Briefly explain the goal of this pipeline (e.g., "enforce testing strategy defined in TDD.md").
-- Mention the key stages (Quality -> Validation -> Delivery).
+---
 
-### Section 2: Stage 1: Quality Gate (Static Analysis)
-- **Goal**: Fail fast.
-- **Tasks**:
-  - Linting (flake8, eslint, etc.).
-  - Formatting check (black, prettier).
-  - Security scanning (bandit, safety, npm audit).
+## 1. Pipeline Architecture
 
-### Section 3: Stage 2: Validation (Test Suite)
-- **Goal**: Verify logic.
-- **Environment**: Detail required services (Postgres, Redis, etc.).
-- **Tasks**:
-  - Unit & Integration tests commands.
-  - Coverage thresholds (e.g., fail under 80%).
+Once the user confirms the scope, generate the `.gitlab-ci.yml` following this specific structure derived from the project standard.
 
-### Section 4: Stage 3: Delivery (Build & Deploy)
-- **Goal**: Package and ship.
-- **Tasks**:
-  - Docker build & push steps.
-  - Deployment triggers (staging/prod).
+### Stages
 
-### Section 5: Implementation Configuration
-- Provide a **concrete YAML example** (or Jenkinsfile) suitable for the chosen platform.
-- The code block must be ready to copy-paste.
+Standard mpstages order:
 
-## 3. Formatting Rules
-- Use clear **bold** headings for pipeline stages.
-- list specific commands (e.g., `pytest --cov`) rather than vague descriptions.
-- Explicitly link pipeline steps to TDD/NFR requirements (e.g., "As required by NFR 3.1...").
+1.  `build`
+2.  `test` (Optional - based on Question 1)
+3.  `deploy`
+
+### Global Configuration
+
+-   **Cache**: standard pip cache (or relevant language cache) configurations.
+-   **Variables**: Define `PIP_CACHE_DIR` and other static vars.
+
+---
+
+## 2. Rules & Triggers
+
+The pipeline **MUST** implement the following logic constraints:
+
+| Event             | Target                | Job Action                                                                |
+| :---------------- | :-------------------- | :------------------------------------------------------------------------ |
+| **Merge Request** | `dev` branch          | **Build Check**: Run `docker build` (or code compile) to validate the MR. |
+| **Merge Request** | `main` branch         | **Build Check**: Run `docker build` as a final pre-production check.      |
+| **Git Tag**       | `v*` (e.g., `v1.0.0`) | **Production Deploy**: Trigger the deployment job.                        |
+
+---
+
+## 3. Implementation Details
+
+### Docker containerize Workflow (If "Yes" to Q2)
+
+If the user selects the Docker workflow, the `deploy` job **MUST**:
+
+1.  **Login**: Authenticate with the Docker Registry (e.g., Docker Hub).
+2.  **Build & Push**:
+    -   Build the image.
+    -   Tag it with the Git Tag: `$CI_COMMIT_TAG`.
+    -   Push to the registry.
+3.  **SSH Deployment**:
+    -   SSH into the remote server.
+    -   Login to Docker Registry on remote.
+    -   Pull the specific tag (`$CI_COMMIT_TAG`).
+    -   **Migrations**: Run database migrations (e.g., `alembic upgrade head`) via a temporary container.
+    -   **Container Swap**:
+        -   Stop and remove the old container.
+        -   Start the new container (`--restart unless-stopped`).
+        -   Inject environment variables (`DATABASE_URL`, `APP_ENV`, etc.).
+
+### Standard Variable Keys
+
+Ensure the configuration checks for these variables (or asks the user to set them if "No" to Q3):
+
+-   `SSH_PRIVATE_KEY` / `SSH_USER` / `SSH_HOST`
+-   `DOCKER_HUB_USER` / `DOCKER_HUB_PASSWORD`
+-   `DOCKER_IMAGE_NAME`
+-   `DATABASE_URL`
+
+---
+
+## 4. Formatting Checklist
+
+-   Verify indentation is 2 or 4 spaces (consistent).
+-   Use `rules:` syntax instead of the deprecated `only/except` where possible (though `only: - tags` is acceptable for deploy).
+-   Comment explicitly on _why_ a job is running (e.g., "# Triggered ONLY when a new tag is pushed").
