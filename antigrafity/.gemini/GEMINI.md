@@ -95,6 +95,7 @@ You understand 1,2,3,6. Unclear on 4,5.
 **When to use**: When setting up application config or build scripts.
 
 -   **Modes**: Support two distinct modes: `dev` and `prod`.
+-   **Critical**: NEVER EVER HARDCODE THE VALUES SUCH AS LINK, HOST, PORT, DB, AND SENSITIVE VARIABLE INSIDE THE CODE. INSTEAD, LOAD IT FROM .env FILE!
 -   **Env Files**:
     -   Development: Load from `.env.dev`.
     -   Production: Load from `.env.prod`.
@@ -105,6 +106,7 @@ You understand 1,2,3,6. Unclear on 4,5.
 
 -   **Format**: Use Semantic Commits (feat, fix, docs, refactor).
 -   **Example**: "feat: allow provided config object to extend other configs"
+-   **Caution**: Do not auto fix the error automatically that comes from my .pre-commit rule
 
 ## Documentation Standards
 
@@ -169,3 +171,37 @@ You understand 1,2,3,6. Unclear on 4,5.
     -   **STOP**: Do not proceed with changes.
     -   **ASK**: Explicitly ask the user if they want to create a new branch or continue on the current one.
     -   **NO AUTOMATION**: You strictly CANNOT bypass this check or auto-create branches without confirmation.
+
+## API Response Standards
+
+**When to use**: When handling HTTP responses, errors, or API communication.
+
+- **Error Exposure**: Never expose tracestack errors (500) to end users.
+  - **Production**: Log errors internally (e.g., `logger.error(str(e))`).
+  - **User Response**: Return human-readable messages only (e.g., "Something went wrong. Please try again later.").
+  - **Development**: Tracestack can be shown in dev mode for debugging.
+
+- **Status Code Constants**: Never hardcode numeric HTTP status codes.
+  - ❌ **WRONG**: `return {"message": "Success"}, 200`
+  - ✅ **RIGHT**: `return {"message": "Success"}, status.HTTP_200_OK`
+  - **Source**: Use library constants (e.g., `fastapi.status`, `http.HTTPStatus`) or define your own.
+
+- **Response Message Isolation**: Separate all API response text into a dedicated constants/messages file.
+  - ❌ **WRONG**: `return {"message": "Successfully fetched data"}`
+  - ✅ **RIGHT**: `return {"message": api_messages.DATA_FETCH_SUCCESS}`
+  - **Location**: Create `api_messages.py` or `constants/responses.py` to centralize all response strings.
+  - **Benefit**: Easy to maintain, translate, and audit all user-facing messages.
+
+**Example Structure**:
+```python
+# constants/api_messages.py
+DATA_FETCH_SUCCESS = "Successfully fetched data"
+INTERNAL_ERROR = "Something went wrong. Please try again later."
+UNAUTHORIZED = "Invalid credentials"
+
+# constants/status_codes.py (if not using library)
+SUCCESS = 200
+BAD_REQUEST = 400
+UNAUTHORIZED = 401
+INTERNAL_ERROR = 500
+```
