@@ -2,10 +2,10 @@
 	// ========================================
 	// Editor Configuration
 	// ========================================
-	"editor.fontFamily": "'Fira Code'",
+	"editor.fontFamily": "Fira Code",
 	"editor.fontLigatures": true,
 	"editor.fontSize": 12,
-	"editor.fontWeight": "500",
+	"editor.fontWeight": "600",
 	"editor.lineHeight": 1.5,
 	"editor.lineNumbers": "off",
 	"editor.tabSize": 6,
@@ -34,14 +34,11 @@
 	"editor.unicodeHighlight.invisibleCharacters": false,
 	"editor.unicodeHighlight.ambiguousCharacters": false,
 	"workbench.iconTheme": "catppuccin-mocha",
-	"workbench.sideBar.location": "right",
 	"workbench.tips.enabled": false,
 	"workbench.list.smoothScrolling": false,
 	// Activity Bar & Layout
 	"workbench.activityBar.location": "hidden",
 	"workbench.activityBar.orientation": "vertical",
-	"workbench.navigationControl.enabled": false,
-	"workbench.layoutControl.enabled": false,
 	"workbench.secondarySideBar.showLabels": false,
 	// Editor Tabs
 	"workbench.editor.showTabs": "single",
@@ -49,8 +46,7 @@
 	"breadcrumbs.symbolPath": "off",
 	// Window Settings
 	"window.newWindowDimensions": "maximized",
-	"window.commandCenter": false,
-	"window.menuBarVisibility": "compact",
+	"window.commandCenter": true,
 	// Zen Mode
 	"zenMode.centerLayout": false,
 	"zenMode.showTabs": "single",
@@ -223,5 +219,11 @@
 	"[yaml]": {
 		"editor.defaultFormatter": "esbenp.prettier-vscode"
 	},
-	"workbench.colorTheme": "Catppuccin Mocha"
+	"workbench.colorTheme": "Catppuccin Mocha",
+	"workbench.layoutControl.enabled": false,
+	"window.titleBarStyle": "native",
+	"workbench.navigationControl.enabled": false,
+	"workbench.editor.editorActionsLocation": "titleBar",
+	"window.customTitleBarVisibility": "never",
+	"workbench.statusBar.visible": false,
 }
