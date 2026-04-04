@@ -54,8 +54,28 @@ return {
         enable = true,
         ignore = false,
       },
+      diagnostics = {
+        enable = true,
+        show_on_dirs = true,
+      },
+      modified = {
+        enable = true,
+      },
+      filters = {
+        custom = { ".git", "node_modules", ".DS_Store", "__pycache__" },
+      },
+      actions = {
+        open_file = {
+          quit_on_open = false,
+          window_picker = { enable = true },
+        },
+      },
       renderer = {
         highlight_git = "name",
+        highlight_modified = "name",
+        indent_markers = {
+          enable = true,
+        },
         icons = {
           git_placement = "after",
         },
@@ -68,13 +88,6 @@ return {
         vim.keymap.set("n", "h", api.node.navigate.parent_close, opts)
       end,
     },
-    config = function(_, opts)
-      require("nvim-tree").setup(opts)
-      vim.api.nvim_set_hl(0, "NvimTreeGitNewIcon", { fg = "#a6e3a1" })
-      vim.api.nvim_set_hl(0, "NvimTreeGitNew", { fg = "#a6e3a1" })
-      vim.api.nvim_set_hl(0, "NvimTreeGitDirtyIcon", { fg = "#fab387" })
-      vim.api.nvim_set_hl(0, "NvimTreeGitDirty", { fg = "#fab387" })
-    end,
   },
 
   {
@@ -92,6 +105,14 @@ return {
           treesitter = true,
           nvim_web_devicons = true,
         },
+        custom_highlights = function(colors)
+          return {
+            NvimTreeGitNew = { fg = colors.green },
+            NvimTreeGitNewIcon = { fg = colors.green },
+            NvimTreeGitDirty = { fg = colors.peach },
+            NvimTreeGitDirtyIcon = { fg = colors.peach },
+          }
+        end,
       }
       vim.cmd.colorscheme "catppuccin-mocha"
     end,
