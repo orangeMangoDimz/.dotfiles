@@ -89,4 +89,10 @@ return {
     lazy = false,
     opts = {},
   },
+
+  {
+    "xiyaowong/transparent.nvim",
+    lazy = false,
+    opts = {},
+  },
 }
