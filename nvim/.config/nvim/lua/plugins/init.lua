@@ -85,6 +85,39 @@ return {
   },
 
   {
+    "nvim-lualine/lualine.nvim",
+    dependencies = { "nvim-tree/nvim-web-devicons", "catppuccin" },
+    lazy = false,
+    config = function()
+      local project_icon = vim.fn.nr2char(0xf07c)
+      local branch_icon = vim.fn.nr2char(0xe725)
+      require("lualine").setup {
+        options = {
+          theme = "catppuccin-mocha",
+          component_separators = "",
+          section_separators = "",
+        },
+        sections = {
+          lualine_a = {},
+          lualine_b = {},
+          lualine_c = {
+            {
+              function()
+                return vim.fn.fnamemodify(vim.fn.getcwd(), ":t")
+              end,
+              icon = project_icon,
+            },
+            { "branch", icon = branch_icon },
+          },
+          lualine_x = {},
+          lualine_y = {},
+          lualine_z = {},
+        },
+      }
+    end,
+  },
+
+  {
     "goolord/alpha-nvim",
     dependencies = { "nvim-tree/nvim-web-devicons" },
     event = "VimEnter",
