@@ -54,6 +54,12 @@ return {
         enable = true,
         ignore = false,
       },
+      renderer = {
+        highlight_git = "name",
+        icons = {
+          git_placement = "after",
+        },
+      },
       on_attach = function(bufnr)
         local api = require "nvim-tree.api"
         api.config.mappings.default_on_attach(bufnr)
@@ -62,6 +68,13 @@ return {
         vim.keymap.set("n", "h", api.node.navigate.parent_close, opts)
       end,
     },
+    config = function(_, opts)
+      require("nvim-tree").setup(opts)
+      vim.api.nvim_set_hl(0, "NvimTreeGitNewIcon", { fg = "#a6e3a1" })
+      vim.api.nvim_set_hl(0, "NvimTreeGitNew", { fg = "#a6e3a1" })
+      vim.api.nvim_set_hl(0, "NvimTreeGitDirtyIcon", { fg = "#fab387" })
+      vim.api.nvim_set_hl(0, "NvimTreeGitDirty", { fg = "#fab387" })
+    end,
   },
 
   {
@@ -163,6 +176,22 @@ return {
   {
     "xiyaowong/transparent.nvim",
     lazy = false,
+    opts = {},
+  },
+
+  {
+    "nvim-telescope/telescope.nvim",
+    opts = {
+      defaults = {
+        path_display = { "filename_first" },
+      },
+    },
+  },
+
+  {
+    "MeanderingProgrammer/render-markdown.nvim",
+    ft = { "markdown" },
+    dependencies = { "nvim-treesitter/nvim-treesitter", "nvim-tree/nvim-web-devicons" },
     opts = {},
   },
 }
