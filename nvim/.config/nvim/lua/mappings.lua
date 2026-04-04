@@ -28,6 +28,14 @@ map("t", "<C-k>", "<C-\\><C-n><C-w>k", { desc = "Switch to top window" })
 map("t", "<C-l>", "<C-\\><C-n><C-w>l", { desc = "Switch to right window" })
 
 -- ========================================
+-- Pane resizing
+-- ========================================
+map("n", "<A-L>", "<cmd>vertical resize +2<CR>", { desc = "Increase pane width" })
+map("n", "<A-H>", "<cmd>vertical resize -2<CR>", { desc = "Decrease pane width" })
+map("n", "<A-J>", "<cmd>resize +2<CR>", { desc = "Increase pane height" })
+map("n", "<A-K>", "<cmd>resize -2<CR>", { desc = "Decrease pane height" })
+
+-- ========================================
 -- Splits
 -- ========================================
 map("n", "<leader>h", "<cmd>vsplit<CR>", { desc = "Split right (vertical split)" })

@@ -32,7 +32,7 @@ return {
       "stevearc/dressing.nvim",
     },
     opts = {
-      widget_guides = { enabled = true },
+      widget_guides = { enabled = false },
       closing_tags = { enabled = true },
       lsp = {
         color = { enabled = true },
@@ -45,6 +45,43 @@ return {
     opts = {
       ensure_installed = { "dart" },
     },
+  },
+
+  {
+    "nvim-tree/nvim-tree.lua",
+    opts = {
+      git = {
+        enable = true,
+        ignore = false,
+      },
+      on_attach = function(bufnr)
+        local api = require "nvim-tree.api"
+        api.config.mappings.default_on_attach(bufnr)
+        local opts = { buffer = bufnr, noremap = true, silent = true, nowait = true }
+        vim.keymap.set("n", "l", api.node.open.edit, opts)
+        vim.keymap.set("n", "h", api.node.navigate.parent_close, opts)
+      end,
+    },
+  },
+
+  {
+    "catppuccin/nvim",
+    name = "catppuccin",
+    priority = 1000,
+    lazy = false,
+    config = function()
+      require("catppuccin").setup {
+        flavour = "mocha",
+        transparent_background = true,
+        integrations = {
+          nvimtree = true,
+          gitsigns = true,
+          treesitter = true,
+          nvim_web_devicons = true,
+        },
+      }
+      vim.cmd.colorscheme "catppuccin-mocha"
+    end,
   },
 
   {
