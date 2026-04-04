@@ -23,4 +23,27 @@ return {
     "kdheepak/lazygit.nvim",
     cmd = "LazyGit",
   },
+
+  {
+    "nvim-flutter/flutter-tools.nvim",
+    lazy = false,
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "stevearc/dressing.nvim",
+    },
+    opts = {
+      widget_guides = { enabled = true },
+      closing_tags = { enabled = true },
+      lsp = {
+        color = { enabled = true },
+      },
+    },
+  },
+
+  {
+    "nvim-treesitter/nvim-treesitter",
+    opts = {
+      ensure_installed = { "dart" },
+    },
+  },
 }

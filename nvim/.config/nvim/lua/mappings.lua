@@ -61,6 +61,19 @@ map("n", "<A-S-h>", "<cmd>vertical resize -2<CR>", { desc = "Decrease window wid
 map("n", "<leader>gg", "<cmd>LazyGit<CR>", { desc = "Open LazyGit" })
 
 -- ========================================
+-- Flutter
+-- ========================================
+map("n", "<leader>Fr", "<cmd>FlutterRun<CR>", { desc = "Flutter run" })
+map("n", "<leader>Fq", "<cmd>FlutterQuit<CR>", { desc = "Flutter quit" })
+map("n", "<leader>FR", "<cmd>FlutterRestart<CR>", { desc = "Flutter restart" })
+map("n", "<leader>Fl", "<cmd>FlutterReload<CR>", { desc = "Flutter hot reload" })
+map("n", "<leader>Fd", "<cmd>FlutterDevices<CR>", { desc = "Flutter devices" })
+map("n", "<leader>Fe", "<cmd>FlutterEmulators<CR>", { desc = "Flutter emulators" })
+map("n", "<leader>Fo", "<cmd>FlutterOutlineToggle<CR>", { desc = "Flutter widget outline" })
+map("n", "<leader>Ft", "<cmd>FlutterDevTools<CR>", { desc = "Flutter DevTools" })
+map("n", "<leader>Fg", "<cmd>FlutterLogClear<CR>", { desc = "Flutter clear log" })
+
+-- ========================================
 -- Harpoon
 -- ========================================
 local harpoon = require "harpoon"
