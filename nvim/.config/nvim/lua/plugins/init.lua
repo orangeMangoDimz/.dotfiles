@@ -46,4 +46,13 @@ return {
       ensure_installed = { "dart" },
     },
   },
+
+  {
+    "goolord/alpha-nvim",
+    dependencies = { "nvim-tree/nvim-web-devicons" },
+    event = "VimEnter",
+    config = function()
+      require "configs.alpha"
+    end,
+  },
 }
