@@ -1,81 +1,103 @@
 require "nvchad.mappings"
 
--- add yours here
-
 local map = vim.keymap.set
+local del = vim.keymap.del
 
+-- Remove conflicting NvChad defaults
+-- <leader>h (was: new horizontal terminal -- still available via <A-h>)
+-- <leader>v (was: new vertical terminal -- still available via <A-v>)
+-- <leader>b (was: new buffer -- need prefix free for harpoon)
+-- <leader>e (was: NvimTreeFocus -- replaced by <leader>ee)
+del("n", "<leader>h")
+del("n", "<leader>v")
+del("n", "<leader>b")
+del("n", "<leader>e")
+
+-- ========================================
+-- Existing custom mappings
+-- ========================================
 map("n", ";", ":", { desc = "CMD enter command mode" })
 map("i", "jk", "<ESC>")
 
--- Accept completion copilot
-map("i", "<C-J>", 'copilot#Accept("\\<CR>")', {
-    expr = true,
-    replace_keycodes = false,
-})
+-- ========================================
+-- Splits
+-- ========================================
+map("n", "<leader>h", "<cmd>vsplit<CR>", { desc = "Split right (vertical split)" })
+map("n", "<leader>v", "<cmd>split<CR>", { desc = "Split down (horizontal split)" })
 
--- LSP Rename
-map(
-    "n",
-    "<leader>rn",
-    "<cmd>lua vim.lsp.buf.rename()<CR>",
-    { noremap = true, silent = true, desc = "Rename symbol" }
-)
+-- ========================================
+-- NvimTree
+-- ========================================
+map("n", "<leader>ee", "<cmd>NvimTreeFocus<CR>", { desc = "NvimTree focus" })
+map("n", "<leader>et", "<cmd>NvimTreeToggle<CR>", { desc = "NvimTree toggle" })
 
--- Undo tree config
-map("n", "<leader>ut", vim.cmd.UndotreeToggle, { desc = "View Undo Tree" })
+-- ========================================
+-- LSP
+-- ========================================
+map("n", "<leader>cr", vim.lsp.buf.rename, { desc = "LSP rename" })
+map("n", "<leader>ca", vim.lsp.buf.code_action, { desc = "LSP code action" })
+map("n", "gr", vim.lsp.buf.references, { desc = "LSP references" })
 
--- Harpoon keybinding configuration
-local mark = require "harpoon.mark"
-local ui = require "harpoon.ui"
+-- ========================================
+-- Navigation
+-- ========================================
+map("n", "gb", "<C-o>", { desc = "Go back (jumplist)" })
 
--- Keybindings for marking and navigating files
-map("n", "<leader>ta", mark.add_file, { desc = "Add file to Harpoon" })
-map(
-    "n",
-    "<leader>te",
-    ui.toggle_quick_menu,
-    { desc = "Toggle Harpoon quick menu" }
-)
+-- ========================================
+-- Editor management
+-- ========================================
+map("n", "<leader>db", "<cmd>bufdo bd<CR>", { desc = "Close all buffers" })
+map("n", "<leader>ww", "<cmd>set wrap!<CR>", { desc = "Toggle word wrap" })
 
--- Quick navigation to harpoon marks
-for i = 1, 5 do
-    map("n", "<leader>" .. i, function()
-        ui.nav_file(i)
-    end, { desc = "Navigate to harpoon mark " .. i })
-end
+-- ========================================
+-- Window resize
+-- ========================================
+map("n", "<A-S-l>", "<cmd>vertical resize +2<CR>", { desc = "Increase window width" })
+map("n", "<A-S-h>", "<cmd>vertical resize -2<CR>", { desc = "Decrease window width" })
 
--- Additional navigation commands
-map("n", "<leader>tp", ui.nav_prev, { desc = "Navigate to previous mark" })
-map("n", "<leader>tn", ui.nav_next, { desc = "Navigate to next mark" })
+-- ========================================
+-- Git
+-- ========================================
+map("n", "<leader>gg", "<cmd>LazyGit<CR>", { desc = "Open LazyGit" })
 
--- Optional: Clear all marks (useful for cleanup)
-map(
-    "n",
-    "<leader>tc",
-    require("harpoon.mark").clear_all,
-    { desc = "Clear all harpoon marks" }
-)
-map("v", "J", ":m '>+1<CR>gv=gv", { desc = "Move the selected line down" })
-map("v", "K", ":m '<-2<CR>gv=gv", { desc = "Move the selected line up" })
--- map("x", "<leader>p", '"_dP', { desc = "Paste without copying" })
+-- ========================================
+-- Harpoon
+-- ========================================
+local harpoon = require "harpoon"
+harpoon:setup()
 
--- DBUI
-map('n', '<Leader>db', ':DBUIToggle<CR>', { desc = "Toogle DB UI", noremap = true, silent = true })
-map('n', '<Leader>cb', '<cmd>%bd|e#<CR>', { desc = "Clear All Buffers", noremap = true, silent = true })
+map("n", "<leader>ba", function()
+  harpoon:list():add()
+end, { desc = "Harpoon add file" })
 
--- Obsidian Keybindings
-map("n", "<leader>on", "<cmd>ObsidianNew<CR>", { desc = "Create a new note" })
-map("n", "<leader>os", "<cmd>ObsidianTags<CR>", { desc = "Show tags" })
-map("n", "<leader>or", "<cmd>ObsidianRename<CR>", { desc = "Rename note" })
-map({"n", "v"}, "<leader>oln", "<cmd>ObsidianLinkNew<CR>", { desc = "Create a new link" })
-map("n", "<leader>olv", "<cmd>ObsidianLinks<CR>", { desc = "Show current buffer links" })
-map("n", "<leader>oti", "<cmd>ObsidianTemplate<CR>", { desc = "Insert template" })
-map("n", "<leader>otn",  "<cmd>ObsidianNewFromTemplate<CR>", { desc = "Create a new note from template" })
-map("n", "<leader>oc", "<cmd>ObsidianTOC<CR>", { desc = "Show table of contents" })
+map("n", "<leader>be", function()
+  harpoon.ui:toggle_quick_menu(harpoon:list())
+end, { desc = "Harpoon edit list" })
 
--- formatting
--- map("n", "<leader>fm", function()
---   require("conform").format({ async = true, lsp_fallback = true })
--- end, { desc = "custom format files" })
+map("n", "<leader>bl", function()
+  harpoon.ui:toggle_quick_menu(harpoon:list())
+end, { desc = "Harpoon list/pick" })
 
--- map({ "n", "i", "v" }, "<C-s>", "<cmd> w <cr>")
+map("n", "<leader>1", function()
+  harpoon:list():select(1)
+end, { desc = "Harpoon file 1" })
+
+map("n", "<leader>2", function()
+  harpoon:list():select(2)
+end, { desc = "Harpoon file 2" })
+
+map("n", "<leader>3", function()
+  harpoon:list():select(3)
+end, { desc = "Harpoon file 3" })
+
+map("n", "<leader>4", function()
+  harpoon:list():select(4)
+end, { desc = "Harpoon file 4" })
+
+map("n", "<leader>5", function()
+  harpoon:list():select(5)
+end, { desc = "Harpoon file 5" })
+
+map("n", "<leader>6", function()
+  harpoon:list():select(6)
+end, { desc = "Harpoon file 6" })
