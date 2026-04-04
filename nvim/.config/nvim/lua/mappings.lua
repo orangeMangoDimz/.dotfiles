@@ -54,6 +54,7 @@ map("n", "gb", "<C-o>", { desc = "Go back (jumplist)" })
 -- ========================================
 -- Editor management
 -- ========================================
+map("n", "<leader>x", "<cmd>bd<CR>", { desc = "Close buffer" })
 map("n", "<leader>db", "<cmd>bufdo bd<CR>", { desc = "Close all buffers" })
 map("n", "<leader>ww", "<cmd>set wrap!<CR>", { desc = "Toggle word wrap" })
 
@@ -63,6 +64,7 @@ map("n", "<leader>ww", "<cmd>set wrap!<CR>", { desc = "Toggle word wrap" })
 -- Git
 -- ========================================
 map("n", "<leader>gg", "<cmd>LazyGit<CR>", { desc = "Open LazyGit" })
+map("n", "<leader>gd", "<cmd>Gitsigns diffthis<CR>", { desc = "Diff current file (side-by-side)" })
 
 -- ========================================
 -- Flutter

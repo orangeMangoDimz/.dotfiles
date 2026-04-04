@@ -1,3 +1,11 @@
+# OPENSPEC:START
+# OpenSpec shell completions configuration
+fpath=("/home/orangemango/.oh-my-zsh/custom/completions" $fpath)
+fpath=(~/.zsh/completions $fpath)
+autoload -Uz compinit
+compinit
+# OPENSPEC:END
+
 # if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
 #   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 # fi
@@ -275,3 +283,18 @@ export PATH=$PATH:$ANDROID_HOME/platform-tools
 
 # fastfetch
 export PATH="$HOME/go/bin:$PATH"
+
+# Task Master aliases added on 12/27/2025
+alias tm='task-master'
+alias taskmaster='task-master'
+alias hamster='task-master'
+alias ham='task-master'
+# alias opencode="opencode --agent OpenAgent"
+
+# opencode
+export PATH=/home/orangemango/.opencode/bin:$PATH
+
+# Added by LM Studio CLI (lms)
+export PATH="$PATH:/home/orangemango/.lmstudio/bin"
+# End of LM Studio CLI section
+
