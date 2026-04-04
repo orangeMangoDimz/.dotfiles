@@ -10,14 +10,22 @@ local del = vim.keymap.del
 -- <leader>e (was: NvimTreeFocus -- replaced by <leader>ee)
 del("n", "<leader>h")
 del("n", "<leader>v")
-del("n", "<leader>b")
 del("n", "<leader>e")
+pcall(del, "n", "<leader>b")
 
 -- ========================================
 -- Existing custom mappings
 -- ========================================
 map("n", ";", ":", { desc = "CMD enter command mode" })
 map("i", "jk", "<ESC>")
+
+-- ========================================
+-- Terminal window navigation
+-- ========================================
+map("t", "<C-h>", "<C-\\><C-n><C-w>h", { desc = "Switch to left window" })
+map("t", "<C-j>", "<C-\\><C-n><C-w>j", { desc = "Switch to bottom window" })
+map("t", "<C-k>", "<C-\\><C-n><C-w>k", { desc = "Switch to top window" })
+map("t", "<C-l>", "<C-\\><C-n><C-w>l", { desc = "Switch to right window" })
 
 -- ========================================
 -- Splits
@@ -49,11 +57,7 @@ map("n", "gb", "<C-o>", { desc = "Go back (jumplist)" })
 map("n", "<leader>db", "<cmd>bufdo bd<CR>", { desc = "Close all buffers" })
 map("n", "<leader>ww", "<cmd>set wrap!<CR>", { desc = "Toggle word wrap" })
 
--- ========================================
--- Window resize
--- ========================================
-map("n", "<A-S-l>", "<cmd>vertical resize +2<CR>", { desc = "Increase window width" })
-map("n", "<A-S-h>", "<cmd>vertical resize -2<CR>", { desc = "Decrease window width" })
+
 
 -- ========================================
 -- Git
