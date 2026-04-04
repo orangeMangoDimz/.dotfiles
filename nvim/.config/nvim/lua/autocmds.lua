@@ -20,6 +20,10 @@ vim.api.nvim_create_autocmd({ "BufWinEnter", "WinEnter", "FileType" }, {
   end,
 })
 
+vim.api.nvim_create_autocmd({ "FocusGained", "BufEnter" }, {
+  command = "checktime",
+})
+
 vim.api.nvim_create_user_command("LspFullRestart", function()
   vim.diagnostic.reset()
   vim.cmd("LspStop")

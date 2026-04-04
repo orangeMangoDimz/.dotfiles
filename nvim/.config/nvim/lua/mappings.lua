@@ -62,7 +62,18 @@ map("n", "gb", "<C-o>", { desc = "Go back (jumplist)" })
 -- ========================================
 -- Editor management
 -- ========================================
-map("n", "<leader>x", "<cmd>bd<CR>", { desc = "Close buffer" })
+map("n", "<leader>x", function()
+  local buf = vim.api.nvim_get_current_buf()
+  if vim.bo[buf].modified then
+    vim.ui.input({ prompt = "Buffer has unsaved changes. Close anyway? (y/n): " }, function(input)
+      if input == "y" then
+        vim.cmd("bprevious | bdelete! " .. buf)
+      end
+    end)
+  else
+    vim.cmd("bprevious | bdelete " .. buf)
+  end
+end, { desc = "Close buffer" })
 map("n", "<leader>db", "<cmd>bufdo bd<CR>", { desc = "Close all buffers" })
 map("n", "<leader>ww", "<cmd>set wrap!<CR>", { desc = "Toggle word wrap" })
 

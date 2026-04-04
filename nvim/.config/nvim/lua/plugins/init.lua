@@ -208,6 +208,12 @@ return {
         path_display = { "filename_first" },
         initial_mode = "normal",
       },
+      pickers = {
+        find_files = {
+          hidden = true,
+          no_ignore = true,
+        },
+      },
     },
   },
 
