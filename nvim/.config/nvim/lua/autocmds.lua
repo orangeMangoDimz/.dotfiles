@@ -19,3 +19,12 @@ vim.api.nvim_create_autocmd({ "BufWinEnter", "WinEnter", "FileType" }, {
     end
   end,
 })
+
+vim.api.nvim_create_user_command("LspFullRestart", function()
+  vim.diagnostic.reset()
+  vim.cmd("LspStop")
+  vim.defer_fn(function()
+    vim.cmd("LspStart")
+    vim.cmd("bufdo e")
+  end, 500)
+end, {})

@@ -52,7 +52,7 @@ map("n", "<leader>et", "<cmd>NvimTreeToggle<CR>", { desc = "NvimTree toggle" })
 -- ========================================
 map("n", "<leader>cr", vim.lsp.buf.rename, { desc = "LSP rename" })
 map("n", "<leader>ca", vim.lsp.buf.code_action, { desc = "LSP code action" })
-map("n", "gr", vim.lsp.buf.references, { desc = "LSP references" })
+map("n", "gr", "<cmd>Telescope lsp_references<CR>", { desc = "LSP references (Telescope)" })
 
 -- ========================================
 -- Navigation

@@ -67,6 +67,7 @@ return {
       actions = {
         open_file = {
           quit_on_open = false,
+          resize_window = false,
           window_picker = { enable = true },
         },
       },
@@ -205,6 +206,7 @@ return {
     opts = {
       defaults = {
         path_display = { "filename_first" },
+        initial_mode = "normal",
       },
     },
   },
