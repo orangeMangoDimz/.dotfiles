@@ -50,6 +50,9 @@ return {
   {
     "nvim-tree/nvim-tree.lua",
     opts = {
+      view = {
+        width = 30,
+      },
       git = {
         enable = true,
         ignore = false,
@@ -166,7 +169,7 @@ return {
     dependencies = { "folke/snacks.nvim" },
     opts = {
       terminal = {
-        split_width_percentage = 0.45,
+        split_width_percentage = 0.30,
       },
     },
     keys = {
@@ -205,8 +208,43 @@ return {
     "nvim-telescope/telescope.nvim",
     opts = {
       defaults = {
-        path_display = { "filename_first" },
+        path_display = function(_, path)
+          local tail = vim.fn.fnamemodify(path, ":t")
+          local parent = vim.fn.fnamemodify(path, ":h")
+          if parent == "." then
+            return tail
+          end
+
+          local icon_width = 3
+          local indent = 0
+
+          -- Find Telescope results window width
+          local win_width
+          for _, win in ipairs(vim.api.nvim_list_wins()) do
+            if vim.api.nvim_win_is_valid(win) then
+              local buf = vim.api.nvim_win_get_buf(win)
+              if vim.bo[buf].filetype == "TelescopeResults" then
+                win_width = vim.api.nvim_win_get_width(win)
+                break
+              end
+            end
+          end
+
+          if not win_width then
+            local display = tail .. "  " .. parent
+            local hl = { { { #tail + 2, #display }, "TelescopeResultsComment" } }
+            return display, hl
+          end
+
+          -- Fill first line, then path on next visual line with indent
+          local fill = math.max(win_width - icon_width - #tail, 1)
+          local padded = tail .. string.rep(" ", fill + indent) .. parent
+          local path_pos = #tail + fill + indent
+          local hl = { { { path_pos, #padded }, "TelescopeResultsComment" } }
+          return padded, hl
+        end,
         initial_mode = "normal",
+        wrap_results = true,
       },
       pickers = {
         find_files = {

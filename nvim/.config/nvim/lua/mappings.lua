@@ -84,6 +84,68 @@ map("n", "<leader>ww", "<cmd>set wrap!<CR>", { desc = "Toggle word wrap" })
 -- ========================================
 map("n", "<leader>gg", "<cmd>LazyGit<CR>", { desc = "Open LazyGit" })
 map("n", "<leader>gd", "<cmd>Gitsigns diffthis<CR>", { desc = "Diff current file (side-by-side)" })
+map("n", "<leader>gr", "<cmd>Gitsigns reset_hunk<CR>", { desc = "Reset hunk" })
+map("v", "<leader>gr", function()
+  require("gitsigns").reset_hunk({ vim.fn.line("v"), vim.fn.line(".") })
+end, { desc = "Reset selected lines" })
+local function git_diff_files()
+  local result = vim.fn.systemlist("git diff --name-only")
+  if vim.v.shell_error ~= 0 then return {} end
+  local git_root = vim.fn.systemlist("git rev-parse --show-toplevel")[1]
+  local files = {}
+  for _, f in ipairs(result) do
+    table.insert(files, git_root .. "/" .. f)
+  end
+  return files
+end
+
+local function goto_diff_file(direction)
+  local files = git_diff_files()
+  if #files == 0 then
+    vim.notify("No git diff files", vim.log.levels.INFO)
+    return
+  end
+  local current = vim.fn.expand("%:p")
+  local idx = nil
+  for i, f in ipairs(files) do
+    if f == current then idx = i break end
+  end
+  local target
+  if idx then
+    target = files[((idx - 1 + direction) % #files) + 1]
+  else
+    target = direction == 1 and files[1] or files[#files]
+  end
+
+  local was_diff = vim.wo.diff
+  if was_diff then
+    -- Find the non-gitsigns window (working copy) and the gitsigns window
+    local main_win, gs_win
+    for _, win in ipairs(vim.api.nvim_tabpage_list_wins(0)) do
+      local buf = vim.api.nvim_win_get_buf(win)
+      local name = vim.api.nvim_buf_get_name(buf)
+      if name:match("gitsigns://") then
+        gs_win = win
+      elseif vim.wo[win].diff then
+        main_win = win
+      end
+    end
+    -- Focus the working copy window, close the gitsigns window
+    if main_win then vim.api.nvim_set_current_win(main_win) end
+    if gs_win then vim.api.nvim_win_close(gs_win, true) end
+  end
+
+  vim.cmd("edit " .. vim.fn.fnameescape(target))
+
+  if was_diff then
+    vim.defer_fn(function()
+      vim.cmd("Gitsigns diffthis")
+    end, 100)
+  end
+end
+
+map("n", "<leader>gn", function() goto_diff_file(1) end, { desc = "Next git diff file" })
+map("n", "<leader>gp", function() goto_diff_file(-1) end, { desc = "Previous git diff file" })
 
 -- ========================================
 -- Flutter
