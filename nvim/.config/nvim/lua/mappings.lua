@@ -144,6 +144,11 @@ local function goto_diff_file(direction)
   end
 end
 
+map("n", "<leader>gb", "<cmd>Gitsigns toggle_current_line_blame<CR>", { desc = "Toggle git blame" })
+map("n", "<leader>gB", function()
+  require("gitsigns").blame_line({ full = true })
+end, { desc = "Full git blame (popup)" })
+
 map("n", "<leader>gn", function() goto_diff_file(1) end, { desc = "Next git diff file" })
 map("n", "<leader>gp", function() goto_diff_file(-1) end, { desc = "Previous git diff file" })
 
