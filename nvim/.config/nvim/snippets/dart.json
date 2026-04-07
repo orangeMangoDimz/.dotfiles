@@ -1,0 +1,35 @@
+{
+  "Stateless Widget": {
+    "prefix": "stless",
+    "description": "Create a StatelessWidget",
+    "body": [
+      "class ${1:WidgetName} extends StatelessWidget {",
+      "  const ${1:WidgetName}({super.key});",
+      "",
+      "  @override",
+      "  Widget build(BuildContext context) {",
+      "    return ${0:const Placeholder()};",
+      "  }",
+      "}"
+    ]
+  },
+  "Stateful Widget": {
+    "prefix": "stful",
+    "description": "Create a StatefulWidget",
+    "body": [
+      "class ${1:WidgetName} extends StatefulWidget {",
+      "  const ${1:WidgetName}({super.key});",
+      "",
+      "  @override",
+      "  State<${1:WidgetName}> createState() => _${1:WidgetName}State();",
+      "}",
+      "",
+      "class _${1:WidgetName}State extends State<${1:WidgetName}> {",
+      "  @override",
+      "  Widget build(BuildContext context) {",
+      "    return ${0:const Placeholder()};",
+      "  }",
+      "}"
+    ]
+  }
+}

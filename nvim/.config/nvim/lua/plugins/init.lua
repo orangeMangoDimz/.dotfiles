@@ -51,6 +51,7 @@ return {
     "nvim-tree/nvim-tree.lua",
     opts = {
       view = {
+        side = "right",
         width = 30,
       },
       git = {
@@ -165,10 +166,28 @@ return {
   },
 
   {
+    "hrsh7th/nvim-cmp",
+    opts = function(_, opts)
+      local cmp = require "cmp"
+      opts.mapping["<CR>"] = cmp.mapping(function(fallback)
+        if cmp.visible() then
+          cmp.confirm { behavior = cmp.ConfirmBehavior.Insert, select = true }
+          vim.schedule(function()
+            cmp.abort()
+          end)
+        else
+          fallback()
+        end
+      end)
+    end,
+  },
+
+  {
     "coder/claudecode.nvim",
     dependencies = { "folke/snacks.nvim" },
     opts = {
       terminal = {
+        split_side = "left",
         split_width_percentage = 0.30,
       },
     },
