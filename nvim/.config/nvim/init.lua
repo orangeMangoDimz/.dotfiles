@@ -30,6 +30,9 @@ require("lazy").setup({
 dofile(vim.g.base46_cache .. "defaults")
 dofile(vim.g.base46_cache .. "statusline")
 
+-- Override Visual highlight after base46 loads
+vim.api.nvim_set_hl(0, "Visual", { bg = "#585b70", bold = true })
+
 require "options"
 require "autocmds"
 

@@ -191,10 +191,69 @@ return {
         split_width_percentage = 0.30,
       },
     },
+    config = function(_, opts)
+      require("claudecode").setup(opts)
+
+      vim.api.nvim_create_autocmd("WinResized", {
+        callback = function()
+          local ok, terminal = pcall(require, "claudecode.terminal")
+          if not ok then return end
+          local bufnr = terminal.get_active_terminal_bufnr()
+          if not bufnr then return end
+          local winid = vim.fn.bufwinid(bufnr)
+          if winid ~= -1 then
+            vim.g._claude_saved_width = vim.api.nvim_win_get_width(winid)
+          end
+        end,
+      })
+    end,
     keys = {
       { "<leader>a", nil, desc = "AI/Claude Code" },
-      { "<leader>ac", "<cmd>ClaudeCode<cr>", desc = "Toggle Claude" },
-      { "<leader>af", "<cmd>ClaudeCodeFocus<cr>", desc = "Focus Claude" },
+      {
+        "<leader>ac",
+        function()
+          local terminal = require("claudecode.terminal")
+          local bufnr = terminal.get_active_terminal_bufnr()
+          if bufnr then
+            local winid = vim.fn.bufwinid(bufnr)
+            if winid ~= -1 then
+              vim.g._claude_saved_width = vim.api.nvim_win_get_width(winid)
+            end
+          end
+          -- Update snacks terminal opts before toggle so it opens at saved width
+          local saved = vim.g._claude_saved_width
+          if saved then
+            local instance = terminal._get_managed_terminal_for_test()
+            if instance and instance.opts then
+              instance.opts.width = saved
+            end
+          end
+          vim.cmd("ClaudeCode")
+        end,
+        desc = "Toggle Claude",
+      },
+      {
+        "<leader>af",
+        function()
+          local terminal = require("claudecode.terminal")
+          local bufnr = terminal.get_active_terminal_bufnr()
+          if bufnr then
+            local winid = vim.fn.bufwinid(bufnr)
+            if winid ~= -1 then
+              vim.g._claude_saved_width = vim.api.nvim_win_get_width(winid)
+            end
+          end
+          local saved = vim.g._claude_saved_width
+          if saved then
+            local instance = terminal._get_managed_terminal_for_test()
+            if instance and instance.opts then
+              instance.opts.width = saved
+            end
+          end
+          vim.cmd("ClaudeCodeFocus")
+        end,
+        desc = "Focus Claude",
+      },
       { "<leader>ar", "<cmd>ClaudeCode --resume<cr>", desc = "Resume Claude" },
       { "<leader>aC", "<cmd>ClaudeCode --continue<cr>", desc = "Continue Claude" },
       { "<leader>am", "<cmd>ClaudeCodeSelectModel<cr>", desc = "Select Claude model" },

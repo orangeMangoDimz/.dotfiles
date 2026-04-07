@@ -53,6 +53,8 @@ map("n", "<leader>et", "<cmd>NvimTreeToggle<CR>", { desc = "NvimTree toggle" })
 map("n", "<leader>cr", vim.lsp.buf.rename, { desc = "LSP rename" })
 map("n", "<leader>ca", vim.lsp.buf.code_action, { desc = "LSP code action" })
 map("n", "gr", "<cmd>Telescope lsp_references<CR>", { desc = "LSP references (Telescope)" })
+map("n", "<leader>ds", "<cmd>Telescope diagnostics bufnr=0<CR>", { desc = "LSP diagnostics (Telescope)" })
+map("n", "<leader>dd", vim.diagnostic.open_float, { desc = "Show diagnostic (float)" })
 
 -- ========================================
 -- Navigation
