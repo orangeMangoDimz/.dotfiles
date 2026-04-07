@@ -8,10 +8,10 @@ local M = {}
 M.base46 = {
 	theme = "catppuccin",
 
-	-- hl_override = {
-	-- 	Comment = { italic = true },
-	-- 	["@comment"] = { italic = true },
-	-- },
+	hl_override = {
+		Comment = { fg = "#bac2de", italic = true },
+		["@comment"] = { fg = "#bac2de", italic = true },
+	},
 }
 
 M.ui = {

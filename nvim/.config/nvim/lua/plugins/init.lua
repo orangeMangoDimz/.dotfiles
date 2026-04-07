@@ -35,7 +35,7 @@ return {
       widget_guides = { enabled = false },
       closing_tags = { enabled = true },
       lsp = {
-        color = { enabled = true },
+        color = { enabled = false },
       },
     },
   },
