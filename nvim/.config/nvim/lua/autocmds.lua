@@ -1,7 +1,18 @@
 require "nvchad.autocmds"
 
-local file_icon = vim.fn.nr2char(0xf15b)
-local folder_icon = vim.fn.nr2char(0xf07c)
+-- Winbar highlight groups using catppuccin palette
+local function setup_winbar_highlights()
+  local ok, palette = pcall(require, "catppuccin.palettes")
+  if not ok then return end
+  local c = palette.get_palette("mocha")
+  vim.api.nvim_set_hl(0, "WinBarFile", { fg = c.text,     bg = "NONE", bold = true })
+  vim.api.nvim_set_hl(0, "WinBarPath", { fg = c.overlay1, bg = "NONE" })
+  vim.api.nvim_set_hl(0, "WinBarSep",  { fg = c.surface2, bg = "NONE" })
+  vim.api.nvim_set_hl(0, "WinBarMod",  { fg = c.peach,    bg = "NONE" })
+end
+
+vim.api.nvim_create_autocmd("ColorScheme", { callback = setup_winbar_highlights })
+setup_winbar_highlights()
 
 local function get_git_root(bufnr)
   if vim.b[bufnr].winbar_git_root ~= nil then
@@ -31,14 +42,22 @@ function _G.winbar_content()
   local filename = vim.fn.expand("%:t")
   if filename == "" then return "" end
 
-  local win_width = vim.api.nvim_win_get_width(0)
-
-  -- Narrow window: only show filename
-  if win_width < 60 then
-    return file_icon .. " " .. filename
+  -- Filetype icon with color from nvim-web-devicons
+  local icon, icon_hl = "󰈙", "WinBarFile"
+  local ok, devicons = pcall(require, "nvim-web-devicons")
+  if ok then
+    local ic, hl = devicons.get_icon(filename, vim.fn.expand("%:e"), { default = true })
+    if ic then icon, icon_hl = ic, (hl or "WinBarFile") end
   end
 
-  -- Get full path relative to git root, fallback to cwd-relative
+  local modified = vim.bo.modified and " %#WinBarMod#●" or ""
+
+  local win_width = vim.api.nvim_win_get_width(0)
+  if win_width < 60 then
+    return "%=" .. "%#" .. icon_hl .. "#" .. icon .. " %#WinBarFile#" .. filename .. modified .. "%="
+  end
+
+  -- Relative path from git root or cwd
   local bufnr = vim.api.nvim_get_current_buf()
   local git_root = get_git_root(bufnr)
   local rel_path
@@ -54,21 +73,32 @@ function _G.winbar_content()
     rel_path = vim.fn.expand("%:.")
   end
 
-  return file_icon .. " " .. filename .. "  " .. folder_icon .. " " .. rel_path
+  -- Breadcrumb: dimmed path parts  bright filename
+  local dir = vim.fn.fnamemodify(rel_path, ":h")
+  local crumbs = ""
+  if dir ~= "." then
+    local parts = vim.split(dir, "/")
+    local segments = {}
+    for _, part in ipairs(parts) do
+      segments[#segments + 1] = "%#WinBarPath#" .. part
+    end
+    crumbs = table.concat(segments, " %#WinBarSep# ") .. " %#WinBarSep# "
+  end
+
+  return "%=" .. crumbs .. "%#" .. icon_hl .. "#" .. icon .. " %#WinBarFile#" .. filename .. modified .. "%="
 end
 
 local excluded_filetypes = { "NvimTree", "terminal", "toggleterm", "alpha", "help", "qf", "TelescopePrompt" }
-local excluded_buftypes = { "terminal", "nofile", "prompt" }
+local excluded_buftypes  = { "terminal", "nofile", "prompt" }
 
 vim.api.nvim_create_autocmd({ "BufWinEnter", "WinEnter", "FileType" }, {
   callback = function()
     local bt = vim.bo.buftype
     local ft = vim.bo.filetype
-
     if vim.tbl_contains(excluded_buftypes, bt) or vim.tbl_contains(excluded_filetypes, ft) then
       vim.wo.winbar = nil
     else
-      vim.wo.winbar = "%=%{v:lua.winbar_content()}%="
+      vim.wo.winbar = "%{%v:lua.winbar_content()%}"
     end
   end,
 })
@@ -76,9 +106,6 @@ vim.api.nvim_create_autocmd({ "BufWinEnter", "WinEnter", "FileType" }, {
 vim.api.nvim_create_autocmd({ "FocusGained", "BufEnter" }, {
   command = "checktime",
 })
-
-
-
 
 vim.api.nvim_create_user_command("LspFullRestart", function()
   vim.diagnostic.reset()

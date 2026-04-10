@@ -5,6 +5,22 @@ vim.lsp.enable(servers)
 
 -- read :h vim.lsp.config for changing options of lsp servers
 
+vim.lsp.config("pyright", {
+  settings = {
+    python = {
+      analysis = {
+        typeCheckingMode = "basic",
+        autoSearchPaths = true,
+        useLibraryCodeForTypes = true,
+        diagnosticMode = "openFilesOnly",
+        diagnosticSeverityOverrides = {
+          reportArgumentType = "none",
+        },
+      },
+    },
+  },
+})
+
 vim.lsp.config("yamlls", {
   settings = {
     yaml = {

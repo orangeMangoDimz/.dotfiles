@@ -129,29 +129,83 @@ return {
     dependencies = { "nvim-tree/nvim-web-devicons", "catppuccin" },
     lazy = false,
     config = function()
-      local project_icon = vim.fn.nr2char(0xf07c)
-      local branch_icon = vim.fn.nr2char(0xe725)
+      local colors = require("catppuccin.palettes").get_palette("mocha")
+
+      local mode_colors = {
+        n  = colors.mauve,
+        i  = colors.green,
+        v  = colors.flamingo,
+        V  = colors.flamingo,
+        ["\22"] = colors.flamingo,
+        c  = colors.peach,
+        R  = colors.red,
+        t  = colors.teal,
+      }
+
+      local mode_labels = {
+        n  = "NORMAL",
+        i  = "INSERT",
+        v  = "VISUAL",
+        V  = "V-LINE",
+        ["\22"] = "V-BLOCK",
+        c  = "COMMAND",
+        R  = "REPLACE",
+        t  = "TERMINAL",
+      }
+
       require("lualine").setup {
         options = {
           theme = "catppuccin-mocha",
-          component_separators = "",
-          section_separators = "",
+          component_separators = { left = "", right = "" },
+          section_separators = { left = "", right = "" },
+          globalstatus = true,
         },
         sections = {
-          lualine_a = {},
-          lualine_b = {},
-          lualine_c = {
+          lualine_a = {
             {
               function()
-                return vim.fn.fnamemodify(vim.fn.getcwd(), ":t")
+                return mode_labels[vim.fn.mode()] or vim.fn.mode()
               end,
-              icon = project_icon,
+              color = function()
+                return { fg = colors.base, bg = mode_colors[vim.fn.mode()] or colors.blue, gui = "bold" }
+              end,
             },
-            { "branch", icon = branch_icon },
           },
-          lualine_x = {},
-          lualine_y = {},
-          lualine_z = {},
+          lualine_b = {
+            { "branch", icon = "" },
+            {
+              "diff",
+              symbols = { added = " ", modified = " ", removed = " " },
+              diff_color = {
+                added    = { fg = colors.green },
+                modified = { fg = colors.peach },
+                removed  = { fg = colors.red },
+              },
+            },
+          },
+          lualine_c = {
+            {
+              "filename",
+              path = 1,
+              symbols = { modified = "  ", readonly = "  ", unnamed = "  " },
+            },
+          },
+          lualine_x = {
+            {
+              "diagnostics",
+              sources = { "nvim_lsp" },
+              symbols = { error = " ", warn = " ", info = " ", hint = "󰌶 " },
+              diagnostics_color = {
+                error = { fg = colors.red },
+                warn  = { fg = colors.peach },
+                info  = { fg = colors.sky },
+                hint  = { fg = colors.teal },
+              },
+            },
+            { "filetype" },
+          },
+          lualine_y = { "location" },
+          lualine_z = { "progress" },
         },
       }
     end,
