@@ -21,7 +21,7 @@ M.ui = {
 }
 
 M.term = {
-  sizes = { sp = 0.4, vsp = 0.4 },
+  sizes = { sp = 0.3, vsp = 0.3 },
 }
 
 return M
