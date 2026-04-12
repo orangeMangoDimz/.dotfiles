@@ -32,7 +32,7 @@ return {
       "stevearc/dressing.nvim",
     },
     opts = {
-      flutter_path = vim.fn.expand("$HOME/flutter/bin/flutter"),
+      flutter_path = vim.fn.expand("$HOME/snap/flutter/common/flutter/bin/flutter"),
       widget_guides = { enabled = false },
       closing_tags = { enabled = true },
       lsp = {
