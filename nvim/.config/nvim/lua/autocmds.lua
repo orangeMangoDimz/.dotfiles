@@ -107,6 +107,17 @@ vim.api.nvim_create_autocmd({ "FocusGained", "BufEnter" }, {
   command = "checktime",
 })
 
+vim.api.nvim_create_autocmd("WinResized", {
+  callback = function()
+    for _, winid in ipairs(vim.v.event.windows) do
+      local ok, buf = pcall(vim.api.nvim_win_get_buf, winid)
+      if ok and vim.bo[buf].filetype == "NvimTree" then
+        vim.g._nvimtree_saved_width = vim.api.nvim_win_get_width(winid)
+      end
+    end
+  end,
+})
+
 vim.api.nvim_create_user_command("LspFullRestart", function()
   vim.diagnostic.reset()
   vim.cmd("LspStop")
