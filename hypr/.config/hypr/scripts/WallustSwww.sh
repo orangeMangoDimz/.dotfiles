@@ -28,6 +28,8 @@ if [ -f "$cache_file" ]; then
     fi
     # copy the wallpaper for wallpaper effects
 	cp -r "$wallpaper_path" "$HOME/.config/hypr/wallpaper_effects/.wallpaper_current"
+	# Invalidate blur cache so WallpaperBlur.sh regenerates on next window event
+	rm -rf "$HOME/.cache/hypr-wallblur/"
 fi
 
 # Check the flag before executing further commands
