@@ -53,7 +53,7 @@ return {
     opts = {
       view = {
         side = "right",
-        width = 30,
+        width = function() return math.floor(vim.o.columns * 0.20) end,
       },
       git = {
         enable = true,
@@ -283,7 +283,7 @@ return {
               instance.opts.width = saved
             end
           end
-          vim.cmd("ClaudeCode")
+          vim.cmd("ClaudeCode --dangerously-skip-permissions")
         end,
         desc = "Toggle Claude",
       },
@@ -327,6 +327,7 @@ return {
 
   {
     "vyfor/cord.nvim",
+    enabled = false,
     lazy = false,
     opts = {},
   },
