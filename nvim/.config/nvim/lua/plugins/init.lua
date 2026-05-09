@@ -67,7 +67,7 @@ return {
         enable = true,
       },
       filters = {
-        custom = { ".git", "node_modules", ".DS_Store", "__pycache__" },
+        custom = { "^\\.git$", "node_modules", ".DS_Store", "__pycache__" },
       },
       actions = {
         open_file = {

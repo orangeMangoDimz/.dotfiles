@@ -1,0 +1,6 @@
+# Wallpaper cache (large binary, changes frequently)
+hypr/.config/hypr/wallpaper_effects/.wallpaper_current
+
+# Claude session files
+**/.claude/
+.dmux-hooks/

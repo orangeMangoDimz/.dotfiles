@@ -22,7 +22,7 @@ export SWWW_TRANSITION_FPS=60
 export SWWW_TRANSITION_TYPE=simple
 
 # This controls (in seconds) when to switch to the next image
-INTERVAL=1800
+INTERVAL=600
 
 while true; do
 	find "$1" \

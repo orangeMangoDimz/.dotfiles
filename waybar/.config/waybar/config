@@ -1,6 +1,9 @@
 {
-    "layer": "bottom", 
-    "position": "bottom", 
+    "layer": "top",
+    "position": "top",
+    "margin-top": 0,
+    "margin-left": 0,
+    "margin-right": 0,
     "include": [
         "$HOME/.config/waybar/Modules",
         "$HOME/.config/waybar/ModulesWorkspaces",

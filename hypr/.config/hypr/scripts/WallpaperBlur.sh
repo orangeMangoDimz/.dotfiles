@@ -53,7 +53,7 @@ update_wallpapers
 
 nc -U "/tmp/hypr/$HYPRLAND_INSTANCE_SIGNATURE/.socket2.sock" | while IFS= read -r event; do
     case "$event" in
-        openwindow*|closewindow*|workspace*|movewindow*|focusedmon*)
+        openwindow*|closewindow*|workspace*|movewindow*)
             sleep 0.15
             update_wallpapers
             ;;

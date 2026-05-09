@@ -12,6 +12,10 @@ del("n", "<leader>h")
 del("n", "<leader>v")
 del("n", "<leader>e")
 pcall(del, "n", "<leader>b")
+pcall(del, "n", "<A-h>")
+pcall(del, "t", "<A-h>")
+pcall(del, "n", "<A-v>")
+pcall(del, "t", "<A-v>")
 
 -- ========================================
 -- Existing custom mappings
@@ -40,6 +44,23 @@ map("n", "<A-K>", "<cmd>resize -2<CR>", { desc = "Decrease pane height" })
 -- ========================================
 map("n", "<leader>h", "<cmd>vsplit<CR>", { desc = "Split right (vertical split)" })
 map("n", "<leader>v", "<cmd>split<CR>", { desc = "Split down (horizontal split)" })
+
+-- ========================================
+-- New terminals
+-- ========================================
+map("n", "<leader>nh", function()
+  require("nvchad.term").new { pos = "sp", size = 0.5 }
+end, { desc = "New horizontal terminal (50%)" })
+map("n", "<leader>nv", function()
+  require("nvchad.term").new { pos = "vsp", size = 0.5 }
+end, { desc = "New vertical terminal (50%)" })
+
+map({ "n", "t" }, "<A-h>", function()
+  require("nvchad.term").toggle { pos = "sp", id = "htoggleTerm", size = 0.5 }
+end, { desc = "Toggle horizontal terminal (50%)" })
+map({ "n", "t" }, "<A-v>", function()
+  require("nvchad.term").toggle { pos = "vsp", id = "vtoggleTerm", size = 0.5 }
+end, { desc = "Toggle vertical terminal (50%)" })
 
 -- ========================================
 -- NvimTree

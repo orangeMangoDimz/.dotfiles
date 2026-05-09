@@ -55,7 +55,8 @@ alias cdotfiles="user_path; cd .dotfiles"
 # Alias general
 alias cls="clear"
 # alias ls="colorls -a"
-alias ls='lsd -a --color=always --icon=always'
+# alias ls='lsd -a --color=always --icon=always'
+alias ls='lsd -a --color=always --icon=always --classify'
 alias fzf="fzf --preview='cat {}'"
 alias mango="sgpt"
 alias disk_space="df -h /"
@@ -297,4 +298,20 @@ export PATH=/home/orangemango/.opencode/bin:$PATH
 # Added by LM Studio CLI (lms)
 export PATH="$PATH:/home/orangemango/.lmstudio/bin"
 # End of LM Studio CLI section
+#
+# Claude Work alias
+cw() {
+  python3 -c "
+import json
+src = json.load(open('/home/orangemango/.claude.json'))
+dst_path = '/home/orangemango/.claude-work-home/.claude.json'
+dst = json.load(open(dst_path))
+dst['mcpServers'] = src.get('mcpServers', {})
+json.dump(dst, open(dst_path, 'w'), indent=2)
+"
+  HOME=/home/orangemango/.claude-work-home claude "$@"
+}
 
+claude() {
+  command claude --dangerously-skip-permissions "$@"
+}
