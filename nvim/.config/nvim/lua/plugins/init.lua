@@ -326,6 +326,147 @@ return {
   },
 
   {
+    "johnseth97/codex.nvim",
+    lazy = false,
+    cmd = { "Codex", "CodexToggle" },
+    init = function()
+      local CODEX_PANEL_WIDTH = 0.40
+      local group = vim.api.nvim_create_augroup("CodexPanelLeft", { clear = true })
+
+      vim.api.nvim_create_autocmd({ "BufWinEnter", "WinEnter" }, {
+        group = group,
+        callback = function(args)
+          if vim.bo[args.buf].filetype ~= "codex" then
+            return
+          end
+
+          local win = vim.fn.bufwinid(args.buf)
+          if win == -1 or not vim.api.nvim_win_is_valid(win) then
+            return
+          end
+
+          if not vim.g._codex_saved_width then
+            vim.g._codex_saved_width = math.floor(vim.o.columns * CODEX_PANEL_WIDTH)
+          end
+
+          vim.api.nvim_win_call(win, function()
+            vim.cmd "wincmd H"
+          end)
+
+          pcall(vim.api.nvim_win_set_width, win, vim.g._codex_saved_width)
+        end,
+      })
+
+      vim.api.nvim_create_autocmd({ "WinResized", "WinLeave", "BufWinLeave" }, {
+        group = group,
+        callback = function(args)
+          local win = tonumber(args.match)
+          if not win or win == 0 or not vim.api.nvim_win_is_valid(win) then
+            return
+          end
+
+          local buf = vim.api.nvim_win_get_buf(win)
+          if vim.bo[buf].filetype ~= "codex" then
+            return
+          end
+
+          vim.g._codex_saved_width = vim.api.nvim_win_get_width(win)
+        end,
+      })
+    end,
+    opts = {
+      panel = true,
+      width = 0.40,
+      cmd = { "codex", "--yolo" },
+      use_buffer = false,
+      keymaps = {
+        toggle = nil,
+        quit = "<C-q>",
+      },
+    },
+    keys = {
+      {
+        "<leader>ax",
+        function()
+          require("codex").toggle()
+        end,
+        mode = { "n", "t" },
+        desc = "Toggle Codex",
+      },
+      {
+        "<leader>aS",
+        function()
+          local startPos = vim.fn.getpos("'<")
+          local endPos = vim.fn.getpos("'>")
+          if startPos[2] == 0 or endPos[2] == 0 then
+            vim.notify("No visual selection found", vim.log.levels.WARN)
+            return
+          end
+
+          local selectionType = vim.fn.visualmode()
+          if selectionType == "" then
+            selectionType = "v"
+          end
+
+          local region = vim.fn.getregion(startPos, endPos, { type = selectionType })
+          local selectedText = table.concat(region, "\n")
+
+          if selectedText == "" then
+            vim.notify("Empty visual selection", vim.log.levels.WARN)
+            return
+          end
+          selectedText = selectedText:gsub("\n+$", "")
+
+          local codex = require("codex")
+          local state = require("codex.state")
+          local wasHidden = not (state.win and vim.api.nvim_win_is_valid(state.win))
+
+          if wasHidden then
+            codex.open()
+          end
+
+          local payload = "```txt\n" .. selectedText .. "\n```"
+          local sendSelection = function()
+            local activeState = require("codex.state")
+            if not activeState.job then
+              vim.notify("Codex job not running", vim.log.levels.ERROR)
+              return
+            end
+
+            vim.fn.chansend(activeState.job, payload)
+            vim.fn.chansend(activeState.job, "\r")
+            vim.notify("Selection sent to Codex", vim.log.levels.INFO)
+          end
+
+          local attempt = 0
+          local MAX_ATTEMPTS = 20
+          local RETRY_DELAY_MS = 80
+
+          local function trySend()
+            attempt = attempt + 1
+            local activeState = require("codex.state")
+            if activeState.job then
+              sendSelection()
+              return
+            end
+
+            if attempt >= MAX_ATTEMPTS then
+              vim.notify("Codex job not ready after waiting", vim.log.levels.ERROR)
+              return
+            end
+
+            vim.defer_fn(trySend, RETRY_DELAY_MS)
+          end
+
+          trySend()
+        end,
+        mode = "x",
+        desc = "Send selection to Codex",
+      },
+    },
+  },
+
+  {
     "vyfor/cord.nvim",
     enabled = false,
     lazy = false,
