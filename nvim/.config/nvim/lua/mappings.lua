@@ -27,9 +27,9 @@ map("i", "jk", "<ESC>")
 -- Shift+Enter newline (kitty + Neovim)
 -- ========================================
 map("i", "<S-CR>", "<CR>", { desc = "Insert newline with Shift+Enter" })
-map("t", "<S-CR>", "<CR>", { desc = "Terminal newline with Shift+Enter" })
+map("t", "<S-CR>", "<C-j>", { desc = "Terminal newline with Shift+Enter (Codex)" })
 map("i", "<Esc>[13;2u", "<CR>", { desc = "Insert newline with Shift+Enter (kitty CSI-u)" })
-map("t", "<Esc>[13;2u", "<CR>", { desc = "Terminal newline with Shift+Enter (kitty CSI-u)" })
+map("t", "<Esc>[13;2u", "<C-j>", { desc = "Terminal newline with Shift+Enter (kitty CSI-u, Codex)" })
 
 -- ========================================
 -- Terminal window navigation

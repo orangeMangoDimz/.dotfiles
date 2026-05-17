@@ -2,13 +2,16 @@
 
 * {
   font-family: FantasqueSansMono Nerd Font;
-  background-color: @base;
+  /* background-color: @base;  was opaque - hid the Hyprland glass blur */
+  background-color: transparent;
   font-size: 17px;
   min-height: 0;
 }
 
 #waybar {
-  background: transparent;
+  /* background: transparent;  was too see-through (no glass body) */
+  /* soft translucent bar body; Hyprland layerrule blurs behind it = frosted glass */
+  background: rgba(30, 30, 46, 0.55);
   color: @text;
   margin: 0;
 }
@@ -44,7 +47,9 @@
 #pulseaudio,
 #custom-lock,
 #custom-power {
-  background-color: @surface0;
+  /* background-color: @surface0;  opaque pill */
+  /* rgba(49,50,68,0.45) was too see-through */
+  background-color: rgba(49, 50, 68, 0.72);  /* soft frosted, not too transparent */
   padding: 0.5rem 1rem;
   margin: 5px 0;
 }
