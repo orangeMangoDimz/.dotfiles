@@ -349,28 +349,45 @@ return {
             vim.g._codex_saved_width = math.floor(vim.o.columns * CODEX_PANEL_WIDTH)
           end
 
-          vim.api.nvim_win_call(win, function()
-            vim.cmd "wincmd H"
+          vim.schedule(function()
+            if not vim.api.nvim_win_is_valid(win) then
+              return
+            end
+            vim.api.nvim_win_call(win, function()
+              vim.cmd "wincmd H"
+              vim.wo.winfixwidth = true
+            end)
+            pcall(vim.api.nvim_win_set_width, win, vim.g._codex_saved_width)
           end)
-
-          pcall(vim.api.nvim_win_set_width, win, vim.g._codex_saved_width)
         end,
       })
 
-      vim.api.nvim_create_autocmd({ "WinResized", "WinLeave", "BufWinLeave" }, {
+      vim.api.nvim_create_autocmd("WinResized", {
+        group = group,
+        callback = function()
+          for _, win in ipairs(vim.v.event.windows or {}) do
+            if vim.api.nvim_win_is_valid(win) then
+              local buf = vim.api.nvim_win_get_buf(win)
+              if vim.bo[buf].filetype == "codex" then
+                vim.g._codex_saved_width = vim.api.nvim_win_get_width(win)
+                break
+              end
+            end
+          end
+        end,
+      })
+
+      vim.api.nvim_create_autocmd("WinClosed", {
         group = group,
         callback = function(args)
           local win = tonumber(args.match)
-          if not win or win == 0 or not vim.api.nvim_win_is_valid(win) then
+          if not win or not vim.api.nvim_win_is_valid(win) then
             return
           end
-
           local buf = vim.api.nvim_win_get_buf(win)
-          if vim.bo[buf].filetype ~= "codex" then
-            return
+          if vim.bo[buf].filetype == "codex" then
+            vim.g._codex_saved_width = vim.api.nvim_win_get_width(win)
           end
-
-          vim.g._codex_saved_width = vim.api.nvim_win_get_width(win)
         end,
       })
     end,
