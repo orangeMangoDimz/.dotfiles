@@ -407,7 +407,7 @@ return {
         function()
           require("codex").toggle()
         end,
-        mode = { "n", "t" },
+        mode = "n",
         desc = "Toggle Codex",
       },
       {
