@@ -24,7 +24,8 @@ slider {
   box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.8), inset 0 0 0 1px #313244;
   border-radius: 12.6px;
   margin: 18px;
-  background-color: #1e1e2e;
+  /* background-color: #1e1e2e;  opaque - hid Hyprland glass blur */
+  background-color: rgba(30, 30, 46, 0.55);  /* frosted glass popup */
   color: #cdd6f4;
   padding: 0;
 }
@@ -100,7 +101,8 @@ slider {
   box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.8), inset 0 0 0 1px #313244;
   border-radius: 12.6px;
   margin: 18px;
-  background-color: #1e1e2e;
+  /* background-color: #1e1e2e;  opaque - hid Hyprland glass blur */
+  background-color: rgba(30, 30, 46, 0.55);  /* frosted glass panel */
   color: #cdd6f4;
   padding: 14px;
 }

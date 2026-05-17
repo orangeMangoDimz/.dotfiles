@@ -106,3 +106,16 @@
   /* margin-right: 1rem; */
   border-radius: 1rem;
 }
+
+/* tooltips were inheriting `* { background: transparent }` = unreadable.
+   near-solid bg + border so they are clearly visible */
+tooltip {
+  background-color: rgba(30, 30, 46, 0.96);
+  border: 1px solid rgba(205, 214, 244, 0.25);
+  border-radius: 8px;
+}
+tooltip label {
+  background-color: transparent;
+  color: #cdd6f4;
+  padding: 4px;
+}
