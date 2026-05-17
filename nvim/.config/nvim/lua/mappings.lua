@@ -24,6 +24,14 @@ map("n", ";", ":", { desc = "CMD enter command mode" })
 map("i", "jk", "<ESC>")
 
 -- ========================================
+-- Shift+Enter newline (kitty + Neovim)
+-- ========================================
+map("i", "<S-CR>", "<CR>", { desc = "Insert newline with Shift+Enter" })
+map("t", "<S-CR>", "<CR>", { desc = "Terminal newline with Shift+Enter" })
+map("i", "<Esc>[13;2u", "<CR>", { desc = "Insert newline with Shift+Enter (kitty CSI-u)" })
+map("t", "<Esc>[13;2u", "<CR>", { desc = "Terminal newline with Shift+Enter (kitty CSI-u)" })
+
+-- ========================================
 -- Terminal window navigation
 -- ========================================
 map("t", "<C-h>", "<C-\\><C-n><C-w>h", { desc = "Switch to left window" })
