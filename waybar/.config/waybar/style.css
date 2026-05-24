@@ -11,7 +11,7 @@
 #waybar {
   /* background: transparent;  was too see-through (no glass body) */
   /* soft translucent bar body; Hyprland layerrule blurs behind it = frosted glass */
-  background: rgba(30, 30, 46, 0.55);
+  background: rgba(30, 30, 46, 0.72);
   color: @text;
   margin: 0;
 }
@@ -49,7 +49,7 @@
 #custom-power {
   /* background-color: @surface0;  opaque pill */
   /* rgba(49,50,68,0.45) was too see-through */
-  background-color: rgba(49, 50, 68, 0.72);  /* soft frosted, not too transparent */
+  background-color: rgba(49, 50, 68, 0.80);
   padding: 0.5rem 1rem;
   margin: 5px 0;
 }
