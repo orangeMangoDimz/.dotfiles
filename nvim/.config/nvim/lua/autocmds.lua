@@ -107,6 +107,19 @@ vim.api.nvim_create_autocmd({ "FocusGained", "BufEnter" }, {
   command = "checktime",
 })
 
+vim.api.nvim_create_autocmd("FileType", {
+  callback = function()
+    local ok = pcall(vim.treesitter.get_parser, 0)
+    if ok then
+      vim.opt_local.foldmethod = "expr"
+      vim.opt_local.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+    else
+      vim.opt_local.foldmethod = "indent"
+    end
+    vim.opt_local.foldlevel = 99
+  end,
+})
+
 vim.api.nvim_create_autocmd("WinResized", {
   callback = function()
     for _, winid in ipairs(vim.v.event.windows) do

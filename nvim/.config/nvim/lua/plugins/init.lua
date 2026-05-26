@@ -44,7 +44,19 @@ return {
   {
     "nvim-treesitter/nvim-treesitter",
     opts = {
-      ensure_installed = { "dart" },
+      ensure_installed = {
+        "dart",
+        "python",
+        "javascript",
+        "typescript",
+        "jsx",
+        "tsx",
+        "php",
+        "go",
+        "html",
+        "css",
+        "json",
+      },
     },
   },
 
@@ -52,8 +64,25 @@ return {
     "nvim-tree/nvim-tree.lua",
     opts = {
       view = {
-        side = "right",
-        width = function() return math.floor(vim.o.columns * 0.20) end,
+        width = math.floor(vim.o.columns * 0.5),
+        float = {
+          enable = true,
+          quit_on_focus_loss = true,
+          open_win_config = function()
+            local screen_w = vim.opt.columns:get()
+            local screen_h = vim.opt.lines:get() - vim.opt.cmdheight:get()
+            local w = screen_w
+            local h = screen_h
+            return {
+              relative = "editor",
+              border = "none",
+              row = 0,
+              col = 0,
+              width = w,
+              height = h,
+            }
+          end,
+        },
       },
       git = {
         enable = true,
@@ -93,6 +122,41 @@ return {
         vim.keymap.set("n", "l", api.node.open.edit, opts)
         vim.keymap.set("n", "h", api.node.navigate.parent_close, opts)
       end,
+    },
+  },
+
+  {
+    "folke/noice.nvim",
+    event = "VeryLazy",
+    opts = {
+      lsp = {
+        override = {
+          ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
+          ["vim.lsp.util.stylize_markdown"] = true,
+          ["cmp.entry.get_documentation"] = true,
+        },
+      },
+      presets = {
+        bottom_search = true,
+        command_palette = false,
+        long_message_to_split = true,
+        lsp_doc_border = true,
+      },
+      views = {
+        cmdline_popup = {
+          position = { row = "50%", col = "50%" },
+          size = { width = 60, height = "auto" },
+        },
+        popupmenu = {
+          relative = "editor",
+          position = { row = "50%", col = "50%" },
+          size = { width = 60, height = 10 },
+        },
+      },
+    },
+    dependencies = {
+      "MunifTanjim/nui.nvim",
+      "rcarriga/nvim-notify",
     },
   },
 
@@ -537,6 +601,12 @@ return {
         end,
         initial_mode = "normal",
         wrap_results = true,
+        layout_strategy = "horizontal",
+        layout_config = {
+          width = 0.99,
+          height = 0.99,
+          preview_cutoff = 0,
+        },
       },
       pickers = {
         find_files = {
@@ -544,6 +614,42 @@ return {
           no_ignore = true,
         },
       },
+    },
+  },
+
+  {
+    "folke/snacks.nvim",
+    priority = 1000,
+    lazy = false,
+    opts = {
+      animate = { enabled = true },
+      scroll = { enabled = true },
+      indent = { enabled = true },
+      words = { enabled = true },
+      dim = { enabled = true },
+      zen = { enabled = true },
+      quickfile = { enabled = true },
+      statuscolumn = { enabled = true },
+      bigfile = { enabled = true },
+    },
+  },
+
+  {
+    "catgoose/nvim-colorizer.lua",
+    event = "BufReadPre",
+    opts = {},
+  },
+
+  {
+    "rmagatti/auto-session",
+    lazy = false,
+    opts = {
+      suppressed_dirs = { "~/", "~/Downloads", "/" },
+      session_options = "blank,buffers,curdir,help,tabpages,winsize,winpos,terminal,localoptions",
+    },
+    keys = {
+      { "<leader>ss", "<cmd>AutoSession search<cr>", desc = "Search sessions" },
+      { "<leader>sd", "<cmd>AutoSession delete<cr>", desc = "Delete session" },
     },
   },
 

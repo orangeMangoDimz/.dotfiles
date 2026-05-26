@@ -249,3 +249,6 @@ end, { desc = "Harpoon file 5" })
 map("n", "<leader>6", function()
   harpoon:list():select(6)
 end, { desc = "Harpoon file 6" })
+
+map("n", "<leader>nd", "<cmd>NoiceDismiss<cr>", { desc = "Dismiss all notifications" })
+map("n", "<leader>nm", "<cmd>Noice telescope<cr>", { desc = "Noice message history" })
