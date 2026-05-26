@@ -4,3 +4,9 @@ hypr/.config/hypr/wallpaper_effects/.wallpaper_current
 # Claude session files
 **/.claude/
 .dmux-hooks/
+
+# Nushell runtime/state files (local machine data)
+nushell/.config/nushell/history.txt
+nushell/.config/nushell/history.sqlite3
+nushell/.config/nushell/*.sqlite3-shm
+nushell/.config/nushell/*.sqlite3-wal
