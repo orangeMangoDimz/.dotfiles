@@ -100,7 +100,7 @@ return {
       },
       actions = {
         open_file = {
-          quit_on_open = false,
+          quit_on_open = true,
           resize_window = false,
           window_picker = { enable = true },
         },
@@ -163,63 +163,32 @@ return {
   {
     "catppuccin/nvim",
     name = "catppuccin",
+  },
+
+  {
+    "folke/tokyonight.nvim",
     priority = 1000,
     lazy = false,
+    dependencies = { "catppuccin" },
     config = function()
-      require("catppuccin").setup {
-        flavour = "mocha",
-        transparent_background = true,
-        integrations = {
-          nvimtree = true,
-          gitsigns = true,
-          treesitter = true,
-          nvim_web_devicons = true,
-        },
-        custom_highlights = function(colors)
-          return {
-            NvimTreeGitNew = { fg = colors.green },
-            NvimTreeGitNewIcon = { fg = colors.green },
-            NvimTreeGitDirty = { fg = colors.peach },
-            NvimTreeGitDirtyIcon = { fg = colors.peach },
-          }
-        end,
-      }
-      vim.cmd.colorscheme "catppuccin-mocha"
+      require("utils.theme").startup()
     end,
   },
 
   {
     "nvim-lualine/lualine.nvim",
-    dependencies = { "nvim-tree/nvim-web-devicons", "catppuccin" },
+    dependencies = { "nvim-tree/nvim-web-devicons", "folke/tokyonight.nvim", "catppuccin" },
     lazy = false,
     config = function()
-      local colors = require("catppuccin.palettes").get_palette("mocha")
-
-      local mode_colors = {
-        n  = colors.mauve,
-        i  = colors.green,
-        v  = colors.flamingo,
-        V  = colors.flamingo,
-        ["\22"] = colors.flamingo,
-        c  = colors.peach,
-        R  = colors.red,
-        t  = colors.teal,
-      }
-
       local mode_labels = {
-        n  = "NORMAL",
-        i  = "INSERT",
-        v  = "VISUAL",
-        V  = "V-LINE",
-        ["\22"] = "V-BLOCK",
-        c  = "COMMAND",
-        R  = "REPLACE",
-        t  = "TERMINAL",
+        n = "NORMAL", i = "INSERT", v = "VISUAL", V = "V-LINE",
+        ["\22"] = "V-BLOCK", c = "COMMAND", R = "REPLACE", t = "TERMINAL",
       }
+      local mc_keys = { n = "normal", i = "insert", v = "visual", V = "visual", ["\22"] = "visual", c = "command", R = "replace", t = "terminal" }
 
       require("lualine").setup {
         options = {
-          theme = "catppuccin-mocha",
+          theme = "auto",
           component_separators = { left = "", right = "" },
           section_separators = { left = "", right = "" },
           globalstatus = true,
@@ -231,21 +200,14 @@ return {
                 return mode_labels[vim.fn.mode()] or vim.fn.mode()
               end,
               color = function()
-                return { fg = colors.base, bg = mode_colors[vim.fn.mode()] or colors.blue, gui = "bold" }
+                local c = require("utils.theme").get_colors()
+                return { fg = c.bg, bg = c[mc_keys[vim.fn.mode()]] or c.blue, gui = "bold" }
               end,
             },
           },
           lualine_b = {
             { "branch", icon = "" },
-            {
-              "diff",
-              symbols = { added = " ", modified = " ", removed = " " },
-              diff_color = {
-                added    = { fg = colors.green },
-                modified = { fg = colors.peach },
-                removed  = { fg = colors.red },
-              },
-            },
+            { "diff", symbols = { added = " ", modified = " ", removed = " " } },
           },
           lualine_c = {
             {
@@ -259,12 +221,6 @@ return {
               "diagnostics",
               sources = { "nvim_lsp" },
               symbols = { error = " ", warn = " ", info = " ", hint = "󰌶 " },
-              diagnostics_color = {
-                error = { fg = colors.red },
-                warn  = { fg = colors.peach },
-                info  = { fg = colors.sky },
-                hint  = { fg = colors.teal },
-              },
             },
             { "filetype" },
           },

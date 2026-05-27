@@ -1,5 +1,8 @@
 require "nvchad.options"
 
+-- "tokyonight" | "catppuccin"
+vim.g.active_theme = "tokyonight"
+
 local o = vim.o
 o.number = true
 o.relativenumber = true

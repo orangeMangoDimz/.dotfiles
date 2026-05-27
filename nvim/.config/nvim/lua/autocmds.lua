@@ -2,13 +2,9 @@ require "nvchad.autocmds"
 
 -- Winbar highlight groups using catppuccin palette
 local function setup_winbar_highlights()
-  local ok, palette = pcall(require, "catppuccin.palettes")
+  local ok, theme = pcall(require, "utils.theme")
   if not ok then return end
-  local c = palette.get_palette("mocha")
-  vim.api.nvim_set_hl(0, "WinBarFile", { fg = c.text,     bg = "NONE", bold = true })
-  vim.api.nvim_set_hl(0, "WinBarPath", { fg = c.overlay1, bg = "NONE" })
-  vim.api.nvim_set_hl(0, "WinBarSep",  { fg = c.surface2, bg = "NONE" })
-  vim.api.nvim_set_hl(0, "WinBarMod",  { fg = c.peach,    bg = "NONE" })
+  theme.update_winbar()
 end
 
 vim.api.nvim_create_autocmd("ColorScheme", { callback = setup_winbar_highlights })
@@ -128,6 +124,16 @@ vim.api.nvim_create_autocmd("WinResized", {
         vim.g._nvimtree_saved_width = vim.api.nvim_win_get_width(winid)
       end
     end
+  end,
+})
+
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "markdown",
+  callback = function()
+    vim.opt_local.shiftwidth = 4
+    vim.opt_local.tabstop = 4
+    vim.opt_local.softtabstop = 4
+    vim.opt_local.expandtab = true
   end,
 })
 

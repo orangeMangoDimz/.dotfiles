@@ -236,7 +236,7 @@ def --wrapped cw [...rest] {
 }
 
 alias cls = clear
-alias ls = lsd -a --color=always --icon=always --classify
+# alias ls = lsd -a --color=always --icon=always --classify
 alias disk_space = df -h /
 alias lzg = lazygit
 alias lzd = lazydocker

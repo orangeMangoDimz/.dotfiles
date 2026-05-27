@@ -9,8 +9,8 @@ M.base46 = {
 	theme = "catppuccin",
 
 	hl_override = {
-		Comment = { fg = "#bac2de", italic = true },
-		["@comment"] = { fg = "#bac2de", italic = true },
+		Comment = { fg = "#7f849c", italic = true },
+		["@comment"] = { fg = "#7f849c", italic = true },
 	},
 }
 
