@@ -1,9 +1,114 @@
 {
-  "skipDangerousModePermissionPrompt": true,
-  "theme": "dark",
+  "respectGitignore": false,
+  "env": {
+    "GH_CONFIG_DIR": "/home/dimas/.config/gh",
+    "CLAUDE_CODE_EFFORT_LEVEL": "max"
+  },
+  "permissions": {
+    "allow": [
+      "Bash(git checkout:*)",
+      "Bash(git add:*)",
+      "Bash(git push:*)",
+      "Bash(gh pr:*)",
+      "Bash(git commit:*)",
+      "Bash(find:*)",
+      "WebSearch",
+      "Bash(tail:*)",
+      "Bash(pytest:*)",
+      "Bash(uv run:*)",
+      "Bash(python:*)",
+      "Bash(python3:*)",
+      "Bash(cat pyproject.toml 2>/dev/null | head -20 || cat requirements*.txt 2>/dev/null | head -5 || ls *.toml *.cfg 2>/dev/null)",
+      "Bash(.venv/bin/pytest:*)",
+      "Bash(git:*)",
+      "Bash(source:*)",
+      "Bash(bash scripts/run_tests.sh tests/unit/repositories/postgres/test_report_repository.py tests/unit/api/v1/test_reports.py tests/unit/services/test_report.py -v)",
+      "Bash(chmod:*)",
+      "Bash(bash scripts/run_tests.sh)",
+      "mcp__claude_ai_ClickUp__clickup_get_workspace_hierarchy",
+      "mcp__claude_ai_ClickUp__clickup_get_folder",
+      "mcp__claude_ai_ClickUp__clickup_create_task",
+      "mcp__claude_ai_ClickUp__clickup_delete_task",
+      "mcp__claude_ai_ClickUp__clickup_create_document",
+      "mcp__claude_ai_ClickUp__clickup_list_document_pages",
+      "mcp__claude_ai_ClickUp__clickup_update_document_page",
+      "mcp__pencil"
+    ],
+    "defaultMode": "auto"
+  },
+  "model": "opusplan",
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "EnterPlanMode",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo '{\"hookSpecificOutput\":{\"hookEventName\":\"PreToolUse\",\"additionalContext\":\"MANDATORY: Invoke the writing-plans skill (via Skill tool) as your FIRST action now, before planning anything.\"}}'",
+            "timeout": 5
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "notify-send 'Claude Code' 'Task finished' --icon=dialog-information 2>/dev/null || true",
+            "async": true
+          }
+        ]
+      }
+    ],
+    "Notification": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "msg=$(jq -r '.message // \"needs attention\"'); notify-send 'Claude Code' \"$msg\" --icon=dialog-information 2>/dev/null || true",
+            "async": true
+          }
+        ]
+      }
+    ]
+  },
   "statusLine": {
     "type": "command",
-    "command": "npx -y ccstatusline@latest",
-    "padding": 0
-  }
+    "command": "/home/dimas/.claude/statusline.sh",
+    "refreshInterval": 5
+  },
+  "enabledPlugins": {
+    "pyright-lsp@claude-plugins-official": true,
+    "figma@claude-plugins-official": true,
+    "caveman@caveman": true,
+    "telegram@claude-plugins-official": true,
+    "chrome-devtools-mcp@claude-plugins-official": true,
+    "discord@claude-plugins-official": true
+  },
+  "extraKnownMarketplaces": {
+    "caveman": {
+      "source": {
+        "source": "github",
+        "repo": "JuliusBrussee/caveman"
+      }
+    },
+    "chrome-devtools-plugins": {
+      "source": {
+        "source": "github",
+        "repo": "ChromeDevTools/chrome-devtools-mcp"
+      }
+    }
+  },
+  "advisorModel": "opus",
+  "prefersReducedMotion": true,
+  "skipDangerousModePermissionPrompt": true,
+  "theme": "dark",
+  "editorMode": "vim",
+  "verbose": true,
+  "preferredNotifChannel": "notifications_disabled",
+  "agentPushNotifEnabled": true,
+  "skipAutoPermissionPrompt": true
 }

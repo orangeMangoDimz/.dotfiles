@@ -1,0 +1,42 @@
+# === Secrets ===
+.credentials.json
+mcp.json
+
+# === Device-specific ===
+settings.local.json
+.claude/
+
+# === Ephemeral / large ===
+.caveman-active
+mcp-needs-auth-cache.json
+history.jsonl
+stats-cache.json
+sessions/
+debug/
+cache/
+telemetry/
+backups/
+downloads/
+file-history/
+paste-cache/
+plans/
+plugins/
+session-env/
+shell-snapshots/
+todos/
+transcripts/
+ide/
+channels/
+agent-memory/
+mcp-refresh-*.lock.lock/
+statsig/
+tasks/
+
+# === Session logs (the .jsonl files inside projects) ===
+projects/**/*.jsonl
+projects/**/subagents/
+projects/**/tool-results/
+
+# === Keep memory and MEMORY.md inside projects ===
+!projects/**/memory/
+!projects/**/memory/**

@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "GitLab": {
+      "type": "http",
+      "url": "https://ember9.snapinnovations.io/api/v4/mcp"
+    }
+  }
+}

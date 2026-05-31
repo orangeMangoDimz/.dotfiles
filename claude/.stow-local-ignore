@@ -1,0 +1,10 @@
+^RCS$
+^CVS$
+^SCCS$
+^\.git$
+^_darcs$
+^\.hg$
+^\.bzr$
+^\.svn$
+^\.gitattributes$
+^\.gitmodules$
