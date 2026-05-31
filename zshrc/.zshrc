@@ -1,6 +1,6 @@
 # OPENSPEC:START
 # OpenSpec shell completions configuration
-fpath=("/home/orangemango/.oh-my-zsh/custom/completions" $fpath)
+fpath=("$HOME/.oh-my-zsh/custom/completions" $fpath)
 fpath=(~/.zsh/completions $fpath)
 autoload -Uz compinit
 compinit
@@ -69,7 +69,7 @@ alias lzd="lazydocker"
 alias killport="f_killport"
 
 # Alias path
-alias last_save="/home/dimz/.local/share/tmux/resurrect" # execute: ln -sf <file_name> last
+alias last_save="$HOME/.local/share/tmux/resurrect" # execute: ln -sf <file_name> last
 
 # Alias django
 alias dj_run="py38 manage.py runserver"
@@ -241,6 +241,9 @@ zle -N fzf-history-widget
 # Color ls
 source $(dirname $(gem which colorls))/tab_complete.sh
 
+# Ruby user-installed gem binaries (colorls, tmuxinator)
+for _gembin in $HOME/.local/share/gem/ruby/*/bin(N); do path+=("$_gembin"); done
+
 export PATH="$HOME/.config/composer/vendor/bin:$PATH"
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
@@ -252,7 +255,7 @@ source ~/.zsh/catppuccin_mocha-zsh-syntax-highlighting.zsh
 export PATH="$HOME/.nvim/usr/bin:$PATH"
 
 # bun completions
-[ -s "/home/dimz/.bun/_bun" ] && source "/home/dimz/.bun/_bun"
+[ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"
 
 # Export editor nvim
 export EDITOR=nvim
@@ -269,14 +272,14 @@ eval "$(starship init zsh)"
 
 alias spt='kitty @ launch --location=hsplit cava >>/dev/null && sleep 0.1 && kitten @ resize-window --axis vertical --increment -10 && kitten @ focus-window --match neighbor:top && spotify_player'
 
-export PATH=$PATH:/home/mango/.spicetify
+export PATH=$PATH:$HOME/.spicetify
 
 # NOTE: Bottom line
 # feh <picture name>            -> open picture
 # wdg-open                      -> open video
 
 # Created by `pipx` on 2025-06-01 09:30:17
-export PATH="$PATH:/home/mango/.local/bin"
+export PATH="$PATH:$HOME/.local/bin"
 
 export ANDROID_HOME=$HOME/Android/Sdk
 export PATH=$PATH:$ANDROID_HOME/emulator
@@ -293,23 +296,16 @@ alias ham='task-master'
 # alias opencode="opencode --agent OpenAgent"
 
 # opencode
-export PATH=/home/orangemango/.opencode/bin:$PATH
+export PATH=$HOME/.opencode/bin:$PATH
 
 # Added by LM Studio CLI (lms)
-export PATH="$PATH:/home/orangemango/.lmstudio/bin"
+export PATH="$PATH:$HOME/.lmstudio/bin"
 # End of LM Studio CLI section
-#
-# Claude Work alias
+
+fastfetch
+
 cw() {
-  python3 -c "
-import json
-src = json.load(open('/home/orangemango/.claude.json'))
-dst_path = '/home/orangemango/.claude-work-home/.claude.json'
-dst = json.load(open(dst_path))
-dst['mcpServers'] = src.get('mcpServers', {})
-json.dump(dst, open(dst_path, 'w'), indent=2)
-"
-  HOME=/home/orangemango/.claude-work-home claude "$@"
+  HOME=$HOME/.claude-work-home claude "$@"
 }
 
 claude() {

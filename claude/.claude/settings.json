@@ -36,7 +36,6 @@
     ],
     "defaultMode": "auto"
   },
-  "model": "opusplan",
   "hooks": {
     "PreToolUse": [
       {
@@ -110,5 +109,6 @@
   "verbose": true,
   "preferredNotifChannel": "notifications_disabled",
   "agentPushNotifEnabled": true,
-  "skipAutoPermissionPrompt": true
+  "skipAutoPermissionPrompt": true,
+  "model": "opusplan"
 }
