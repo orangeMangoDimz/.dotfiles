@@ -8,6 +8,8 @@ vim.lsp.enable(servers)
 vim.lsp.config("pyright", {
   settings = {
     python = {
+      venvPath = ".",
+      venv = ".venv",
       analysis = {
         typeCheckingMode = "basic",
         autoSearchPaths = true,
