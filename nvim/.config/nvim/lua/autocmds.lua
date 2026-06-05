@@ -137,6 +137,31 @@ vim.api.nvim_create_autocmd("FileType", {
   end,
 })
 
+-- Consume OSC 52 clipboard requests from child processes in terminal buffers.
+-- Without this, TUI apps like Claude Code leak the raw sequence as visible text
+-- when nvim forwards unhandled OSC sequences to the outer terminal.
+vim.api.nvim_create_autocmd('TermRequest', {
+  callback = function(ev)
+    local data = ev.data
+    if type(data) ~= 'string' then return end
+    if data:match('^\027]52;') or data:match('^52;') then
+      return true
+    end
+  end,
+})
+
+vim.api.nvim_create_user_command("PreviewSvg", function()
+  local lines = vim.api.nvim_buf_get_lines(0, 0, -1, false)
+  local content = table.concat(lines, "\n")
+  if not content:match("<svg") then
+    vim.notify("No <svg> tag found in buffer", vim.log.levels.ERROR)
+    return
+  end
+  local tmp = vim.fn.tempname() .. ".svg"
+  vim.fn.writefile(lines, tmp)
+  vim.fn.jobstart({ "xdg-open", tmp }, { detach = true })
+end, { desc = "Preview SVG in browser" })
+
 vim.api.nvim_create_user_command("LspFullRestart", function()
   vim.diagnostic.reset()
   vim.cmd("LspStop")

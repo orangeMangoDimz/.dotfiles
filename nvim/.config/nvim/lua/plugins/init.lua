@@ -22,6 +22,10 @@ return {
   {
     "kdheepak/lazygit.nvim",
     cmd = "LazyGit",
+    init = function()
+      vim.g.lazygit_floating_window_scaling_factor = 1.0
+      vim.g.lazygit_floating_window_winblend = 0
+    end,
   },
 
   {
@@ -32,12 +36,9 @@ return {
       "stevearc/dressing.nvim",
     },
     opts = {
-      flutter_path = vim.fn.expand("$HOME/snap/flutter/common/flutter/bin/flutter"),
+      flutter_path = "/usr/bin/flutter",
       widget_guides = { enabled = false },
       closing_tags = { enabled = true },
-      lsp = {
-        color = { enabled = false },
-      },
     },
   },
 
@@ -64,22 +65,20 @@ return {
     "nvim-tree/nvim-tree.lua",
     opts = {
       view = {
-        width = math.floor(vim.o.columns * 0.5),
+        width = math.floor(vim.o.columns * 0.4),
         float = {
           enable = true,
-          quit_on_focus_loss = true,
+          quit_on_focus_loss = false,
           open_win_config = function()
             local screen_w = vim.opt.columns:get()
             local screen_h = vim.opt.lines:get() - vim.opt.cmdheight:get()
-            local w = screen_w
-            local h = screen_h
             return {
               relative = "editor",
               border = "none",
               row = 0,
               col = 0,
-              width = w,
-              height = h,
+              width = screen_w,
+              height = screen_h,
             }
           end,
         },
@@ -118,11 +117,146 @@ return {
       on_attach = function(bufnr)
         local api = require "nvim-tree.api"
         api.config.mappings.default_on_attach(bufnr)
-        local opts = { buffer = bufnr, noremap = true, silent = true, nowait = true }
-        vim.keymap.set("n", "l", api.node.open.edit, opts)
-        vim.keymap.set("n", "h", api.node.navigate.parent_close, opts)
+        local map_opts = { buffer = bufnr, noremap = true, silent = true, nowait = true }
+        vim.keymap.set("n", "l", api.node.open.edit, map_opts)
+        vim.keymap.set("n", "h", api.node.navigate.parent_close, map_opts)
       end,
     },
+    config = function(_, opts)
+      local preview = { win = nil, buf = nil }
+
+      local function tree_width()
+        return math.floor(vim.opt.columns:get() * 0.4)
+      end
+
+      local function ensure_buf()
+        if preview.buf and vim.api.nvim_buf_is_valid(preview.buf) then
+          return preview.buf
+        end
+        preview.buf = vim.api.nvim_create_buf(false, true)
+        vim.bo[preview.buf].bufhidden = "wipe"
+        vim.bo[preview.buf].buflisted = false
+        return preview.buf
+      end
+
+      local function go_to_tree()
+        for _, win in ipairs(vim.api.nvim_list_wins()) do
+          if vim.bo[vim.api.nvim_win_get_buf(win)].filetype == "NvimTree" then
+            vim.api.nvim_set_current_win(win)
+            return
+          end
+        end
+      end
+
+      local function ensure_win()
+        if preview.win and vim.api.nvim_win_is_valid(preview.win) then
+          return preview.win
+        end
+        local buf = ensure_buf()
+        local sw = vim.opt.columns:get()
+        local sh = vim.opt.lines:get() - vim.opt.cmdheight:get()
+        local tw = tree_width()
+        preview.win = vim.api.nvim_open_win(buf, false, {
+          relative = "editor",
+          border = "none",
+          row = 0,
+          col = tw,
+          width = sw - tw,
+          height = sh,
+          style = "minimal",
+          zindex = 51,
+          focusable = true,
+        })
+        vim.wo[preview.win].number = true
+        vim.wo[preview.win].wrap = false
+        vim.keymap.set("n", "<C-h>", go_to_tree, { buffer = buf, noremap = true, silent = true })
+        return preview.win
+      end
+
+      local function close_preview()
+        if preview.win and vim.api.nvim_win_is_valid(preview.win) then
+          vim.api.nvim_win_close(preview.win, true)
+        end
+        preview.win = nil
+      end
+
+      local function update_preview()
+        local api = require "nvim-tree.api"
+        local ok, node = pcall(api.tree.get_node_under_cursor)
+        if not ok or not node then return end
+
+        local buf = ensure_buf()
+        ensure_win()
+
+        if node.type ~= "file" then
+          vim.bo[buf].modifiable = true
+          vim.api.nvim_buf_set_lines(buf, 0, -1, false, {})
+          vim.bo[buf].modifiable = false
+          vim.bo[buf].filetype = ""
+          return
+        end
+
+        local path = node.absolute_path
+        local uv = vim.uv or vim.loop
+        local stat = uv.fs_stat(path)
+        if not stat or stat.size > 1024 * 1024 then
+          vim.bo[buf].modifiable = true
+          vim.api.nvim_buf_set_lines(buf, 0, -1, false, { "[binary or large file]" })
+          vim.bo[buf].modifiable = false
+          vim.bo[buf].filetype = ""
+          return
+        end
+
+        local read_ok, lines = pcall(vim.fn.readfile, path)
+        if not read_ok then return end
+
+        vim.bo[buf].modifiable = true
+        vim.api.nvim_buf_set_lines(buf, 0, -1, false, lines)
+        vim.bo[buf].modifiable = false
+
+        if preview.win and vim.api.nvim_win_is_valid(preview.win) then
+          vim.api.nvim_win_set_cursor(preview.win, { 1, 0 })
+        end
+
+        local ft = vim.filetype.match({ filename = path, buf = buf }) or ""
+        vim.bo[buf].filetype = ft
+      end
+
+      local orig_attach = opts.on_attach
+      opts.on_attach = function(bufnr)
+        if orig_attach then orig_attach(bufnr) end
+        vim.keymap.set("n", "<C-l>", function()
+          local win = ensure_win()
+          if win and vim.api.nvim_win_is_valid(win) then
+            vim.api.nvim_set_current_win(win)
+          end
+        end, { buffer = bufnr, noremap = true, silent = true, nowait = true })
+      end
+
+      require("nvim-tree").setup(opts)
+
+      local augroup = vim.api.nvim_create_augroup("NvimTreePreview", { clear = true })
+
+      vim.api.nvim_create_autocmd("FileType", {
+        group = augroup,
+        pattern = "NvimTree",
+        callback = function(ev)
+          ensure_win()
+          update_preview()
+          vim.api.nvim_create_autocmd("CursorMoved", {
+            group = augroup,
+            buffer = ev.buf,
+            callback = update_preview,
+          })
+          vim.api.nvim_create_autocmd({ "BufHidden", "BufUnload" }, {
+            group = augroup,
+            buffer = ev.buf,
+            once = true,
+            callback = close_preview,
+          })
+        end,
+      })
+    end,
   },
 
   {
