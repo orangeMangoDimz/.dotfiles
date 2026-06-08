@@ -89,6 +89,13 @@ map("n", "<leader>et", function()
 end, { desc = "NvimTree toggle" })
 
 -- ========================================
+-- Formatting
+-- ========================================
+map("n", "<leader>fm", function()
+  require("conform").format({ async = true, lsp_fallback = true })
+end, { desc = "Format buffer (conform)" })
+
+-- ========================================
 -- LSP
 -- ========================================
 map("n", "<leader>cr", vim.lsp.buf.rename, { desc = "LSP rename" })

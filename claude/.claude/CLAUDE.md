@@ -8,66 +8,11 @@
 - Rationale: immutable data prevents hidden side effects, makes debugging easier, and enables safe concurrency.
 - Refer `~/.claude/rules/common/coding-style.md`
 
-### Core Principles
-
-- Prefer the simplest solution that actually works.
-- Avoid premature optimization.
-- Optimize for clarity over cleverness.
-- Extract repeated logic into shared functions or utilities.
-- Avoid copy-paste implementation drift.
-- Introduce abstractions when repetition is real, not speculative.
-- Do not build features or abstractions before they are needed.
-- Avoid speculative generality.
-- Start simple, then refactor when the pressure is real.
-
-### File Organization
-
-- Prefer many small files over few large files.
-- Target high cohesion and low coupling.
-- Keep files around 200-400 lines when practical, 800 max.
-- Extract utilities from large modules.
-- Organize by feature or domain, not by type.
-
-### Input Validation
-
-- Validate all user input before processing.
-- Use schema-based validation where available.
-- Fail fast with clear error messages.
-- Never trust external data.
-
-### Naming Conventions
-
-- Variables and functions: `camelCase` with descriptive names.
-- Booleans: prefer `is`, `has`, `should`, or `can` prefixes.
-- Interfaces, types, and components: `PascalCase`.
-- Constants: `UPPER_SNAKE_CASE`.
-- Custom hooks: `camelCase` with a `use` prefix.
-
 ### Code Smells to Avoid
 
 - Prefer early returns over deep nesting.
 - Use named constants for meaningful thresholds, delays, and limits.
 - Split large functions into focused pieces with clear responsibilities.
-
-### Completion Checklist
-
-- Code is readable and well-named.
-- Functions are small when practical.
-- Files are focused.
-- Avoid deep nesting.
-- Proper error handling exists.
-- Avoid hardcoded values when a constant or config is appropriate.
-- Prefer immutable patterns.
-
-## Caveman Mode
-
-When `~/.claude/.caveman-active` file exists, invoke the `caveman` skill in full mode. Rules from that skill override the response-format section below.
-
-## Plan Mode
-
-When entering plan mode, always invoke the `writing-plans` skill as the first action.
-
-When given a plan file to execute, always invoke the `executing-plans` skill first.
 
 ## Before Editing
 
@@ -81,17 +26,18 @@ Once all questions are resolved and you are ready to proceed, ask the user wheth
 
 ### Facts Only
 
-- If you do not know, say so or say that verification is needed.
+- If you do not know, say so explicitly.
 - Never invent function names, file paths, API signatures, library behavior, env vars, or imports.
-- Before claiming code does something, read the file first.
-- Before claiming a library has a feature, check docs or source.
+- **Reading code ≠ proof.** Finding logic in source means "this logic exists here" — not "this is how the system behaves at runtime."
+- Label every claim by evidence tier:
+  - **[CODE]** — found in source, runtime behavior unverified
+  - **[UNTESTED]** — no test output, log, or real run to back it
+  - **[VERIFIED]** — confirmed by actual test result, log, or observed output
+- Never state runtime behavior as fact without runtime proof.
+- Prefer: *"Found this logic in `foo.ts:42` — no runtime evidence yet, needs a test to confirm."*
+- Avoid: *"This function does X"* when you've only read the source.
+- Before claiming a library has a feature, check docs or source AND label it [UNTESTED] if not run.
 - Never fill gaps with plausible defaults.
-
-### Required Tool Use
-
-- Describing a function: read source first.
-- Naming a path: glob or list first.
-- Quoting config: read the file first.
 
 ### When Unsure
 

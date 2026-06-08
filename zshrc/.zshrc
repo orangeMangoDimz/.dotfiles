@@ -282,6 +282,8 @@ export PATH=$PATH:$HOME/.spicetify
 export PATH="$PATH:$HOME/.local/bin"
 
 export ANDROID_HOME=$HOME/Android/Sdk
+export ANDROID_SDK_ROOT=$HOME/Android/Sdk
+export PATH=$PATH:$ANDROID_HOME/cmdline-tools/latest/bin
 export PATH=$PATH:$ANDROID_HOME/emulator
 export PATH=$PATH:$ANDROID_HOME/platform-tools
 
@@ -309,5 +311,8 @@ cw() {
 }
 
 claude() {
-  command claude --dangerously-skip-permissions "$@"
+  command claude "$@"
 }
+
+export CHROME_EXECUTABLE=/usr/bin/google-chrome-stable
+

@@ -2,7 +2,8 @@
   "respectGitignore": false,
   "env": {
     "GH_CONFIG_DIR": "/home/dimas/.config/gh",
-    "CLAUDE_CODE_EFFORT_LEVEL": "max"
+    "CLAUDE_CODE_EFFORT_LEVEL": "max",
+    "CLAUDE_CODE_NO_FLICKER": "1"
   },
   "permissions": {
     "allow": [
@@ -85,7 +86,8 @@
     "caveman@caveman": true,
     "telegram@claude-plugins-official": true,
     "chrome-devtools-mcp@claude-plugins-official": true,
-    "discord@claude-plugins-official": true
+    "discord@claude-plugins-official": true,
+    "chrome-devtools-mcp@chrome-devtools-plugins": true
   },
   "extraKnownMarketplaces": {
     "caveman": {
@@ -108,7 +110,7 @@
   "editorMode": "vim",
   "verbose": true,
   "preferredNotifChannel": "notifications_disabled",
+  "daemonColdStart": "transient",
   "agentPushNotifEnabled": true,
-  "skipAutoPermissionPrompt": true,
-  "model": "opusplan"
+  "skipAutoPermissionPrompt": true
 }
