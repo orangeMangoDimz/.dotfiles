@@ -2,18 +2,18 @@
 
 * {
   font-family: FantasqueSansMono Nerd Font;
-  /* background-color: @base;  was opaque - hid the Hyprland glass blur */
   background-color: transparent;
   font-size: 17px;
   min-height: 0;
 }
 
 #waybar {
-  /* background: transparent;  was too see-through (no glass body) */
-  /* soft translucent bar body; Hyprland layerrule blurs behind it = frosted glass */
-  background: rgba(30, 30, 46, 0.72);
+  background: rgba(30, 30, 46, 0.62);
   color: @text;
   margin: 0;
+  border: 1px solid rgba(205, 214, 244, 0.22);
+  border-radius: 18px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.22);
 }
 
 #workspaces {
@@ -47,16 +47,16 @@
 #pulseaudio,
 #custom-lock,
 #custom-power {
-  /* background-color: @surface0;  opaque pill */
-  /* rgba(49,50,68,0.45) was too see-through */
-  background-color: rgba(49, 50, 68, 0.80);
+  background-color: rgba(49, 50, 68, 0.42);
+  border: 1px solid rgba(205, 214, 244, 0.10);
+  border-radius: 12px;
   padding: 0.5rem 1rem;
   margin: 5px 0;
 }
 
 #clock {
   color: @blue;
-  border-radius: 0px 1rem 1rem 0px;
+  border-radius: 12px;
   margin-right: 1rem;
 }
 
@@ -77,34 +77,34 @@
 }
 
 #backlight, #battery {
-    border-radius: 0;
+    border-radius: 12px;
 }
 
 #pulseaudio {
   color: @maroon;
-  border-radius: 1rem 0px 0px 1rem;
+  border-radius: 12px;
   margin-left: 1rem;
 }
 
 #custom-music {
   color: @mauve;
-  border-radius: 1rem;
+  border-radius: 12px;
 }
 
 #custom-lock {
-    border-radius: 1rem 0px 0px 1rem;
+    border-radius: 12px;
     color: @lavender;
 }
 
 #custom-power {
     margin-right: 1rem;
-    border-radius: 0px 1rem 1rem 0px;
+    border-radius: 12px;
     color: @red;
 }
 
 #tray {
   /* margin-right: 1rem; */
-  border-radius: 1rem;
+  border-radius: 12px;
 }
 
 /* tooltips were inheriting `* { background: transparent }` = unreadable.
