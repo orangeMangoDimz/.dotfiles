@@ -4,6 +4,8 @@
   // ============================================================================
   {
     "bindings": {
+      "alt-l": "agent::Toggle",
+      "alt-s": "agent::AddSelectionToThread",
       "ctrl-h": "workspace::ActivatePaneLeft",
       "ctrl-l": "workspace::ActivatePaneRight",
       "ctrl-k": "workspace::ActivatePaneUp",
