@@ -21,6 +21,11 @@ plugins=(
     # zsh-bat
 )
 
+function zvm_config() {
+    ZVM_INSERT_MODE_CURSOR=$ZVM_CURSOR_BLOCK
+    ZVM_NORMAL_MODE_CURSOR=$ZVM_CURSOR_BLOCK
+}
+
 source $ZSH/oh-my-zsh.sh
 
 # root alias
@@ -295,11 +300,6 @@ alias tm='task-master'
 alias taskmaster='task-master'
 alias hamster='task-master'
 alias ham='task-master'
-# alias opencode="opencode --agent OpenAgent"
-
-# opencode
-export PATH=$HOME/.opencode/bin:$PATH
-
 # Added by LM Studio CLI (lms)
 export PATH="$PATH:$HOME/.lmstudio/bin"
 # End of LM Studio CLI section
@@ -307,7 +307,7 @@ export PATH="$PATH:$HOME/.lmstudio/bin"
 fastfetch
 
 cw() {
-  HOME=$HOME/.claude-work-home claude "$@"
+  HOME=/home/dimas/.claude-work-home /home/dimas/.claude-work-home/.local/bin/claude "$@"
 }
 
 claude() {
@@ -316,3 +316,6 @@ claude() {
 
 export CHROME_EXECUTABLE=/usr/bin/google-chrome-stable
 
+# >>> Codex installer >>>
+export PATH="/home/dimas/.local/bin:$PATH"
+# <<< Codex installer <<<
