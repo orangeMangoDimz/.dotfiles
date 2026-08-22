@@ -34,7 +34,7 @@ Keep the PR focused on one coherent change. Large unrelated edits belong in sepa
 Run from the repository root. Replace placeholders. The body uses a here-doc so the description stays readable in the PR UI.
 
 ```bash
-gh pr create --base dev --head <branch-name> --title "<type>(<scope>): <description>" --body "$(cat <<'EOF'
+gh pr create --repo <owner>/<repo> --base dev --head <branch-name> --title "<type>(<scope>): <description>" --body "$(cat <<'EOF'
 ## TL;DR
 
 [One sentence: what user/system gets + why.]
@@ -96,6 +96,7 @@ Finance can now download monthly reports as CSV without database access.
 - Base branch is always **`dev`** unless the user names a different base.
 - If a PR for this branch already exists, report the existing PR URL instead of creating another.
 - If `gh` is not installed or not authenticated, stop and say to install the GitHub CLI and run `gh auth login`, or open the compare URL on GitHub: `dev` ← `<branch-name>`.
+- Always pass `--repo <owner>/<repo>` (derived from `git remote get-url origin`) to avoid transient GraphQL 401 failures.
 
 ## Before running
 
