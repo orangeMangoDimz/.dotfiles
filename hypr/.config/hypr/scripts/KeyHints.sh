@@ -55,13 +55,12 @@ GDK_BACKEND=$BACKEND yad \
 "CTRL ALT P" "power-menu" "(wlogout)" \
 "CTRL ALT L" "screen lock" "(hyprlock)" \
 "CTRL ALT Del" "Hyprland Exit" "(NOTE: Hyprland Will exit immediately)" \
-" SHIFT F" "Fullscreen" "Toggles to full screen" \
-" CTL F" "Fake Fullscreen" "Toggles to fake full screen" \
+"CTRL SHIFT F" "Fullscreen" "Toggles to full screen" \
+"CTRL ALT SHIFT F" "Fake Fullscreen" "Toggles to fake full screen" \
 " ALT L" "Toggle Dwindle | Master Layout" "Hyprland Layout" \
 " SPACEBAR" "Toggle float" "single window" \
 " ALT SPACEBAR" "Toggle all windows to float" "all windows" \
-" ALT O" "Toggle Blur" "normal or less blur" \
-" CTRL O" "Toggle Opaque ON or OFF" "on active window only" \
+" ALT O" "Disable Blur" "keeps blur disabled" \
 " Shift A" "Animations Menu" "Choose Animations via rofi" \
 " CTRL R" "Rofi Themes Menu" "Choose Rofi Themes via rofi" \
 " CTRL Shift R" "Rofi Themes Menu v2" "Choose Rofi Themes via Theme Selector (modified)" \

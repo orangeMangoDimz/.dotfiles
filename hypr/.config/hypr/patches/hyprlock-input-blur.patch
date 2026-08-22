@@ -1,0 +1,115 @@
+diff --git a/src/config/ConfigManager.cpp b/src/config/ConfigManager.cpp
+index 7eef5f7..5d11fb7 100644
+--- a/src/config/ConfigManager.cpp
++++ b/src/config/ConfigManager.cpp
+@@ -263,6 +263,7 @@ void CConfigManager::init() {
+     m_config.addSpecialConfigValue("background", "color", Hyprlang::INT{0xFF111111});
+     m_config.addSpecialConfigValue("background", "blur_size", Hyprlang::INT{8});
+     m_config.addSpecialConfigValue("background", "blur_passes", Hyprlang::INT{0});
++    m_config.addSpecialConfigValue("background", "input_blur_passes", Hyprlang::INT{0});
+     m_config.addSpecialConfigValue("background", "noise", Hyprlang::FLOAT{0.0117});
+     m_config.addSpecialConfigValue("background", "contrast", Hyprlang::FLOAT{0.8917});
+     m_config.addSpecialConfigValue("background", "brightness", Hyprlang::FLOAT{0.8172});
+@@ -416,6 +417,7 @@ std::vector<CConfigManager::SWidgetConfig> CConfigManager::getWidgetConfigs() {
+                 {"color", m_config.getSpecialConfigValue("background", "color", k.c_str())},
+                 {"blur_size", m_config.getSpecialConfigValue("background", "blur_size", k.c_str())},
+                 {"blur_passes", m_config.getSpecialConfigValue("background", "blur_passes", k.c_str())},
++                {"input_blur_passes", m_config.getSpecialConfigValue("background", "input_blur_passes", k.c_str())},
+                 {"noise", m_config.getSpecialConfigValue("background", "noise", k.c_str())},
+                 {"contrast", m_config.getSpecialConfigValue("background", "contrast", k.c_str())},
+                 {"vibrancy", m_config.getSpecialConfigValue("background", "vibrancy", k.c_str())},
+diff --git a/src/renderer/widgets/Background.cpp b/src/renderer/widgets/Background.cpp
+index 3b921e7..135e110 100644
+--- a/src/renderer/widgets/Background.cpp
++++ b/src/renderer/widgets/Background.cpp
+@@ -46,6 +46,8 @@ void CBackground::configure(const std::unordered_map<std::string, std::any>& pro
+     try {
+         color             = std::any_cast<Hyprlang::INT>(props.at("color"));
+         blurPasses        = std::any_cast<Hyprlang::INT>(props.at("blur_passes"));
++        inputBlurPasses   = std::any_cast<Hyprlang::INT>(props.at("input_blur_passes"));
++        activeBlurPasses  = blurPasses;
+         blurSize          = std::any_cast<Hyprlang::INT>(props.at("blur_size"));
+         vibrancy          = std::any_cast<Hyprlang::FLOAT>(props.at("vibrancy"));
+         vibrancy_darkness = std::any_cast<Hyprlang::FLOAT>(props.at("vibrancy_darkness"));
+@@ -110,24 +112,26 @@ void CBackground::reset() {
+ }
+ 
+ void CBackground::updatePrimaryAsset() {
+-    if (asset || resourceID == 0)
++    if (resourceID == 0)
+         return;
+ 
+-    asset = g_asyncResourceManager->getAssetByID(resourceID);
+-    if (!asset)
+-        return;
++    if (!asset) {
++        asset = g_asyncResourceManager->getAssetByID(resourceID);
++        if (!asset)
++            return;
++    }
+ 
+-    const bool NEEDFB = (isScreenshot || blurPasses > 0 || asset->m_vSize != viewport || transform != HYPRUTILS_TRANSFORM_NORMAL) && (!blurredFB->isAllocated() || firstRender);
++    const bool NEEDFB = (isScreenshot || activeBlurPasses > 0 || asset->m_vSize != viewport || transform != HYPRUTILS_TRANSFORM_NORMAL) && (!blurredFB->isAllocated() || firstRender);
+     if (NEEDFB)
+-        renderToFB(*asset, *blurredFB, blurPasses, isScreenshot);
++        renderToFB(*asset, *blurredFB, activeBlurPasses, isScreenshot);
+ }
+ 
+ void CBackground::updatePendingAsset() {
+     // For crossfading a new asset
+-    if (!pendingAsset || blurPasses == 0 || pendingBlurredFB->isAllocated())
++    if (!pendingAsset || activeBlurPasses == 0 || pendingBlurredFB->isAllocated())
+         return;
+ 
+-    renderToFB(*pendingAsset, *pendingBlurredFB, blurPasses);
++    renderToFB(*pendingAsset, *pendingBlurredFB, activeBlurPasses);
+ }
+ 
+ void CBackground::updateScAsset() {
+@@ -145,8 +147,8 @@ void CBackground::updateScAsset() {
+ }
+ 
+ const CTexture& CBackground::getPrimaryAssetTex() const {
+-    // This case is only for background:path=screenshot with blurPasses=0
+-    if (isScreenshot && blurPasses == 0 && transformedScFB->isAllocated())
++    // This case is only for background:path=screenshot with activeBlurPasses=0
++    if (isScreenshot && activeBlurPasses == 0 && transformedScFB->isAllocated())
+         return transformedScFB->m_cTex;
+ 
+     return (blurredFB->isAllocated()) ? blurredFB->m_cTex : *asset;
+@@ -210,7 +212,7 @@ void CBackground::renderToFB(const CTexture& tex, CFramebuffer& fb, int passes,
+ 
+     g_pRenderer->renderTexture(TEXBOX, tex, 1.0, 0, applyTransform ? transform : HYPRUTILS_TRANSFORM_NORMAL);
+ 
+-    if (blurPasses > 0)
++    if (passes > 0)
+         g_pRenderer->blurFB(fb,
+                             CRenderer::SBlurParams{
+                                 .size              = blurSize,
+@@ -225,6 +227,13 @@ void CBackground::renderToFB(const CTexture& tex, CFramebuffer& fb, int passes,
+ }
+ 
+ bool CBackground::draw(const SRenderData& data) {
++    const int TARGETPASSES = g_pHyprlock->getPasswordBufferLen() > 0 ? inputBlurPasses : blurPasses;
++    if (activeBlurPasses != TARGETPASSES) {
++        activeBlurPasses = TARGETPASSES;
++        blurredFB->destroyBuffer();
++        pendingBlurredFB->destroyBuffer();
++    }
++
+     updatePrimaryAsset();
+     updatePendingAsset();
+     updateScAsset();
+diff --git a/src/renderer/widgets/Background.hpp b/src/renderer/widgets/Background.hpp
+index d3516c5..86fdb93 100644
+--- a/src/renderer/widgets/Background.hpp
++++ b/src/renderer/widgets/Background.hpp
+@@ -53,6 +53,8 @@ class CBackground : public IWidget {
+ 
+     int                             blurSize          = 10;
+     int                             blurPasses        = 3;
++    int                             inputBlurPasses   = 0;
++    int                             activeBlurPasses  = 3;
+     float                           noise             = 0.0117;
+     float                           contrast          = 0.8916;
+     float                           brightness        = 0.8172;

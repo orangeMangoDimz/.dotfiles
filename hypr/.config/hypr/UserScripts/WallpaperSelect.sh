@@ -168,7 +168,17 @@ apply_image_wallpaper() {
     swww-daemon --format xrgb &
   fi
 
-  swww img -o "$focused_monitor" "$image_path" $SWWW_PARAMS
+  if ! swww img -o "$focused_monitor" "$image_path" $SWWW_PARAMS; then
+    notify-send -u critical -i "$iDIR/error.png" "Wallpaper error" "Could not apply the selected image"
+    return 1
+  fi
+
+  local blur_source_dir="$HOME/.cache/hypr-wallblur/sources"
+  local blur_source_file="$blur_source_dir/$focused_monitor"
+  if ! mkdir -p "$blur_source_dir" || ! printf '%s\n' "$image_path" > "$blur_source_file"; then
+    notify-send -u critical -i "$iDIR/error.png" "Wallpaper error" "Could not update the blur source"
+    return 1
+  fi
 
   # Run additional scripts
   "$SCRIPTSDIR/WallustSwww.sh"
@@ -236,4 +246,3 @@ if pidof rofi >/dev/null; then
 fi
 
 main
-
