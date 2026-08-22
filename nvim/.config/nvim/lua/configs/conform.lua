@@ -10,6 +10,7 @@ local options = {
     json = { "prettier" },
     jsonc = { "prettier" },
     markdown = { "prettier" },
+    python = { "ruff_format" },
   },
 
   format_on_save = {

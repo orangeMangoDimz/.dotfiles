@@ -69,7 +69,7 @@ function M.apply(name)
   end
   vim.schedule(function()
     M.update_winbar()
-    require("lualine").refresh()
+    pcall(function() require("lualine").refresh() end)
   end)
 end
 

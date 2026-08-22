@@ -120,6 +120,7 @@ return {
         local map_opts = { buffer = bufnr, noremap = true, silent = true, nowait = true }
         vim.keymap.set("n", "l", api.node.open.edit, map_opts)
         vim.keymap.set("n", "h", api.node.navigate.parent_close, map_opts)
+        vim.keymap.set("n", "<leader>fc", api.tree.collapse_all, map_opts)
       end,
     },
     config = function(_, opts)
@@ -311,6 +312,7 @@ return {
 
   {
     "nvim-lualine/lualine.nvim",
+    enabled = false,
     dependencies = { "nvim-tree/nvim-web-devicons", "folke/tokyonight.nvim", "catppuccin" },
     lazy = false,
     config = function()
@@ -639,7 +641,7 @@ return {
 
   {
     "vyfor/cord.nvim",
-    enabled = false,
+    enabled = true,
     lazy = false,
     opts = {},
   },

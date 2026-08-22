@@ -105,8 +105,8 @@ vim.api.nvim_create_autocmd({ "FocusGained", "BufEnter" }, {
 
 vim.api.nvim_create_autocmd("FileType", {
   callback = function()
-    local ok = pcall(vim.treesitter.get_parser, 0)
-    if ok then
+    local ok, parser = pcall(vim.treesitter.get_parser, 0)
+    if ok and parser then
       vim.opt_local.foldmethod = "expr"
       vim.opt_local.foldexpr = "v:lua.vim.treesitter.foldexpr()"
     else

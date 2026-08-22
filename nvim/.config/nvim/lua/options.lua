@@ -4,8 +4,10 @@ require "nvchad.options"
 vim.g.active_theme = "tokyonight"
 
 local o = vim.o
-o.number = true
-o.relativenumber = true
+o.number = false
+vim.opt.laststatus = 0
+vim.opt.cmdheight = 0
+o.relativenumber = false
 o.wrap = false
 o.colorcolumn = "120"
 o.scrolloff = 10
