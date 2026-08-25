@@ -1,17 +1,19 @@
 // Zed settings
 //
-// For information on how to configure Zed, see the Zed
-// documentation: https://zed.dev/docs/configuring-zed
-//
-// To see all of Zed's default settings without changing your
-// custom settings, run `zed: open default settings` from the
-// command palette (cmd-shift-p / ctrl-shift-p)
+// Docs: https://zed.dev/docs/configuring-zed
+// Defaults: run `zed: open default settings`
 {
+  // Window and panels
   "cli_default_open_behavior": "existing_window",
   "project_panel": {
     "auto_fold_dirs": false,
     "button": false,
     "dock": "left",
+    // Hide the opened project folder name
+    "hide_root": true,
+    "indent_guides": {
+      "show": "never",
+    },
   },
   "outline_panel": {
     "button": false,
@@ -21,6 +23,30 @@
     "button": false,
     "dock": "left",
   },
+  "git_panel": {
+    "button": false,
+    "dock": "left",
+  },
+  "tab_bar": {
+    "show": false,
+  },
+  "toolbar": {
+    "breadcrumbs": true,
+  },
+  "status_bar": {
+    "experimental.show": true,
+    "active_language_button": false,
+    "cursor_position_button": true,
+    "line_endings_button": false,
+  },
+  "search": {
+    "button": false,
+  },
+  "scrollbar": {
+    "show": "never",
+  },
+
+  // Agent panel
   "agent": {
     "button": false,
     "dock": "right",
@@ -32,23 +58,8 @@
     "favorite_models": [],
     "model_parameters": [],
   },
-  "git_panel": {
-    "button": false,
-    "dock": "left",
-  },
-  "vim_mode": true,
-  "terminal": {
-    "font_family": "Fira Code",
-    "font_weight": 600,
-    "font_size": 20,
-    "blinking": "off",
-    "button": false,
-  },
-  "icon_theme": {
-    "mode": "dark",
-    "light": "Catppuccin Mocha",
-    "dark": "Catppuccin Mocha",
-  },
+
+  // Agent providers
   "agent_servers": {
     "codex-acp": {
       "default_config_options": {
@@ -69,17 +80,39 @@
       "type": "registry",
     },
   },
-  "tab_bar": { "show": false },
-  "toolbar": { "breadcrumbs": true },
-  "status_bar": {
-    "experimental.show": true,
-    "active_language_button": false,
-    "cursor_position_button": true,
-    "line_endings_button": false,
-  },
-  "search": {
+
+  // Editor behavior
+  "vim_mode": true,
+  "base_keymap": "VSCode",
+  "relative_line_numbers": "enabled",
+  "cursor_blink": false,
+
+  // Terminal
+  "terminal": {
+    "font_family": "Fira Code",
+    "font_weight": 600,
+    "font_size": 20,
+    "blinking": "off",
     "button": false,
   },
+
+  // Appearance
+  "icon_theme": {
+    "mode": "dark",
+    "light": "Catppuccin Mocha",
+    "dark": "Catppuccin Mocha",
+  },
+  "theme": {
+    "mode": "dark",
+    "light": "Ayu Light",
+    "dark": "Ayu Darker",
+  },
+
+  // Top bars and guides
+  "show_wrap_guides": true,
+  "wrap_guides": [80],
+
+  // Diagnostics and language tools
   "diagnostics": {
     "button": false,
     "include_warnings": false,
@@ -94,30 +127,22 @@
   "debugger": {
     "button": false,
   },
+
+  // Git
   "git": {
     "inline_blame": {
       "enabled": false,
     },
   },
-  "scrollbar": {
-    "show": "never",
-  },
-  "show_wrap_guides": true,
-  "wrap_guides": [80],
-  "base_keymap": "VSCode",
+
+  // Font sizes and weights
   "ui_font_size": 24,
   "ui_font_weight": 600,
   "buffer_font_size": 20,
   "buffer_font_weight": 600,
   "agent_ui_font_size": 26,
   "agent_buffer_font_size": 22,
-  "relative_line_numbers": "enabled",
-  "cursor_blink": false,
-  "theme": {
-    "mode": "dark",
-    "light": "Ayu Light",
-    "dark": "Catppuccin Mocha",
-  },
-  "resize_all_panels_in_dock": [],
 
+  // Panel resizing
+  "resize_all_panels_in_dock": [],
 }
