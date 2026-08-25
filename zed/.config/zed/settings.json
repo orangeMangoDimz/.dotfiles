@@ -9,6 +9,7 @@
 {
   "cli_default_open_behavior": "existing_window",
   "project_panel": {
+    "auto_fold_dirs": false,
     "button": false,
     "dock": "left",
   },
@@ -23,6 +24,7 @@
   "agent": {
     "button": false,
     "dock": "right",
+    "flexible": false,
     "default_width": 350,
     "expand_edit_card": false,
     "expand_terminal_card": false,
@@ -42,13 +44,19 @@
     "blinking": "off",
     "button": false,
   },
-  "icon_theme": "Catppuccin Mocha",
+  "icon_theme": {
+    "mode": "dark",
+    "light": "Catppuccin Mocha",
+    "dark": "Catppuccin Mocha",
+  },
   "agent_servers": {
     "codex-acp": {
       "default_config_options": {
+        "reasoning_effort": "xhigh",
+        "collaboration_mode": "default",
         "mode": "agent-full-access",
-        "fast-mode": true,
-        "model": "gpt-5.6-terra"
+        "fast-mode": false,
+        "model": "gpt-5.6-luna",
       },
       "type": "registry",
     },
@@ -106,8 +114,10 @@
   "relative_line_numbers": "enabled",
   "cursor_blink": false,
   "theme": {
-    "mode": "system",
+    "mode": "dark",
     "light": "Ayu Light",
     "dark": "Catppuccin Mocha",
   },
+  "resize_all_panels_in_dock": [],
+
 }
