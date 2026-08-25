@@ -1,7 +1,7 @@
 @import "mocha.css";
 
 * {
-  font-family: FantasqueSansMono Nerd Font;
+  font-family: "FantasqueSansM Nerd Font";
   background-color: transparent;
   font-size: 17px;
   min-height: 0;
@@ -89,6 +89,35 @@
 #custom-music {
   color: @mauve;
   border-radius: 12px;
+}
+
+#custom-media-prev,
+#custom-media-toggle,
+#custom-media-next,
+#custom-media-mute {
+  background-color: rgba(49, 50, 68, 0.42);
+  border: 1px solid rgba(205, 214, 244, 0.10);
+  border-radius: 12px;
+  padding: 0.5rem 0.7rem;
+  margin: 5px 0;
+}
+
+#custom-media-prev,
+#custom-media-toggle,
+#custom-media-next {
+  color: @mauve;
+}
+
+#custom-media-mute {
+  color: @maroon;
+}
+
+#custom-media-prev:hover,
+#custom-media-toggle:hover,
+#custom-media-next:hover,
+#custom-media-mute:hover {
+  color: @lavender;
+  background-color: rgba(69, 71, 90, 0.72);
 }
 
 #custom-lock {

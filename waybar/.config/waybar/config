@@ -15,7 +15,11 @@
         "hyprland/workspaces#pacman"
     ],
     "modules-center": [
-        "custom/music",
+        "custom/media-prev",
+        "custom/media-toggle",
+        "custom/media-title",
+        "custom/media-next",
+        "custom/media-mute",
         "custom/separator#dot-line",
         "clock"
     ],
@@ -25,6 +29,51 @@
         "custom/separator#dot-line",
         "tray"
     ],
+    "custom/media-prev": {
+        "format": "󰒮",
+        "exec": "printf 1",
+        "exec-if": "playerctl metadata --format='{{title}}' >/dev/null 2>&1",
+        "interval": 2,
+        "on-click": "playerctl previous",
+        "tooltip": true,
+        "tooltip-format": "Previous track"
+    },
+    "custom/media-toggle": {
+        "format": "{text}",
+        "return-type": "json",
+        "exec": "media_status=$(playerctl status 2>/dev/null) || exit 1; case \"$media_status\" in Playing) printf '{\"text\":\"\",\"tooltip\":\"Playing — click to pause\",\"class\":\"playing\"}' ;; Paused) printf '{\"text\":\"\",\"tooltip\":\"Paused — click to play\",\"class\":\"paused\"}' ;; *) printf '{\"text\":\"\",\"tooltip\":\"Stopped — click to play\",\"class\":\"stopped\"}' ;; esac",
+        "exec-if": "playerctl metadata --format='{{title}}' >/dev/null 2>&1",
+        "interval": 1,
+        "on-click": "playerctl play-pause",
+        "tooltip": true
+    },
+    "custom/media-next": {
+        "format": "󰒭",
+        "exec": "printf 1",
+        "exec-if": "playerctl metadata --format='{{title}}' >/dev/null 2>&1",
+        "interval": 2,
+        "on-click": "playerctl next",
+        "tooltip": true,
+        "tooltip-format": "Next track"
+    },
+    "custom/media-mute": {
+        "format": "{text}",
+        "return-type": "json",
+        "exec": "mute=$(pamixer --get-mute 2>/dev/null) || exit 1; volume=$(pamixer --get-volume 2>/dev/null) || exit 1; if [ \"$mute\" = \"true\" ]; then printf '{\"text\":\"󰖁\",\"alt\":\"muted\",\"class\":\"muted\",\"tooltip\":\"Muted — click to unmute\"}'; elif [ \"$volume\" -eq 0 ]; then printf '{\"text\":\"󰖁\",\"alt\":\"silent\",\"class\":\"silent\",\"tooltip\":\"Volume: 0%% — click to toggle mute\"}'; elif [ \"$volume\" -le 30 ]; then printf '{\"text\":\"\",\"alt\":\"low\",\"class\":\"low\",\"tooltip\":\"Volume: %s%% — click to mute\"}' \"$volume\"; elif [ \"$volume\" -le 60 ]; then printf '{\"text\":\"\",\"alt\":\"medium\",\"class\":\"medium\",\"tooltip\":\"Volume: %s%% — click to mute\"}' \"$volume\"; else printf '{\"text\":\"󰕾\",\"alt\":\"high\",\"class\":\"high\",\"tooltip\":\"Volume: %s%% — click to mute\"}' \"$volume\"; fi",
+        "exec-if": "playerctl metadata --format='{{title}}' >/dev/null 2>&1",
+        "interval": 2,
+        "on-click": "$HOME/.config/hypr/scripts/Volume.sh --toggle",
+        "tooltip": true
+    },
+    "custom/media-title": {
+        "format": "{text}",
+        "return-type": "json",
+        "max-length": 30,
+        "exec": "playerctl metadata --format='{\"text\":\"{{artist}}  {{markup_escape(title)}}\",\"tooltip\":\"{{playerName}}: {{markup_escape(title)}}\",\"alt\":\"{{status}}\",\"class\":\"{{status}}\"}'",
+        "exec-if": "playerctl metadata --format='{{title}}' >/dev/null 2>&1",
+        "on-click": "playerctl play-pause",
+        "interval": 2
+    },
     "custom/music": {
         "format": "  {}",
         "escape": true,
