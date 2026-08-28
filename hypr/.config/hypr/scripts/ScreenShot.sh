@@ -3,17 +3,17 @@
 # Screenshots scripts
 
 # variables
-time=$(date "+%d-%b_%H-%M-%S")
-dir="$(xdg-user-dir)/Pictures/Screenshots"
-file="Screenshot_${time}_${RANDOM}.png"
+time=$(date "+%Y%m%d_%H%M%S")
+dir="/home/dimas/Pictures/Screenshots"
+file="001_${time}.png"
 
 iDIR="$HOME/.config/swaync/icons"
 iDoR="$HOME/.config/swaync/images"
 sDIR="$HOME/.config/hypr/scripts"
 
 active_window_class=$(hyprctl -j activewindow | jq -r '(.class)')
-active_window_file="Screenshot_${time}_${active_window_class}.png"
-active_window_path="${dir}/${active_window_file}"
+active_window_file="$file"
+active_window_path="${dir}/${file}"
 
 notify_cmd_base="notify-send -t 10000 -A action1=Open -A action2=Delete -h string:x-canonical-private-synchronous:shot-notify"
 notify_cmd_shot="${notify_cmd_base} -i ${iDIR}/picture.png "
@@ -120,8 +120,8 @@ shotarea() {
 
 shotactive() {
     active_window_class=$(hyprctl -j activewindow | jq -r '(.class)')
-    active_window_file="Screenshot_${time}_${active_window_class}.png"
-    active_window_path="${dir}/${active_window_file}"
+    active_window_file="$file"
+    active_window_path="${dir}/${file}"
 
     hyprctl -j activewindow | jq -r '"\(.at[0]),\(.at[1]) \(.size[0])x\(.size[1])"' | grim -g - "${active_window_path}"
 	sleep 1
@@ -129,10 +129,10 @@ shotactive() {
 }
 
 shotswappy() {
-	tmpfile=$(mktemp)
-	grim -g "$(slurp)" - >"$tmpfile" 
+	tmpfile="${dir}/${file}"
+	grim -g "$(slurp)" "$tmpfile"
 
-  # Copy without saving
+  # Copy and save
   if [[ -s "$tmpfile" ]]; then
 		wl-copy <"$tmpfile"
     notify_view "swappy"

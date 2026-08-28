@@ -35,8 +35,29 @@ data_format = ascii
 ascii_max_range = 7
 EOF
 
+is_music_playing() {
+    playerctl status 2>/dev/null | grep -qx 'Playing'
+}
+
+is_music_playing || exit 1
+
 # Kill cava if it's already running
-pkill -f "cava -p $config_file"
+pkill -f "cava -p $config_file" 2>/dev/null || true
+
+cleanup() {
+    if [[ -n "$cava_pipeline_pid" ]]; then
+        kill "$cava_pipeline_pid" 2>/dev/null || true
+    fi
+    pkill -f "cava -p $config_file" 2>/dev/null || true
+}
+trap cleanup EXIT
 
 # Read stdout from cava and perform substitution in a single sed command
-cava -p "$config_file" | sed -u "$dict"
+cava -p "$config_file" | sed -u "$dict" &
+cava_pipeline_pid=$!
+
+while is_music_playing; do
+    sleep 1
+done
+
+exit 1
