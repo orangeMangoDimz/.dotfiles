@@ -53,7 +53,7 @@ cleanup() {
 trap cleanup EXIT
 
 # Read stdout from cava and perform substitution in a single sed command
-cava -p "$config_file" | sed -u "$dict" &
+cava -p "$config_file" | sed -u "$dict;s/^/  /" &
 cava_pipeline_pid=$!
 
 while is_music_playing; do
