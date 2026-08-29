@@ -9,8 +9,10 @@
     "auto_fold_dirs": false,
     "button": false,
     "dock": "left",
-    // Hide the opened project folder name
-    "hide_root": true,
+    "default_width": 280,
+    "entry_spacing": "comfortable",
+    "hide_root": false,
+    "indent_size": 20,
     "indent_guides": {
       "show": "never",
     },
@@ -50,8 +52,12 @@
   "agent": {
     "button": false,
     "dock": "right",
+    "sidebar_side": "right",
     "flexible": false,
     "default_width": 350,
+    "limit_content_width": false,
+    "notify_when_agent_waiting": "never",
+    "play_sound_when_agent_done": "when_hidden",
     "expand_edit_card": false,
     "expand_terminal_card": false,
     "thinking_display": "always_collapsed",
@@ -64,10 +70,10 @@
     "codex-acp": {
       "default_config_options": {
         "reasoning_effort": "xhigh",
-        "collaboration_mode": "default",
+        "collaboration_mode": "plan",
         "mode": "agent-full-access",
-        "fast-mode": false,
-        "model": "gpt-5.6-luna",
+        "fast-mode": true,
+        "model": "gpt-5.6-sol",
       },
       "type": "registry",
     },
@@ -94,6 +100,8 @@
     "font_size": 20,
     "blinking": "off",
     "button": false,
+    "bell": "system",
+    "flexible": false,
   },
 
   // Appearance

@@ -1,0 +1,46 @@
+# Core shell and Stow
+git
+stow
+zsh
+tmux
+
+# Hyprland session
+hyprland
+hypridle
+hyprlock
+waybar
+rofi
+swaync
+wlogout
+swappy
+gammastep
+cliphist
+wl-clipboard
+network-manager-applet
+blueman
+
+# Desktop configuration and tools
+kitty
+neovim
+cava
+btop
+lazygit
+fastfetch
+wallust
+nwg-look
+gtk3
+gtk4
+qt5ct
+qt6ct
+kvantum
+xsettingsd
+
+# Shell helpers used by .zshrc and Hyprland scripts
+fzf
+zoxide
+lsd
+jq
+
+# Local/manual dependencies
+# swww/swww-daemon, asusctl, rog-control-center, and app-specific tools
+# may come from a local build or a separate repository on this machine.

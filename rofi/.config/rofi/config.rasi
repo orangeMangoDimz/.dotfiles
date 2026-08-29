@@ -1,0 +1,104 @@
+/* ---- 💫 https://github.com/JaKooLit 💫 ---- */
+/* Ja KooLit - Default 
+
+* All main themes or configs are located in ~/.config/rofi/themes/
+* If you want to edit the config, that is where you should edit NOT here 
+
+* To load a new theme, manually edit the file path below or choose desired theme via rofi theme selector (choose via app menu)
+
+* Alternative way to Load (preferred) own cooked by Ja 
+* SUPER CTRL R - Choose style & SUPER CTRL SHIFT R 
+
+* TIPS 
+* If you have edited a config, rename it with a unique name. During update, the contents of 
+* ~/.config/rofi/themes/ will be replaced. */
+
+/* ---- Global Configuration Fonts ---- */
+@import "~/.config/rofi/0-shared-fonts.rasi"
+
+/* note: Main themes in ~/.config/rofi/themes */
+/* You can manually change here or you can use rofi theme selector SUPER SHIFT E */
+
+
+@theme "~/.config/rofi/themes/KooL_style-11-Win11-list-dark.rasi"
+
+/* Keep the default launcher fully opaque like the desktop windows. */
+window {
+  transparency: "none";
+  background-color: #1e1e2e;
+}
+
+listview {
+  background-color: #1e1e2e;
+}
+
+element {
+  background-color: #1e1e2e;
+}
+
+element selected {
+  background-color: @bg2;
+}
+
+element-text,
+element-icon {
+  background-color: #1e1e2e;
+}
+
+element-text selected {
+  background-color: #89b4fa;
+}
+
+/* Opaque launcher treatment. */
+window {
+  transparency: "none";
+  background-color: #1e1e2e;
+}
+
+mainbox {
+  background-color: #1e1e2e;
+  border: 1px solid;
+  border-color: #45475a;
+  border-radius: 24px;
+  padding: 28px;
+  spacing: 18px;
+}
+
+inputbar {
+  background-color: #313244;
+  border: 1px solid;
+  border-color: #45475a;
+  border-radius: 14px;
+  padding: 12px;
+  spacing: 8px;
+}
+
+entry,
+icon-search {
+  background-color: #313244;
+}
+
+listview {
+  background-color: #1e1e2e;
+  spacing: 10px;
+}
+
+element {
+  background-color: #1e1e2e;
+  border: 0px;
+  border-radius: 12px;
+  padding: 14px;
+}
+
+element selected,
+element-text selected {
+  background-color: #89b4fa;
+  border: 1px solid;
+  border-color: #cdd6f4;
+  border-radius: 12px;
+}
+
+element-icon,
+element-text {
+  background-color: #1e1e2e;
+}

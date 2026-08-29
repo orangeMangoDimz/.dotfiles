@@ -84,8 +84,8 @@
  method = pulse
  source = auto
 
-; method = pipewire
-; source = auto
+ method = pipewire
+ source = auto
 
 ; method = alsa
 ; source = hw:Loopback,1
@@ -222,53 +222,36 @@
 ; foreground = default
 
 # SDL and sdl_glsl only support hex code colors, these are the default:
-# ; background = '#111111'
-# ; foreground = '#33ffff'
+; background = '#111111'
+; foreground = '#33ffff'
 
 # these are default
 # Gradient mode, only hex defined colors are supported,
 # background must also be defined in hex or remain commented out. 1 = on, 0 = off.
 # You can define as many as 8 different colors. They range from bottom to top of screen
-# ; gradient = 0
-# ; gradient_count = 8
-# ; gradient_color_1 = '#59cc33'
-# ; gradient_color_2 = '#80cc33'
-# ; gradient_color_3 = '#a6cc33'
-# ; gradient_color_4 = '#cccc33'
-# ; gradient_color_5 = '#cca633'
-# ; gradient_color_6 = '#cc8033'
-# ; gradient_color_7 = '#cc5933'
-# ; gradient_color_8 = '#cc3333'
+; gradient = 0
+; gradient_count = 8
+; gradient_color_1 = '#59cc33'
+; gradient_color_2 = '#80cc33'
+; gradient_color_3 = '#a6cc33'
+; gradient_color_4 = '#cccc33'
+; gradient_color_5 = '#cca633'
+; gradient_color_6 = '#cc8033'
+; gradient_color_7 = '#cc5933'
+; gradient_color_8 = '#cc3333'
 
 # for wallust
-# gradient = 1
-# gradient_count = 8
-# gradient_color_1 = '#3D3E40'
-# gradient_color_2 = '#262629'
-# gradient_color_3 = '#564F4C'
-# gradient_color_4 = '#85786E'
-# gradient_color_5 = '#D5CCC4'
-# gradient_color_6 = '#627182'
-# gradient_color_7 = '#B1A093'
-# gradient_color_8 = '#D5CCC4'
+gradient = 1
+gradient_count = 8
+gradient_color_1 = '#000005'
+gradient_color_2 = '#30323E'
+gradient_color_3 = '#575A69'
+gradient_color_4 = '#656979'
+gradient_color_5 = '#DEDEE1'
+gradient_color_6 = '#878CA1'
+gradient_color_7 = '#878CA1'
+gradient_color_8 = '#DEDEE1'
 
-; Catppuccin Mocha (https://github.com/catppuccin/catppuccin)
-background = '#1e1e2e'    # Base (dark purple-gray)
-foreground = '#cdd6f4'    # Text (light cream)
-
-; Bar colors (ROYGBIV from Catppuccin palette)
-gradient_color_1 = '#f38ba8'  # Red
-gradient_color_2 = '#fab387'  # Orange
-gradient_color_3 = '#f9e2af'  # Yellow
-gradient_color_4 = '#a6e3a1'  # Green
-gradient_color_5 = '#89b4fa'  # Blue
-gradient_color_6 = '#cba6f7'  # Purple
-gradient_color_7 = '#f5c2e7'  # Pink
-
-; Style settings (recommended for Catppuccin)
-gradient = 1              # 1 = gradient, 0 = solid
-bar_spacing = 1           # Space between bars
-bar_width = 2             # Width of bars
 
 [smoothing]
 
@@ -295,9 +278,6 @@ bar_width = 2             # Width of bars
 # the raw visualization is very noisy, this factor adjusts the integral and gravity filters to keep the signal smooth
 # 100 will be very slow and smooth, 0 will be fast but noisy.
 ; noise_reduction = 77
-
-integral = 77             # Smoother animation (0-100)
-method = 'peak'           # 'peak' or 'samples'
 
 
 [eq]

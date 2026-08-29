@@ -1,0 +1,35 @@
+[submodule ".tmux/.tmux/plugins/tmux"]
+	path = .tmux/.tmux/plugins/tmux
+	url = https://github.com/catppuccin/tmux.git
+
+[submodule ".tmux/.tmux/plugins/tmux-battery"]
+	path = .tmux/.tmux/plugins/tmux-battery
+	url = https://github.com/tmux-plugins/tmux-battery.git
+
+[submodule ".tmux/.tmux/plugins/tmux-online-status"]
+	path = .tmux/.tmux/plugins/tmux-online-status
+	url = https://github.com/tmux-plugins/tmux-online-status.git
+
+[submodule ".tmux/.tmux/plugins/tmux-resurrect"]
+	path = .tmux/.tmux/plugins/tmux-resurrect
+	url = https://github.com/tmux-plugins/tmux-resurrect.git
+
+[submodule ".tmux/.tmux/plugins/tmux-sensible"]
+	path = .tmux/.tmux/plugins/tmux-sensible
+	url = https://github.com/tmux-plugins/tmux-sensible.git
+
+[submodule ".tmux/.tmux/plugins/tmux-sessionx"]
+	path = .tmux/.tmux/plugins/tmux-sessionx
+	url = https://github.com/omerxx/tmux-sessionx.git
+
+[submodule ".tmux/.tmux/plugins/tmux-yank"]
+	path = .tmux/.tmux/plugins/tmux-yank
+	url = https://github.com/tmux-plugins/tmux-yank.git
+
+[submodule ".tmux/.tmux/plugins/tpm"]
+	path = .tmux/.tmux/plugins/tpm
+	url = https://github.com/tmux-plugins/tpm.git
+
+[submodule "oh-my-zsh/.oh-my-zsh"]
+	path = oh-my-zsh/.oh-my-zsh
+	url = https://github.com/ohmyzsh/ohmyzsh.git

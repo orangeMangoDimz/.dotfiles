@@ -12,8 +12,6 @@
 	// Editor Appearance
 	"editor.minimap.enabled": false,
 	"editor.guides.indentation": false,
-	"editor.guides.bracketPairs": true,
-	"editor.guides.bracketPairsHorizontal": true,
 	"editor.showFoldingControls": "never",
 	"editor.renderLineHighlight": "none",
 	"editor.renderWhitespace": "none",
@@ -70,8 +68,9 @@
 	// ========================================
 	// Terminal Configuration
 	// ========================================
-	"terminal.integrated.fontFamily": "Fira Code Semibold",
-	"terminal.integrated.fontSize": 12,
+	"terminal.integrated.fontFamily": "Hack Nerd Font Mono",
+	"terminal.integrated.fontWeight": "bold",
+	"terminal.integrated.lineHeight": 1,
 	"terminal.integrated.defaultProfile.windows": "PowerShell",
 	"terminal.integrated.defaultProfile.osx": "tmux-shell",
 	"terminal.integrated.profiles.osx": {
@@ -219,11 +218,20 @@
 	"[yaml]": {
 		"editor.defaultFormatter": "esbenp.prettier-vscode"
 	},
-	"workbench.colorTheme": "Catppuccin Mocha",
 	"workbench.layoutControl.enabled": false,
 	"window.titleBarStyle": "native",
 	"workbench.navigationControl.enabled": false,
-	"workbench.editor.editorActionsLocation": "titleBar",
+	"workbench.editor.editorActionsLocation": "hidden",
 	"window.customTitleBarVisibility": "never",
-	"workbench.statusBar.visible": false,
+	"workbench.agentsWindowButton.enabled": false,
+	"claudeCode.preferredLocation": "panel",
+	"window.menuBarVisibility": "compact",
+	"git.blame.statusBarItem.enabled": false,
+	"editor.guides.bracketPairs": false,
+	"editor.guides.bracketPairsHorizontal": false,
+	"cursor.composer.editorConversationDensity": "compact-all-grouped",
+	"terminal.integrated.fontLigatures.enabled": true,
+	"terminal.integrated.fontSize": 13,
+	"workbench.reduceMotion": "off",
+	"cursor.general.emailPrivacyEnabled": true
 }

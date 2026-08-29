@@ -12,18 +12,18 @@
 
 * {
   font-family: "FantasqueSansM Nerd Font";
-  background-color: transparent;
+  background-color: @ayu-bg;
   font-size: 17px;
   min-height: 0;
 }
 
 #waybar {
-  background: rgba(11, 14, 20, 0.84);
+  background: @ayu-bg;
   color: @ayu-text;
   margin: 0;
-  border: 1px solid rgba(110, 119, 134, 0.35);
+  border: 1px solid @ayu-surface-hover;
   border-radius: 18px;
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.32);
+  box-shadow: none;
 }
 
 #workspaces {
@@ -57,8 +57,8 @@
 #pulseaudio,
 #custom-lock,
 #custom-power {
-  background-color: rgba(19, 23, 33, 0.82);
-  border: 1px solid rgba(110, 119, 134, 0.22);
+  background-color: @ayu-surface;
+  border: 1px solid @ayu-surface-hover;
   border-radius: 12px;
   padding: 0.5rem 1rem;
   margin: 5px 0;
@@ -106,8 +106,8 @@
 #custom-media-toggle,
 #custom-media-next,
 #custom-media-mute {
-  background-color: rgba(19, 23, 33, 0.82);
-  border: 1px solid rgba(110, 119, 134, 0.22);
+  background-color: @ayu-surface;
+  border: 1px solid @ayu-surface-hover;
   border-radius: 12px;
   padding: 0.5rem 0.7rem;
   margin: 5px 0;
@@ -123,12 +123,21 @@
   color: @ayu-orange;
 }
 
+#custom-media-title {
+  margin: 5px 0.75rem;
+}
+
+#custom-cava_mviz {
+  margin-left: 1rem;
+  padding: 0 0.75rem;
+}
+
 #custom-media-prev:hover,
 #custom-media-toggle:hover,
 #custom-media-next:hover,
 #custom-media-mute:hover {
   color: @ayu-text;
-  background-color: rgba(37, 43, 53, 0.92);
+  background-color: @ayu-surface-hover;
 }
 
 #custom-lock {
@@ -147,15 +156,15 @@
   border-radius: 12px;
 }
 
-/* Tooltips need an opaque background because the global background is transparent. */
+/* Tooltips use the same opaque background as the bar. */
 tooltip {
-  background-color: rgba(15, 19, 26, 0.98);
-  border: 1px solid rgba(89, 194, 255, 0.32);
+  background-color: @ayu-bg;
+  border: 1px solid @ayu-blue;
   border-radius: 8px;
 }
 
 tooltip label {
-  background-color: transparent;
+  background-color: @ayu-bg;
   color: @ayu-text;
   padding: 4px;
 }

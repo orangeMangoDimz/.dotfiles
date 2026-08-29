@@ -6,7 +6,7 @@
 {
 
 "temperature": {
-	"interval": 10,
+	"interval": 30,
 	"tooltip": true,
 	"hwmon-path": [
 		"/sys/class/hwmon/hwmon1/temp1_input",
