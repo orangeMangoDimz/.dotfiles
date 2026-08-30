@@ -296,24 +296,9 @@ return {
   },
 
   {
-    "catppuccin/nvim",
-    name = "catppuccin",
-  },
-
-  {
-    "folke/tokyonight.nvim",
-    priority = 1000,
-    lazy = false,
-    dependencies = { "catppuccin" },
-    config = function()
-      require("utils.theme").startup()
-    end,
-  },
-
-  {
     "nvim-lualine/lualine.nvim",
     enabled = false,
-    dependencies = { "nvim-tree/nvim-web-devicons", "folke/tokyonight.nvim", "catppuccin" },
+    dependencies = { "nvim-tree/nvim-web-devicons" },
     lazy = false,
     config = function()
       local mode_labels = {

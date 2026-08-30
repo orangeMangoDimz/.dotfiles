@@ -1,6 +1,6 @@
 require "nvchad.autocmds"
 
--- Winbar highlight groups using catppuccin palette
+-- Winbar highlight groups using the active Base46 palette
 local function setup_winbar_highlights()
   local ok, theme = pcall(require, "utils.theme")
   if not ok then return end

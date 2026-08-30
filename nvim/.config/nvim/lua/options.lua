@@ -1,8 +1,5 @@
 require "nvchad.options"
 
--- "tokyonight" | "catppuccin"
-vim.g.active_theme = "tokyonight"
-
 local o = vim.o
 o.number = false
 vim.opt.laststatus = 0
