@@ -9,7 +9,7 @@ file="001_${time}.png"
 
 iDIR="$HOME/.config/swaync/icons"
 iDoR="$HOME/.config/swaync/images"
-sDIR="$HOME/.config/hypr/scripts"
+sDIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
 
 active_window_class=$(hyprctl -j activewindow | jq -r '(.class)')
 active_window_file="$file"
