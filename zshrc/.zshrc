@@ -26,6 +26,9 @@ function zvm_config() {
     ZVM_NORMAL_MODE_CURSOR=$ZVM_CURSOR_BLOCK
 }
 
+# Make inline autosuggestions visible against the Ayu Dark background.
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=#73d0ff'
+
 source $ZSH/oh-my-zsh.sh
 
 # root alias
