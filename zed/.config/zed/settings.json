@@ -28,6 +28,7 @@
   "git_panel": {
     "button": false,
     "dock": "left",
+    "tree_view": true,
   },
   "tab_bar": {
     "show": false,
@@ -56,7 +57,7 @@
     "flexible": false,
     "default_width": 350,
     "limit_content_width": false,
-    "notify_when_agent_waiting": "never",
+    "notify_when_agent_waiting": "primary_screen",
     "play_sound_when_agent_done": "when_hidden",
     "expand_edit_card": false,
     "expand_terminal_card": false,
@@ -65,15 +66,20 @@
     "model_parameters": [],
   },
 
+  // Markdown preview
+  "markdown_preview": {
+    "limit_content_width": false,
+  },
+
   // Agent providers
   "agent_servers": {
     "codex-acp": {
       "default_config_options": {
         "reasoning_effort": "xhigh",
-        "collaboration_mode": "plan",
+        "collaboration_mode": "default",
         "mode": "agent-full-access",
         "fast-mode": true,
-        "model": "gpt-5.6-sol",
+        "model": "gpt-5.6-luna",
       },
       "type": "registry",
     },
