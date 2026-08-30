@@ -29,13 +29,14 @@ set -g @plugin 'omerxx/tmux-sessionx'
 set -g @plugin 'tmux-plugins/tmux-resurrect'
 set -g @plugin 'tmux-plugins/tmux-battery'
 set -g @plugin 'tmux-plugins/tmux-online-status'
+set -g @plugin 'tmux-plugins/tmux-battery'
 set -gq allow-passthrough on
 set -g visual-activity off
 
 
 # Yanking
- bind -T copy-mode    C-c send -X copy-pipe-and-cancel "wl-copy"
- bind -T copy-mode-vi C-c send -X copy-pipe-and-cancel "wl-copy"
+ bind -T copy-mode    C-c send -X copy-pipe-and-cancel "xsel -i --clipboard"
+ bind -T copy-mode-vi C-c send -X copy-pipe-and-cancel "xsel -i --clipboard"
  set -g mouse on
 
 # Session X
@@ -98,12 +99,12 @@ set -g status-right ""
 # set -ga status-right "#[bg=#{@thm_bg},fg=#{@thm_overlay_0}, none]│"
 # set -ga status-right "#[bg=#{@thm_bg},fg=#{@thm_blue}] 󰭦 %Y-%m-%d 󰅐 %H:%M "
 
-# Run TPM when its tracked submodule is available.
-set-environment -g TMUX_PLUGIN_MANAGER_PATH "/home/dimas/.tmux/plugins/"
-if-shell '[ -x "$HOME/.tmux/plugins/tpm/tpm" ]' \
-  'run-shell "$HOME/.tmux/plugins/tpm/tpm"' \
-  'display-message "TPM unavailable; initialize the dotfiles tmux submodules"'
+# bootstrap tpm
+if "test ! -d ~/.tmux/plugins/tpm" \
+   "run 'git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm && ~/.tmux/plugins/tpm/bin/install_plugins'"#===========
 
+# Run TPM
+run '~/.tmux/plugins/tpm/tpm'
 # Configure Tmux
 set -g status-position top
 set -g status-style "bg=#{@thm_bg}"
