@@ -101,6 +101,9 @@
 
       // === NOTIFICATIONS ===
       "space n c": "workspace::ClearAllNotifications",
+
+      // === BUFFER MANAGEMENT (Space + D) ===
+      "space d b": ["pane::CloseOtherItems", { "close_pinned": false }],
     },
   },
 
