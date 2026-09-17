@@ -4,14 +4,19 @@
   // ============================================================================
   {
     "bindings": {
+      // Agent
       "alt-l": "agent::Toggle",
       "alt-s": "agent::AddSelectionToThread",
+
+      // Pane navigation
       "ctrl-h": "workspace::ActivatePaneLeft",
       "ctrl-l": "workspace::ActivatePaneRight",
       "ctrl-k": "workspace::ActivatePaneUp",
       "ctrl-j": "workspace::ActivatePaneDown",
-      "shift-alt-l": "workspace::IncreaseOpenDocksSize",
-      "shift-alt-h": "workspace::DecreaseOpenDocksSize",
+
+      // Resize only the focused dock
+      "shift-alt-l": ["workspace::IncreaseActiveDockSize", { "px": 0 }],
+      "shift-alt-h": ["workspace::DecreaseActiveDockSize", { "px": 0 }],
     },
   },
 
@@ -21,12 +26,15 @@
   {
     "context": "Workspace",
     "bindings": {
+      // Pane navigation
       "ctrl-h": "workspace::ActivatePaneLeft",
       "ctrl-l": "workspace::ActivatePaneRight",
       "ctrl-k": "workspace::ActivatePaneUp",
       "ctrl-j": "workspace::ActivatePaneDown",
-      "shift-alt-l": "workspace::IncreaseOpenDocksSize",
-      "shift-alt-h": "workspace::DecreaseOpenDocksSize",
+
+      // Resize only the focused dock
+      "shift-alt-l": ["workspace::IncreaseActiveDockSize", { "px": 0 }],
+      "shift-alt-h": ["workspace::DecreaseActiveDockSize", { "px": 0 }],
       "ctrl-s": null,
       "ctrl-b": null,
     },

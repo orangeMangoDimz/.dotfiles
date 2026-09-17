@@ -10,6 +10,9 @@
 
   // Window and panels
   "cli_default_open_behavior": "existing_window",
+  "title_bar": {
+    "show_user_picture": false,
+  },
   "project_panel": {
     "auto_fold_dirs": false,
     "button": false,
@@ -72,6 +75,9 @@
   "scrollbar": {
     "show": "never",
   },
+  "gutter": {
+    "line_numbers": false,
+  },
 
   // Agent panel
   "agent": {
@@ -115,10 +121,10 @@
     "codex-acp": {
       "default_config_options": {
         "reasoning_effort": "xhigh",
-        "collaboration_mode": "plan",
+        "collaboration_mode": "default",
         "mode": "agent-full-access",
         "fast-mode": false,
-        "model": "gpt-5.6-sol",
+        "model": "gpt-5.6-terra",
       },
       "type": "registry",
     },
@@ -142,7 +148,7 @@
   "terminal": {
     "font_family": "Fira Code",
     "font_weight": 600,
-    "font_size": 20,
+    "font_size": 22,
     "blinking": "off",
     "button": false,
     "bell": "system",
@@ -170,7 +176,7 @@
   "ui_font_weight": 600,
   "buffer_font_size": 20,
   "buffer_font_weight": 600,
-  "agent_ui_font_size": 26,
+  "agent_ui_font_size": 24,
   "agent_buffer_font_size": 22,
   "git_commit_buffer_font_size": 20,
 
@@ -210,4 +216,13 @@
 
   // File scanning
   "file_scan_inclusions": [".env*", "CLAUDE.md", "AGENTS.md"],
+
+  // Context servers
+  "context_servers": {
+    "code-review-graph": {
+      "command": "uvx",
+      "args": ["code-review-graph", "serve"],
+      "cwd": "/home/dimas/Projects/orangemango",
+    },
+  },
 }
