@@ -15,6 +15,7 @@
   },
   "project_panel": {
     "auto_fold_dirs": false,
+    "auto_reveal_entries": true,
     "button": false,
     "dock": "left",
     "default_width": 280,
@@ -35,6 +36,7 @@
     "dock": "left",
   },
   "git_panel": {
+    "group_by": "none",
     "button": false,
     "dock": "left",
     "tree_view": true,
@@ -48,9 +50,18 @@
   "base_keymap": "VSCode",
   "relative_line_numbers": "enabled",
   "cursor_blink": false,
+  "cursor_shape": "block",
+  "vim": {
+    "cursor_shape": {
+      "normal": "block",
+    },
+  },
 
   // Editor navigation and display
   "diff_view_style": "split",
+  "preview_tabs": {
+    "enabled": false,
+  },
   "tab_bar": {
     "show": true,
     "show_nav_history_buttons": false,
@@ -87,8 +98,8 @@
     "flexible": false,
     "default_width": 350,
     "limit_content_width": false,
-    "notify_when_agent_waiting": "primary_screen",
-    "play_sound_when_agent_done": "when_hidden",
+    "notify_when_agent_waiting": "never",
+    "play_sound_when_agent_done": "never",
     "expand_edit_card": false,
     "expand_terminal_card": false,
     "thinking_display": "always_collapsed",
@@ -99,6 +110,11 @@
   // Markdown preview
   "markdown_preview": {
     "limit_content_width": false,
+  },
+  "languages": {
+    "Markdown": {
+      "soft_wrap": "none",
+    },
   },
 
   // Agent providers
@@ -121,17 +137,17 @@
     "codex-acp": {
       "default_config_options": {
         "reasoning_effort": "xhigh",
-        "collaboration_mode": "default",
+        "collaboration_mode": "plan",
         "mode": "agent-full-access",
-        "fast-mode": false,
+        "fast-mode": true,
         "model": "gpt-5.6-terra",
       },
       "type": "registry",
     },
     "claude-acp": {
       "default_config_options": {
-        "effort": "high",
-        "model": "sonnet",
+        "effort": "medium",
+        "model": "opus[1m]",
         "mode": "bypassPermissions",
       },
       "type": "registry",
@@ -150,6 +166,7 @@
     "font_weight": 600,
     "font_size": 22,
     "blinking": "off",
+    "cursor_shape": "block",
     "button": false,
     "bell": "system",
     "flexible": false,
@@ -164,21 +181,23 @@
   "theme": {
     "mode": "dark",
     "light": "Ayu Light",
-    "dark": "Ayu Darker",
+    "dark": "Catppuccin Mocha",
   },
 
   // Top bars and guides
-  "show_wrap_guides": true,
-  "wrap_guides": [80],
+  // "show_wrap_guides": true,
+  // "wrap_guides": [80],
 
   // Font sizes and weights
-  "ui_font_size": 24,
+  "ui_font_size": 26,
   "ui_font_weight": 600,
-  "buffer_font_size": 20,
+  "buffer_font_size": 22,
   "buffer_font_weight": 600,
-  "agent_ui_font_size": 24,
+  "agent_ui_font_family": "Noto Sans",
+  "agent_buffer_font_family": "Noto Sans",
+  "agent_ui_font_size": 26,
   "agent_buffer_font_size": 22,
-  "git_commit_buffer_font_size": 20,
+  "git_commit_buffer_font_size": 24,
 
   // Diagnostics and language tools
   "diagnostics": {
@@ -191,6 +210,16 @@
   "diagnostics_max_severity": "error",
   "global_lsp_settings": {
     "button": false,
+  },
+  // Discord Rich Presence
+  "lsp": {
+    "discord_presence": {
+      "initialization_options": {
+        "application_id": "1263505205522337886",
+        "state": "Editing {relative_file_path}",
+        "details": "In {workspace}",
+      },
+    },
   },
   "debugger": {
     "button": false,

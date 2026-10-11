@@ -152,6 +152,7 @@
       "ctrl-shift-k": "pane::ActivatePreviousItem",
       "ctrl-shift-f": "workspace::ToggleZoom",
       "alt-t": null,
+      "alt-enter": null,
     },
   },
 
@@ -183,7 +184,10 @@
   // ============================================================================
   {
     "context": "(Editor && mode == full)",
-    "bindings": {},
+    "bindings": {
+      // Override vim redo / register paste so ctrl-r opens recent projects
+      "ctrl-r": ["projects::OpenRecent", { "create_new_window": false }],
+    },
   },
 
   // ============================================================================
