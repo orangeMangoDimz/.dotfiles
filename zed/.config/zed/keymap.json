@@ -82,7 +82,7 @@
 
       // === NAVIGATION (G prefix) ===
       "g b": "pane::GoBack",
-      "g r": "editor::FindAllReferences",
+      "g r": ["editor::FindAllReferences", { "always_open_multibuffer": false }],
 
       "ctrl-h": "workspace::ActivatePaneLeft",
       "ctrl-l": "workspace::ActivatePaneRight",

@@ -20,7 +20,7 @@
     "dock": "left",
     "default_width": 280,
     "entry_spacing": "comfortable",
-    "hide_root": false,
+    "hide_root": true,
     "indent_size": 20,
     "sticky_scroll": false,
     "indent_guides": {
@@ -50,17 +50,25 @@
   "base_keymap": "VSCode",
   "relative_line_numbers": "enabled",
   "cursor_blink": false,
-  "cursor_shape": "block",
+  "cursor_shape": "bar",
   "vim": {
     "cursor_shape": {
-      "normal": "block",
+      "normal": "bar",
+      "insert": "bar",
+      "visual": "bar",
     },
   },
 
   // Editor navigation and display
   "diff_view_style": "split",
   "preview_tabs": {
-    "enabled": false,
+    // Only the references multibuffer opens as a preview tab
+    "enabled": true,
+    "enable_preview_multibuffer_from_code_navigation": true,
+    "enable_preview_from_project_panel": false,
+    "enable_preview_from_file_finder": false,
+    "enable_preview_from_multibuffer": false,
+    "enable_preview_file_from_code_navigation": false,
   },
   "tab_bar": {
     "show": true,
@@ -170,6 +178,7 @@
     "button": false,
     "bell": "system",
     "flexible": false,
+    "minimum_contrast": 0,
   },
 
   // Appearance
@@ -183,6 +192,38 @@
     "light": "Ayu Light",
     "dark": "Catppuccin Mocha",
   },
+  // Match Neovim comment override (chadrc.lua)
+  "theme_overrides": {
+    "Catppuccin Mocha": {
+      "syntax": {
+        "comment": {
+          "color": "#7f849c",
+          "font_style": "italic",
+        },
+      },
+      // Match kitty terminal palette (kitty-themes/nvim-term.conf)
+      "terminal.background": "#1e1e2e",
+      "terminal.foreground": "#cdd6f4",
+      "terminal.bright_foreground": "#cdd6f4",
+      "terminal.ansi.background": "#1e1e2e",
+      "terminal.ansi.black": "#1c1f25",
+      "terminal.ansi.bright_black": "#2b2e34",
+      "terminal.ansi.red": "#c9c7be",
+      "terminal.ansi.bright_red": "#c9c7be",
+      "terminal.ansi.green": "#aad84c",
+      "terminal.ansi.bright_green": "#aad84c",
+      "terminal.ansi.yellow": "#56c3f9",
+      "terminal.ansi.bright_yellow": "#56c3f9",
+      "terminal.ansi.blue": "#f07174",
+      "terminal.ansi.bright_blue": "#f07174",
+      "terminal.ansi.magenta": "#ffb454",
+      "terminal.ansi.bright_magenta": "#ffb454",
+      "terminal.ansi.cyan": "#ffb454",
+      "terminal.ansi.bright_cyan": "#ffb454",
+      "terminal.ansi.white": "#c9c7be",
+      "terminal.ansi.bright_white": "#d9d7ce",
+    },
+  },
 
   // Top bars and guides
   // "show_wrap_guides": true,
@@ -191,13 +232,13 @@
   // Font sizes and weights
   "ui_font_size": 26,
   "ui_font_weight": 600,
-  "buffer_font_size": 22,
+  "buffer_font_size": 20,
   "buffer_font_weight": 600,
   "agent_ui_font_family": "Noto Sans",
   "agent_buffer_font_family": "Noto Sans",
   "agent_ui_font_size": 26,
   "agent_buffer_font_size": 22,
-  "git_commit_buffer_font_size": 24,
+  "git_commit_buffer_font_size": 20,
 
   // Diagnostics and language tools
   "diagnostics": {
